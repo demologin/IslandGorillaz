@@ -1,4 +1,8 @@
 package com.javarush.island.levchuk.entitys;
 
-public class Entity {
+import com.javarush.island.levchuk.liveActions.Movable;
+
+import java.io.Serializable;
+
+public class Entity implements Movable {
 }
