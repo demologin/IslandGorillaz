@@ -7,22 +7,27 @@ public class Cell {
 
     public final int row;
     public final int col;
-
-    List<Cell> adjacentCells = new ArrayList();
+    public List<Cell> neighbors;
 
     Cell(int row, int col) {
         this.row = row;
         this.col = col;
     }
 
-    private void identifyAdjacentCells() {
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (row - 1 >= 0 && col - 1 >= 0
-                        && row + i < IslandMap.islandMap.length
-                        && col + j < IslandMap.islandMap[0].length) {
+    public void findNeighbors(Cell[][] array) {
+        List<Cell> cells = new ArrayList();
+        for (int deltaRow = -1; deltaRow < 2; deltaRow++) {
+            for (int deltaCol = -1; deltaCol < 2; deltaCol++) {
+                if (deltaRow == 0 && deltaCol == 0) {
+                    continue;
+                }
+                int newRow = this.row + deltaRow;
+                int newCol = this.col + deltaCol;
+                if (newRow >= 0 && newRow < array.length && newCol >= 0 && newCol < array[0].length) {
+                    cells.add(array[newRow][newCol]);
                 }
             }
         }
+        this.neighbors = cells;
     }
 }
