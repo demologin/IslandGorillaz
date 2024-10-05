@@ -1,13 +1,18 @@
 package com.javarush.island.levchuk.map;
 
+import com.javarush.island.levchuk.entitys.Entity;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Cell {
 
     public final int row;
     public final int col;
     public List<Cell> neighbors;
+    public HashMap< Entity, Set<Entity>> residents;
 
     Cell(int row, int col) {
         this.row = row;
