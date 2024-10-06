@@ -1,0 +1,133 @@
+island:
+  width: 100
+  height: 20
+  simulationStepDuration: 1000
+
+animals:
+  Wolf:
+    weight: 50
+    maxCountPerCell: 30
+    speed: 3
+    maxFood: 8
+    initialCount: 10
+    maxOffspring: 3
+    icon: "\uD83D\uDC3A"
+  Boa:
+    weight: 15
+    maxCountPerCell: 30
+    speed: 1
+    maxFood: 3
+    initialCount: 15
+    maxOffspring: 2
+    icon: "\ud83d\udc0d"
+  Fox:
+    weight: 8
+    maxCountPerCell: 30
+    speed: 2
+    maxFood: 2
+    initialCount: 20
+    maxOffspring: 4
+    icon: "\ud83e\udd8a"
+  Bear:
+    weight: 500
+    maxCountPerCell: 5
+    speed: 2
+    maxFood: 80
+    initialCount: 5
+    maxOffspring: 2
+    icon: "\ud83d\udc3b"
+  Eagle:
+    weight: 6
+    maxCountPerCell: 20
+    speed: 3
+    maxFood: 1
+    initialCount: 20
+    maxOffspring: 2
+    icon: "\ud83e\udd85"
+  Horse:
+    weight: 400
+    maxCountPerCell: 20
+    speed: 4
+    maxFood: 60
+    initialCount: 15
+    maxOffspring: 1
+    icon: "\ud83d\udc0e"
+  Deer:
+    weight: 300
+    maxCountPerCell: 20
+    speed: 4
+    maxFood: 50
+    initialCount: 20
+    maxOffspring: 2
+    icon: "\ud83e\udd8c"
+  Rabbit:
+    weight: 2
+    maxCountPerCell: 150
+    speed: 2
+    maxFood: 0.45
+    initialCount: 50
+    maxOffspring: 5
+    icon: "\uD83D\uDC07"
+  Mouse:
+    weight: 0.05
+    maxCountPerCell: 500
+    speed: 1
+    maxFood: 0.01
+    initialCount: 1200
+    maxOffspring: 10
+    icon: "\ud83d\udc01"
+  Goat:
+    weight: 60
+    maxCountPerCell: 140
+    speed: 3
+    maxFood: 10
+    initialCount: 30
+    maxOffspring: 2
+    icon: "\ud83d\udc10"
+  Sheep:
+    weight: 70
+    maxCountPerCell: 140
+    speed: 3
+    maxFood: 15
+    initialCount: 30
+    maxOffspring: 2
+    icon: "\ud83d\udc11"
+  Boar:
+    weight: 400
+    maxCountPerCell: 50
+    speed: 2
+    maxFood: 50
+    initialCount: 20
+    maxOffspring: 3
+    icon: "\ud83d\udc17"
+  Buffalo:
+    weight: 700
+    maxCountPerCell: 10
+    speed: 3
+    maxFood: 100
+    initialCount: 10
+    maxOffspring: 1
+    icon: "\ud83d\udc03"
+  Duck:
+    weight: 1
+    maxCountPerCell: 200
+    speed: 4
+    maxFood: 0.15
+    initialCount: 50
+    maxOffspring: 5
+    icon: "\ud83e\udd86"
+  Caterpillar:
+    weight: 0.01
+    maxCountPerCell: 1000
+    speed: 0
+    maxFood: 0
+    initialCount: 500
+    maxOffspring: 20
+    icon: "\ud83d\udc1b"
+
+plants:
+  weight: 1
+  maxCountPerCell: 200
+  initialCount: 200
+  maxOffspring: 50
+  icon: "\uD83C\uDF3F"
