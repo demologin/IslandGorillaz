@@ -1,4 +1,6 @@
 package com.javarush.island.levchuk.entitys;
 
-public class Animal extends Entity{
+import com.javarush.island.levchuk.map.Cell;
+
+public class Animal {
 }
