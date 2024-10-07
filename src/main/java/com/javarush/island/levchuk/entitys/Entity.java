@@ -38,5 +38,7 @@ public class Entity implements Movable {
         return false;
     }
 
-    public void takeStep(Cell targetCell, Entity entity) {}
+    public void takeStep(Cell targetCell, Entity entity) {
+
+    }
 }
