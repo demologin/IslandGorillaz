@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface Initialization {
 
-    Cell createRandomCell(boolean empty);
+    void fill(Cell cell, double percentProbably);
 
     List<Organism> getAllPrototypes();
 

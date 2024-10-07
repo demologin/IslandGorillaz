@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ResidentMap extends LinkedHashMap<String, Organisms> {
+public class Residents extends LinkedHashMap<String, Organisms> {
     private static final int PERCENT_RANDOM_ROTATE = 1;
 
     private void checkNull(Object key) {
