@@ -1,5 +1,5 @@
 Entity:
-Organizm:   Plant:  Grass
+Organism:   Plant:  Grass
             Animal: Predator: Wolf, Boa, Fox, Bear, Eagle
                     Herbivores: Horse, Deer, Rabbit, Mouse, Goat, Sheep, Boar, Buffalo, Duck, Caterpillar
 Cell

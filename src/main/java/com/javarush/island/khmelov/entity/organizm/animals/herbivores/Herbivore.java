@@ -1,7 +1,5 @@
 package com.javarush.island.khmelov.entity.organizm.animals.herbivores;
 
-import com.javarush.island.khmelov.entity.map.Cell;
-import com.javarush.island.khmelov.entity.map.Residents;
 import com.javarush.island.khmelov.entity.organizm.Limit;
 import com.javarush.island.khmelov.entity.organizm.animals.Animal;
 
