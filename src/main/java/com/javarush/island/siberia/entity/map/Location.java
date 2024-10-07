@@ -14,8 +14,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Location {
     private final int x;
     private final int y;
-    private final List<Organism> organisms = new CopyOnWriteArrayList<>();
-
+    private final ReentrantLock lock = new ReentrantLock();
+    private final List<Organism> organisms = new CopyOnWriteArrayList<>(); //todo для теста скорости. если что заменить
+    private final Map<String, Integer> organismCounts = new ConcurrentHashMap<>();
 
     public Location(int x, int y) {
         this.x = x;
@@ -23,15 +24,37 @@ public class Location {
     }
 
     public boolean canAddOrganism(Organism organism) {
-
+        String species = organism.getClass().getSimpleName();
+        int maxCount = Settings.getInstance().getOrganismSettings(species).getMaxCountPerCell();
+        int currentCount = organismCounts.getOrDefault(species, 0);
+        return currentCount < maxCount;
     }
 
     public void addOrganism(Organism organism) {
-
+        lock.lock();
+        try {
+            if (canAddOrganism(organism)) {
+                organisms.add(organism);
+                String species = organism.getClass().getSimpleName();
+                organismCounts.merge(species, 1, Integer::sum);
+                organism.setLocation(this);
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void removeOrganism(Organism organism) {
-
+        lock.lock();
+        try {
+            organisms.remove(organism);
+            String species = organism.getClass().getSimpleName();
+            organismCounts.merge(species, -1, Integer::sum);
+            //todo добавить проверку если счетчик будет равен нулю или в минус
+        } finally {
+            lock.unlock();
+        }
     }
+
 
 }
