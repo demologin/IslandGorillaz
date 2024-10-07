@@ -1,6 +1,9 @@
 package com.javarush.island.siberia.entity.organism;
 
 import com.javarush.island.siberia.config.OrganismSettings;
+import com.javarush.island.siberia.config.Settings;
+import com.javarush.island.siberia.entity.map.Location;
+import com.javarush.island.siberia.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,11 +19,11 @@ public abstract class Organism implements Cloneable{
     private OrganismSettings organismSettings;
     private String icon;
 
-    public Organism(double weight, Location location) {
+    public Organism(Location location) {
         this.id = UUID.randomUUID();
         this.location = location;
         this.isAlive = true;
-        this.organismSettings = new Settings.getInstance().getOrganismSettings(this.getClass().getSimpleName());
+        this.organismSettings = Settings.getInstance().getOrganismSettings(this.getClass().getSimpleName());
         this.icon = organismSettings.getIcon();
         this.weight = RandomUtils.randomDouble(this.organismSettings.getWeight() / 2, this.organismSettings.getWeight());
     }
@@ -35,8 +38,9 @@ public abstract class Organism implements Cloneable{
     public void reproduce() {
         if (canReproduce()) {
             Organism offspring = this.clone();
+            //todo проверить макс организмов в локе
             offspring.setLocation(this.location);
-            this.location.addOrganizm(offspring);
+            this.location.addOrganism(offspring);
         }
     }
 

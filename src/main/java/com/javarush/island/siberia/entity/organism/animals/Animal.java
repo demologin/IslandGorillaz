@@ -1,6 +1,8 @@
 package com.javarush.island.siberia.entity.organism.animals;
 
+import com.javarush.island.siberia.entity.map.Location;
 import com.javarush.island.siberia.entity.organism.Organism;
+import com.javarush.island.siberia.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +18,8 @@ public abstract class Animal extends Organism {
         super(location);
         this.maxFood = this.getOrganismSettings().getMaxFood();
         this.speed = this.getOrganismSettings().getSpeed();
-        this.currentFood = 0;
-        this.satiety = 0;
+        this.currentFood = RandomUtils.randomDouble(0, this.maxFood);
+        this.satiety = this.currentFood / this.maxFood;
     }
 
     public abstract void eat();
