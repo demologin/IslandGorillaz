@@ -8,7 +8,10 @@ public class Plant extends Organism {
     }
 
     @Override
-    public void grow() {}
+    public void grow() {
+        double growRate = this.getOrganismSettings().getGrowthRate();
+        this.setWeight(this.getWeight() + growRate);
+    }
 
     @Override
     public void reproduce() {}

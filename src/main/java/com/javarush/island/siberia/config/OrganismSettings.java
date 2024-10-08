@@ -14,7 +14,9 @@ public class OrganismSettings {
     private double maxFood;
     private int initialCount;
     private int maxOffspring;
+    private double growthRate;
     private String icon;
+
 
     public OrganismSettings(Map<String, Object> settingsMap) {
         this.weight = ((Number) settingsMap.get("weight")).doubleValue();
@@ -23,6 +25,7 @@ public class OrganismSettings {
         this.maxFood = settingsMap.containsKey("maxFood") ? ((Number) settingsMap.get("maxFood")).doubleValue() : 0;
         this.initialCount = (int) settingsMap.get("initialCount");
         this.maxOffspring = (int) settingsMap.get("maxOffspring");
+        this.growthRate = settingsMap.containsKey("growthRate") ? ((Number) settingsMap.get("growthRate")).doubleValue() : 0;
         this.icon = (String) settingsMap.get("icon");
     }
 }
