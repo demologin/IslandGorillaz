@@ -38,9 +38,10 @@ public abstract class Organism implements Cloneable{
     public void reproduce() {
         if (canReproduce()) {
             Organism offspring = this.clone();
-            //todo проверить макс организмов в локе
-            offspring.setLocation(this.location);
-            this.location.addOrganism(offspring);
+            Location location = this.getLocation();
+            if (location.canAddOrganism(offspring)) {
+                location.addOrganism(offspring);
+            }
         }
     }
 
