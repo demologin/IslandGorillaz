@@ -50,7 +50,9 @@ public class Location {
             organisms.remove(organism);
             String species = organism.getClass().getSimpleName();
             organismCounts.merge(species, -1, Integer::sum);
-            //todo добавить проверку если счетчик будет равен нулю или в минус
+            if (organismCounts.get(species) <= 0) {
+                organismCounts.remove(species);
+            }
         } finally {
             lock.unlock();
         }
