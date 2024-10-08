@@ -11,6 +11,7 @@ animals:
     maxFood: 8
     initialCount: 10
     maxOffspring: 3
+    reproductionSatietyThreshold: 0.5
     icon: "\uD83D\uDC3A"
   Boa:
     weight: 15
@@ -19,6 +20,7 @@ animals:
     maxFood: 3
     initialCount: 15
     maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc0d"
   Fox:
     weight: 8
@@ -27,6 +29,7 @@ animals:
     maxFood: 2
     initialCount: 20
     maxOffspring: 4
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83e\udd8a"
   Bear:
     weight: 500
@@ -35,6 +38,7 @@ animals:
     maxFood: 80
     initialCount: 5
     maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc3b"
   Eagle:
     weight: 6
@@ -43,6 +47,7 @@ animals:
     maxFood: 1
     initialCount: 20
     maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83e\udd85"
   Horse:
     weight: 400
@@ -51,6 +56,7 @@ animals:
     maxFood: 60
     initialCount: 15
     maxOffspring: 1
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc0e"
   Deer:
     weight: 300
@@ -59,6 +65,7 @@ animals:
     maxFood: 50
     initialCount: 20
     maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83e\udd8c"
   Rabbit:
     weight: 2
@@ -67,6 +74,7 @@ animals:
     maxFood: 0.45
     initialCount: 50
     maxOffspring: 5
+    reproductionSatietyThreshold: 0.5
     icon: "\uD83D\uDC07"
   Mouse:
     weight: 0.05
@@ -75,6 +83,7 @@ animals:
     maxFood: 0.01
     initialCount: 1200
     maxOffspring: 10
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc01"
   Goat:
     weight: 60
@@ -83,6 +92,7 @@ animals:
     maxFood: 10
     initialCount: 30
     maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc10"
   Sheep:
     weight: 70
@@ -91,6 +101,7 @@ animals:
     maxFood: 15
     initialCount: 30
     maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc11"
   Boar:
     weight: 400
@@ -99,6 +110,7 @@ animals:
     maxFood: 50
     initialCount: 20
     maxOffspring: 3
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc17"
   Buffalo:
     weight: 700
@@ -107,6 +119,7 @@ animals:
     maxFood: 100
     initialCount: 10
     maxOffspring: 1
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc03"
   Duck:
     weight: 1
@@ -115,6 +128,7 @@ animals:
     maxFood: 0.15
     initialCount: 50
     maxOffspring: 5
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83e\udd86"
   Caterpillar:
     weight: 0.01
@@ -123,6 +137,7 @@ animals:
     maxFood: 0
     initialCount: 500
     maxOffspring: 20
+    reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc1b"
 
 plants:
@@ -132,3 +147,48 @@ plants:
   maxOffspring: 50
   growthRate: 0.1
   icon: "\uD83C\uDF3F"
+
+probabilities:
+  Wolf:
+    Horse: 10
+    Deer: 15
+    Rabbit: 60
+    Mouse: 80
+    Goat: 60
+    Sheep: 70
+    Boar: 15
+    Buffalo: 10
+    Duck: 40
+  Boa:
+    Fox: 15
+    Rabbit: 20
+    Mouse: 40
+    Duck: 10
+  Fox:
+    Rabbit: 70
+    Mouse: 90
+    Duck: 10
+    Caterpillar: 40
+  Bear:
+    Boa: 80
+    Horse: 40
+    Deer: 80
+    Rabbit: 80
+    Mouse: 90
+    Goat: 70
+    Sheep: 70
+    Boar: 50
+    Buffalo: 20
+    Duck: 10
+  Eagle:
+    Fox: 10
+    Rabbit: 90
+    Mouse: 90
+    Duck: 80
+  Mouse:
+    Caterpillar: 90
+  Boar:
+    Mouse: 50
+    Caterpillar: 90
+  Duck:
+    Caterpillar: 90
