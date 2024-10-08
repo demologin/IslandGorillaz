@@ -3,6 +3,7 @@ package com.javarush.island.siberia.entity.organism;
 import com.javarush.island.siberia.entity.map.Location;
 import com.javarush.island.siberia.entity.organism.animals.carnivores.*;
 import com.javarush.island.siberia.entity.organism.animals.herbivores.*;
+import com.javarush.island.siberia.entity.organism.animals.plants.Plant;
 
 
 import java.util.function.Function;
