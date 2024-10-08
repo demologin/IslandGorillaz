@@ -3,7 +3,7 @@ package com.javarush.island.siberia.entity.map;
 import com.javarush.island.siberia.config.OrganismSettings;
 import com.javarush.island.siberia.config.Settings;
 import com.javarush.island.siberia.entity.organism.Organism;
-import com.javarush.island.siberia.entity.organism.OrganismFactory;
+import com.javarush.island.siberia.service.OrganismFactory;
 import com.javarush.island.siberia.utils.RandomUtils;
 import lombok.Getter;
 
@@ -31,13 +31,18 @@ public class Island {
     public void initializeLocations() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                locations[x][y] = new Location(x, y);
+                locations[x][y] = new Location(x, y, this);
             }
         }
     }
 
     public Location getLocation(int x, int y) {
-        return locations[x][y];
+        //return locations[x][y];
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            return locations[x][y];
+        } else {
+            throw new IndexOutOfBoundsException("incorrect coordinate: (" + x + ", " + y + ")");
+        }
     }
 
     public void populateIsland() {
@@ -61,6 +66,15 @@ public class Island {
         int x = RandomUtils.randomInt(0, width - 1);
         int y = RandomUtils.randomInt(0, height - 1);
         return locations[x][y];
+    }
+
+    public void processAllLocations() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Location location = locations[x][y];
+                executorService.submit(location::processOrganisms);
+            }
+        }
     }
 
 }
