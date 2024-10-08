@@ -9,9 +9,6 @@ public class Bear extends Carnivore {
     }
 
     @Override
-    public void eat(){}
-
-    @Override
     public void move(){}
 
 }

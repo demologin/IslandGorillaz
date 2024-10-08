@@ -9,9 +9,6 @@ public class Eagle extends Carnivore {
     }
 
     @Override
-    public void eat(){}
-
-    @Override
     public void move(){}
 
 }

@@ -9,9 +9,6 @@ public class Caterpillar extends Herbivore {
     }
 
     @Override
-    public void eat(){}
-
-    @Override
     public void move(){}
 
 }

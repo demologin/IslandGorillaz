@@ -24,6 +24,7 @@ public class Island {
         this.width = (int) islandSettings.get("width");
         this.height = (int) islandSettings.get("height");
         this.locations = new Location[width][height];
+        //this.executorService = Executors.newFixedThreadPool(1);
         this.executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         initializeLocations();
     }
@@ -37,7 +38,6 @@ public class Island {
     }
 
     public Location getLocation(int x, int y) {
-        //return locations[x][y];
         if (x >= 0 && x < width && y >= 0 && y < height) {
             return locations[x][y];
         } else {

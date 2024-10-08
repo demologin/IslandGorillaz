@@ -15,6 +15,7 @@ public class OrganismSettings {
     private int initialCount;
     private int maxOffspring;
     private double growthRate;
+    private double reproductionSatietyThreshold;
     private String icon;
 
 
@@ -26,6 +27,8 @@ public class OrganismSettings {
         this.initialCount = (int) settingsMap.get("initialCount");
         this.maxOffspring = (int) settingsMap.get("maxOffspring");
         this.growthRate = settingsMap.containsKey("growthRate") ? ((Number) settingsMap.get("growthRate")).doubleValue() : 0;
+        this.reproductionSatietyThreshold = settingsMap.containsKey("reproductionSatietyThreshold") ?
+                ((Number) settingsMap.get("reproductionSatietyThreshold")).doubleValue() : 0.5;
         this.icon = (String) settingsMap.get("icon");
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +15,23 @@ public class Settings {
 
     private Settings() {
         Yaml yaml = new Yaml();
-        try (InputStream in = getClass().getClassLoader().getResourceAsStream("settings.yaml")) {
+        InputStream in = null;
+        try {
+            in = getClass().getClassLoader().getResourceAsStream("siberia/settings.yaml");
+            if (in == null) {
+                throw new RuntimeException("File settings.yaml didn't find");
+            }
             config = yaml.load(in);
         } catch (Exception e) {
-            throw new RuntimeException("error loading settings", e);
+            throw new RuntimeException("Error load configurations", e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    //TODO не забыть
+                }
+            }
         }
     }
 
@@ -29,15 +43,26 @@ public class Settings {
     }
 
     public OrganismSettings getOrganismSettings(String species) {
-        Map<String, Object> organisms = (Map<String, Object>) config.get("animals");
-        if (organisms == null) {
-            organisms = (Map<String, Object>) config.get("plants");
+        Map<String, Object> speciesSettings = null;
+
+        Map<String, Object> animals = (Map<String, Object>) config.get("animals");
+        if (animals != null) {
+            speciesSettings = (Map<String, Object>) animals.get(species);
         }
-        Map<String, Object> speciesSettings = (Map<String, Object>) organisms.get(species);
+
         if (speciesSettings == null) {
-            throw new RuntimeException("cant find config for " + species);
+            Map<String, Object> plants = (Map<String, Object>) config.get("plants");
+            if (plants != null) {
+                speciesSettings = (Map<String, Object>) plants.get(species);
+            }
         }
+
+        if (speciesSettings == null) {
+            throw new RuntimeException("Can't find settings for " + species);
+        }
+
         return new OrganismSettings(speciesSettings);
+
     }
 
     public long getSimulationStepDuration() {
@@ -71,6 +96,15 @@ public class Settings {
             }
         }
         return allSettings;
+    }
+
+    public Map<String, Map<String, Integer>> getProbabilities() {
+        return (Map<String, Map<String, Integer>>) config.get("probabilities");
+    }
+
+    public Map<String, Integer> getPredatorProbabilities(String predatorSpecies) {
+        Map<String, Map<String, Integer>> probabilities = getProbabilities();
+        return probabilities.getOrDefault(predatorSpecies, Collections.emptyMap());
     }
 
 }

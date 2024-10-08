@@ -3,15 +3,17 @@ package com.javarush.island.siberia.entity.organism;
 import com.javarush.island.siberia.config.OrganismSettings;
 import com.javarush.island.siberia.config.Settings;
 import com.javarush.island.siberia.entity.map.Location;
+import com.javarush.island.siberia.entity.organism.animals.Animal;
 import com.javarush.island.siberia.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
-public abstract class Organism implements Cloneable{
+public abstract class Organism implements Cloneable {
     private UUID id;
     private double weight;
     private Location location;
@@ -33,20 +35,52 @@ public abstract class Organism implements Cloneable{
         this.location.removeOrganism(this);
     }
 
-    public void grow() {}
+    public void grow() {
+        //TODO пока что оверрайдится индивидуально
+    }
 
     public void reproduce() {
         if (canReproduce()) {
             Organism offspring = this.clone();
-            Location location = this.getLocation();
-            if (location.canAddOrganism(offspring)) {
-                location.addOrganism(offspring);
+
+            if (this.getLocation().canAddOrganism(offspring)) {
+                this.getLocation().addOrganism(offspring);
+            } else {
+                Location targetLocation = findAvailableNeighboringLocation();
+                if (targetLocation != null && targetLocation.canAddOrganism(offspring)) {
+                    offspring.setLocation(targetLocation);
+                    targetLocation.addOrganism(offspring);
+                }
             }
         }
     }
 
     protected boolean canReproduce() {
-        return true;
+        if (!this.isAlive()) {
+            return false;
+        }
+        if (this instanceof Animal) {
+            Animal animal = (Animal) this;
+            double reproductionSatietyThreshold = this.getOrganismSettings().getReproductionSatietyThreshold();
+            if (animal.getSatiety() < reproductionSatietyThreshold) {
+                return false;
+            }
+        }
+        String species = this.getClass().getSimpleName();
+        int maxCountPerCell = this.getOrganismSettings().getMaxCountPerCell();
+        int currentCount = this.getLocation().getOrganismCount(species);
+
+        return currentCount < maxCountPerCell;
+    }
+
+    private Location findAvailableNeighboringLocation() {
+        List<Location> neighboringLocation = this.getLocation().getAdjacentLocations();
+        for (Location location : neighboringLocation) {
+            if (location.canAddOrganism(this)) {
+                return location;
+            }
+        }
+        return null;
     }
 
     @Override

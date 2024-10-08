@@ -5,14 +5,20 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomUtils {
     public static double randomDouble(double min, double max) {
         if (min >= max) {
-            throw new IllegalArgumentException("min must be > max");
+            throw new IllegalArgumentException("min must be < max");
+        }
+        if (min == max) {
+            return min;
         }
         return ThreadLocalRandom.current().nextDouble(min, max);
     }
 
     public static int randomInt(int min, int max) {
         if (min >= max) {
-            throw new IllegalArgumentException("min must be > max");
+            throw new IllegalArgumentException("min must be < max");
+        }
+        if (min == max) {
+            return min;
         }
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
