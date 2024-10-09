@@ -30,8 +30,4 @@ public abstract class Herbivore extends Animal {
         this.setSatiety(this.getCurrentFood() / this.getMaxFood());
     }
 
-    //todo а может добавить переопределение бега, чтобы травоядные убегали в соседние локации от хищников?
-
-    //todo а может добавить размножение только если заяц не голодный?
-
 }

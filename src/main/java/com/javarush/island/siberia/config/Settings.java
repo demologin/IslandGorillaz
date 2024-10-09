@@ -70,16 +70,6 @@ public class Settings {
         return ((Number) island.get("simulationStepDuration")).longValue();
     }
 
-    public int getIslandWidth() {
-        Map<String, Object> islandSettings = (Map<String, Object>) config.get("island");
-        return (int) islandSettings.get("width");
-    }
-
-    public int getIslandHeight() {
-        Map<String, Object> islandSettings = (Map<String, Object>) config.get("island");
-        return (int) islandSettings.get("height");
-    }
-
     public Map<String, OrganismSettings> getAllOrganismsSettings() {
         Map<String, OrganismSettings> allSettings = new HashMap<>();
         Map<String, Object> animals = (Map<String, Object>) config.get("animals");

@@ -83,7 +83,7 @@ public class Simulation {
                 var organisms = location.getOrganisms();
 
                 if (organisms.isEmpty()) {
-                    System.out.print(" \u2620\ufe0f ");
+                    System.out.print("\u2620\ufe0f ");
                 } else {
                     Map<String, Integer> speciesCount = new HashMap<>();
                     for (Organism organism :organisms) {
@@ -94,7 +94,7 @@ public class Simulation {
                             .max(Map.Entry.comparingByValue())
                             .get()
                             .getKey();
-                    System.out.print(" " + dominantSpeciesIcon + " ");
+                    System.out.print("" + dominantSpeciesIcon + " ");
                 }
             }
             System.out.println();

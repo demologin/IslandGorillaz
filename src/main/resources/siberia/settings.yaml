@@ -1,5 +1,5 @@
 island:
-  width: 50 # default 100
+  width: 65 # default 100
   height: 10 # default 20
   simulationStepDuration: 1000
 

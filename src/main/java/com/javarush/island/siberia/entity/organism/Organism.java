@@ -36,7 +36,6 @@ public abstract class Organism implements Cloneable {
     }
 
     public void grow() {
-        //TODO пока что оверрайдится индивидуально
     }
 
     public void reproduce() {
