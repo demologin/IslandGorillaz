@@ -8,7 +8,4 @@ public class Goat extends Herbivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

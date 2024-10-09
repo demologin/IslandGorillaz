@@ -8,7 +8,4 @@ public class Boa extends Carnivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

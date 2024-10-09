@@ -8,7 +8,4 @@ public class Buffalo extends Herbivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

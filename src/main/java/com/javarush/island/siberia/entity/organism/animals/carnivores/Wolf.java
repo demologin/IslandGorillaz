@@ -8,7 +8,4 @@ public class Wolf extends Carnivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

@@ -8,7 +8,4 @@ public class Fox extends Carnivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

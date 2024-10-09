@@ -8,7 +8,4 @@ public class Eagle extends Carnivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

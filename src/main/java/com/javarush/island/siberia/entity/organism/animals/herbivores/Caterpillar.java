@@ -8,7 +8,4 @@ public class Caterpillar extends Herbivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

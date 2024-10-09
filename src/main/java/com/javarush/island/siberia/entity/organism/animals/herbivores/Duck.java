@@ -8,7 +8,4 @@ public class Duck extends Herbivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

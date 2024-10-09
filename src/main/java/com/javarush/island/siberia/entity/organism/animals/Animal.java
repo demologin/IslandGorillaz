@@ -8,6 +8,8 @@ import com.javarush.island.siberia.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public abstract class Animal extends Organism implements Hunger{
@@ -31,7 +33,26 @@ public abstract class Animal extends Organism implements Hunger{
         eatingBehavior.eat(this);
     }
 
-    public abstract void move();
+    public void move() {
+        List<Location> adjacentLocations = this.getLocation().getAdjacentLocations();
+        int speed = this.getOrganismSettings().getSpeed();
+        int steps = RandomUtils.randomInt(1, speed);
+
+        for (int i = 0; i < steps; i++) {
+            if (adjacentLocations.isEmpty()) {
+                break;
+            }
+
+            Location targetLocation = adjacentLocations.get(RandomUtils.randomInt(0, adjacentLocations.size() - 1));
+
+            if (targetLocation.canAddOrganism(this)) {
+                this.getLocation().removeOrganism(this);
+                targetLocation.addOrganism(this);
+                this.setLocation(targetLocation);
+                break;
+            }
+        }
+    }
 
     @Override
     public void increaseHunger() {

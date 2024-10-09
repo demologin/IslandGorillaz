@@ -8,7 +8,4 @@ public class Rabbit extends Herbivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

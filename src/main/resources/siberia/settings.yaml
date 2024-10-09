@@ -2,7 +2,7 @@ island:
   width: 65 # default 100
   height: 10 # default 20
   simulationStepDuration: 1000
-  hungerIncreaseRate: 0.1
+  hungerIncreaseRate: 0.5
 
 animals:
   Wolf:

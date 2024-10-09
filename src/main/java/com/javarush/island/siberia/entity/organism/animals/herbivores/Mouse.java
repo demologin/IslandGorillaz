@@ -8,7 +8,4 @@ public class Mouse extends Herbivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

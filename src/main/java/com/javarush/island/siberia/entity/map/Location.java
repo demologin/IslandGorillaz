@@ -18,7 +18,7 @@ public class Location {
     private final int y;
     private final Island island;
     private final ReentrantLock lock = new ReentrantLock();
-    private final List<Organism> organisms = new CopyOnWriteArrayList<>(); //todo для теста скорости. если что заменить
+    private final List<Organism> organisms = new CopyOnWriteArrayList<>();
     private final Map<String, Integer> organismCounts = new ConcurrentHashMap<>();
 
     public Location(int x, int y, Island island) {

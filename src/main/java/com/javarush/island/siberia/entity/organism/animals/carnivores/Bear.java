@@ -8,7 +8,4 @@ public class Bear extends Carnivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }

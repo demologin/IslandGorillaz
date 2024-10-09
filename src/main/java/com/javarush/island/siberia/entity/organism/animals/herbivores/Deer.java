@@ -8,7 +8,4 @@ public class Deer extends Herbivore {
         super(location);
     }
 
-    @Override
-    public void move(){}
-
 }
