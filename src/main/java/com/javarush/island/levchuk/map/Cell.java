@@ -12,7 +12,7 @@ public class Cell {
     public final int row;
     public final int col;
     public List<Cell> neighbors;
-    public HashMap< Entity, Set<Entity>> residents;
+    public HashMap< Class<? extends Entity>, Set<Entity>> residents;
 
     Cell(int row, int col) {
         this.row = row;
@@ -34,5 +34,9 @@ public class Cell {
             }
         }
         this.neighbors = cells;
+    }
+    public boolean checkLimit(Entity entity){
+
+        return false;
     }
 }

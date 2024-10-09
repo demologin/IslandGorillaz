@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 public class EntityFactory {
+
     private static <T> T copyEntity(T entity) {
         Class<?> entityClass = entity.getClass();
         T newEntity;
