@@ -147,7 +147,7 @@ plants:
     maxCountPerCell: 200
     initialCount: 200
     maxOffspring: 50
-    growthRate: 0.1
+    growthRate: 1 # was 0.1
     icon: "\uD83C\uDF3F"
 
 probabilities:

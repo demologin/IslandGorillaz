@@ -16,6 +16,8 @@ public class Simulation {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private boolean isRunning = false;
 
+    private int birthsCount = 0;
+
     public Simulation(Island island) {
         this.island = island;
     }
@@ -38,10 +40,19 @@ public class Simulation {
         if (!isRunning) {
             return;
         }
+
+        int previousOrganismCount = getTotalOrganismCount();
+        birthsCount = 0;
+
         island.processAllLocations();
 
         Map<String, Integer> statistics = collectStatistics();
         printStatistics(statistics);
+
+        int currentOrganismCount = getTotalOrganismCount();
+        birthsCount = currentOrganismCount - previousOrganismCount;
+
+        printBirthStatistics();
 
         printIsland();
     }
@@ -99,6 +110,20 @@ public class Simulation {
             }
             System.out.println();
         }
+    }
+
+    private int getTotalOrganismCount() {
+        int count = 0;
+        for (int x = 0; x < island.getWidth(); x++) {
+            for (int y = 0; y < island.getHeight(); y++) {
+                count += island.getLocation(x, y).getOrganisms().size();
+            }
+        }
+        return count;
+    }
+
+    private void printBirthStatistics() {
+        System.out.printf("Births: %d%n", birthsCount);
     }
 
 }
