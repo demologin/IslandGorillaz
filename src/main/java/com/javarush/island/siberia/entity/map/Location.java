@@ -102,6 +102,7 @@ public class Location {
                         Animal animal = (Animal) organism;
                         animal.move();
                         animal.eat();
+                        animal.increaseHunger();
                     }
                     organism.reproduce();
                 }

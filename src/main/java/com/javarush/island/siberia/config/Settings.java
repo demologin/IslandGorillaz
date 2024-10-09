@@ -97,4 +97,9 @@ public class Settings {
         return probabilities.getOrDefault(predatorSpecies, Collections.emptyMap());
     }
 
+    public double getHungerIncreaseRate() {
+        Map<String, Object> island = (Map<String, Object>) config.get("island");
+        return ((Number) island.get("hungerIncreaseRate")).doubleValue();
+    }
+
 }
