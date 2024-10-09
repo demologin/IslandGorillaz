@@ -23,6 +23,7 @@ public abstract class Animal extends Organism {
     }
 
     public abstract void eat();
+
     public abstract void move();
 
 }

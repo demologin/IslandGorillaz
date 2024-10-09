@@ -186,10 +186,24 @@ probabilities:
     Rabbit: 90
     Mouse: 90
     Duck: 80
+  Horse:
+    Plant: 100
+  Deer:
+    Plant: 100
+  Rabbit:
+    Plant: 100
   Mouse:
     Caterpillar: 90
+  Goat:
+    Plant: 100
+  Sheep:
+    Plant: 100
   Boar:
     Mouse: 50
     Caterpillar: 90
+  Buffalo:
+    Plant: 100
   Duck:
     Caterpillar: 90
+  Caterpillar:
+    Plant: 100
