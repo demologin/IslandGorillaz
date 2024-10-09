@@ -35,6 +35,13 @@ public class Cell {
         }
         this.neighbors = cells;
     }
+
+    public void addEntity(Entity entity) {
+    }
+
+    public void removeEntity(Entity entity) {
+    }
+
     public boolean checkLimit(Entity entity){
 
         return false;

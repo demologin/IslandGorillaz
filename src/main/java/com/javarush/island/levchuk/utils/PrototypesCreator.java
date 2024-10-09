@@ -3,7 +3,6 @@ package com.javarush.island.levchuk.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.island.levchuk.entitys.Entity;
-import lombok.Getter;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;
@@ -24,14 +23,14 @@ public class PrototypesCreator {
         if (!clazz.isAnnotationPresent(Config.class)) {
             throw new IllegalArgumentException();
         }
-        T object;
+        T prototype;
         Config config = clazz.getAnnotation(Config.class);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            object = objectMapper.readValue(config.filePath(), clazz);
+            prototype = objectMapper.readValue(config.filePath(), clazz);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return object;
+        return prototype;
     }
 }
