@@ -194,6 +194,7 @@ probabilities:
     Plant: 100
   Mouse:
     Caterpillar: 90
+    Plant: 100
   Goat:
     Plant: 100
   Sheep:
@@ -201,9 +202,11 @@ probabilities:
   Boar:
     Mouse: 50
     Caterpillar: 90
+    Plant: 100
   Buffalo:
     Plant: 100
   Duck:
     Caterpillar: 90
+    Plant: 100
   Caterpillar:
     Plant: 100
