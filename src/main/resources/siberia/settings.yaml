@@ -2,7 +2,7 @@ island:
   width: 65 # default 100
   height: 10 # default 20
   simulationStepDuration: 1000
-  hungerIncreaseRate: 0.5
+  hungerIncreaseRate: 0.1
 
 animals:
   Wolf:
@@ -82,7 +82,7 @@ animals:
     maxCountPerCell: 500
     speed: 1
     maxFood: 0.01
-    initialCount: 1200
+    initialCount: 120
     maxOffspring: 10
     reproductionSatietyThreshold: 0.5
     icon: "\ud83d\udc01"
@@ -145,7 +145,7 @@ plants:
   Plant:
     weight: 1
     maxCountPerCell: 200
-    initialCount: 200
+    initialCount: 600
     maxOffspring: 50
     growthRate: 1 # was 0.1
     icon: "\uD83C\uDF3F"

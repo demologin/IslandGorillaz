@@ -3,6 +3,9 @@ package com.javarush.island.siberia.entity.organism.animals;
 import com.javarush.island.siberia.config.Settings;
 import com.javarush.island.siberia.entity.map.Location;
 import com.javarush.island.siberia.entity.organism.Organism;
+import com.javarush.island.siberia.entity.organism.animals.carnivores.Carnivore;
+import com.javarush.island.siberia.entity.organism.animals.herbivores.Herbivore;
+import com.javarush.island.siberia.entity.organism.animals.plants.Plant;
 import com.javarush.island.siberia.service.EatingBehavior;
 import com.javarush.island.siberia.utils.RandomUtils;
 import lombok.Getter;
@@ -34,22 +37,27 @@ public abstract class Animal extends Organism implements Hunger{
     }
 
     public void move() {
-        List<Location> adjacentLocations = this.getLocation().getAdjacentLocations();
-        int speed = this.getOrganismSettings().getSpeed();
-        int steps = RandomUtils.randomInt(1, speed);
+        boolean hasFood = this.hasFoodInLocation();
+        boolean hasMate = this.hasMateInLocation();
 
-        for (int i = 0; i < steps; i++) {
-            if (adjacentLocations.isEmpty()) {
-                break;
-            }
+        if (!hasFood && !hasMate) {
+            List<Location> adjacentLocations = this.getLocation().getAdjacentLocations();
+            int speed = this.getOrganismSettings().getSpeed();
+            int steps = RandomUtils.randomInt(1, speed);
 
-            Location targetLocation = adjacentLocations.get(RandomUtils.randomInt(0, adjacentLocations.size() - 1));
+            for (int i = 0; i < steps; i++) {
+                if (adjacentLocations.isEmpty()) {
+                    break;
+                }
 
-            if (targetLocation.canAddOrganism(this)) {
-                this.getLocation().removeOrganism(this);
-                targetLocation.addOrganism(this);
-                this.setLocation(targetLocation);
-                break;
+                Location targetLocation = adjacentLocations.get(RandomUtils.randomInt(0, adjacentLocations.size() - 1));
+
+                if (targetLocation.canAddOrganism(this)) {
+                    this.getLocation().removeOrganism(this);
+                    targetLocation.addOrganism(this);
+                    this.setLocation(targetLocation);
+                    break;
+                }
             }
         }
     }
@@ -70,6 +78,35 @@ public abstract class Animal extends Organism implements Hunger{
 
     public void resetHunger() {
         this.hunger = 0;
+    }
+
+    private boolean hasFoodInLocation() {
+        List<Organism> organisms = this.getLocation().getOrganisms();
+
+        if (this instanceof Carnivore carnivore) {
+            for (Organism organism : organisms) {
+                if (organism != this && carnivore.isPrey(organism)) {
+                    return true;
+                }
+            }
+        }
+
+        if (this instanceof Herbivore) {
+            for (Organism organism : organisms) {
+                if (organism instanceof Plant) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasMateInLocation() {
+        List<Organism> organisms = this.getLocation().getOrganisms();
+        long sameSpeciesCount = organisms.stream()
+                .filter(o -> o.getClass().equals(this.getClass()))
+                .count();
+        return sameSpeciesCount > 1;
     }
 
 }
