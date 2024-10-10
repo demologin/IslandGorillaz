@@ -11,6 +11,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The Simulation class controls the execution of the island simulation.
+ * It manages the island's lifecycle, processes each simulation step,
+ * and integrates with the graphical user interface.
+ */
+
 public class Simulation {
     private final Island island;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -18,9 +24,20 @@ public class Simulation {
 
     private int birthsCount = 0;
 
+    /**
+     * Creates a new Simulation object.
+     *
+     * @param island The island object representing the map and organisms.
+     */
+
     public Simulation(Island island) {
         this.island = island;
     }
+
+    /**
+     * Starts the simulation, scheduling steps at a fixed rate defined
+     * by the simulation step duration from the settings.
+     */
 
     public void start() {
         if (!isRunning) {
@@ -30,11 +47,20 @@ public class Simulation {
         }
     }
 
+    /**
+     * Stops the simulation and shuts down the scheduler and island's executor service.
+     */
     public void stop() {
         isRunning = false;
         scheduler.shutdown();
         island.getExecutorService().shutdown();
     }
+
+    /**
+     * Processes a single step of the simulation.
+     * Each step includes processing all locations on the island,
+     * performing organism actions (move, eat, reproduce, etc.),
+     */
 
     private void simulateStep() {
         if (!isRunning) {
@@ -74,6 +100,13 @@ public class Simulation {
         return statistics;
     }
 
+    /**
+     * Prints the statistics of the simulation for each species,
+     * displaying their icon and population count.
+     *
+     * @param statistics A map of species names and their respective population counts.
+     */
+
     public void printStatistics(Map<String, Integer> statistics) {
         System.out.println("\nStatistics by species: ");
         statistics.forEach((species, count) -> {
@@ -82,10 +115,22 @@ public class Simulation {
         });
     }
 
+    /**
+     * Retrieves the icon for a given species from the settings.
+     *
+     * @param species The species name (e.g., "Wolf", "Rabbit").
+     * @return The icon (emoji) associated with the species.
+     */
+
     private String getIconBySpecies(String species) {
         OrganismSettings settings = Settings.getInstance().getOrganismSettings(species);
         return settings.getIcon();
     }
+
+    /**
+     * Prints a visual representation of the island, displaying organisms
+     * with their respective icons in each location.
+     */
 
     public void printIsland() {
         for (int y = 0; y < island.getHeight(); y++) {
@@ -97,7 +142,7 @@ public class Simulation {
                     System.out.print("\u2620\ufe0f ");
                 } else {
                     Map<String, Integer> speciesCount = new HashMap<>();
-                    for (Organism organism :organisms) {
+                    for (Organism organism : organisms) {
                         String icon = organism.getIcon();
                         speciesCount.merge(icon, 1, Integer::sum);
                     }

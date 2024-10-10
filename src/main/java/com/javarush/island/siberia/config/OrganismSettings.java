@@ -2,8 +2,13 @@ package com.javarush.island.siberia.config;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Map;
+
+/**
+ * The OrganismSettings class represents the configuration settings for each organism species,
+ * including parameters such as weight, maximum population per cell, speed, food capacity, and more.
+ * These settings are loaded from the configuration file for each species.
+ */
 
 @Getter
 @Setter

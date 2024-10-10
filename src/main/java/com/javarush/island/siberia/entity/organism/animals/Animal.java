@@ -10,8 +10,13 @@ import com.javarush.island.siberia.service.EatingBehavior;
 import com.javarush.island.siberia.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
+
+/**
+ * The Animal class represents the common behavior for all animals on the island.
+ * It extends the Organism class and adds specific behavior for animals, such as movement,
+ * eating, and managing satiety and hunger levels.
+ */
 
 @Getter
 @Setter
@@ -23,6 +28,13 @@ public abstract class Animal extends Organism implements Hunger{
     private double hunger;
     private final EatingBehavior eatingBehavior;
 
+    /**
+     * Constructs an Animal object with the given location.
+     * The animal's satiety and food-related parameters are initialized based on its settings.
+     *
+     * @param location The location where the animal starts.
+     */
+
     public Animal(Location location) {
         super(location);
         this.maxFood = this.getOrganismSettings().getMaxFood();
@@ -32,9 +44,20 @@ public abstract class Animal extends Organism implements Hunger{
         this.eatingBehavior = new EatingBehavior();
     }
 
+    /**
+     * Allows the animal to eat based on the available food in its current location.
+     * Herbivores eat plants, while carnivores hunt other animals according to their prey settings.
+     * The animal's satiety increases based on the amount of food consumed.
+     */
+
     public void eat() {
         eatingBehavior.eat(this);
     }
+
+    /**
+     * Moves the animal to a new location, considering its speed and available neighboring locations.
+     * If no food or mate is found, the animal will try to move to an adjacent location.
+     */
 
     public void move() {
         boolean hasFood = this.hasFoodInLocation();
@@ -61,6 +84,11 @@ public abstract class Animal extends Organism implements Hunger{
             }
         }
     }
+
+    /**
+     * Increases the animal's hunger over time. If hunger reaches a critical level (zero satiety),
+     * the animal dies from starvation.
+     */
 
     @Override
     public void increaseHunger() {

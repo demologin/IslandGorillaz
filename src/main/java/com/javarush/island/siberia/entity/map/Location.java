@@ -12,6 +12,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * The Location class represents a single cell on the island.
+ * Each location holds a list of organisms and manages the interactions between them.
+ * Locations are processed concurrently by threads during each simulation step.
+ */
+
 @Getter
 public class Location {
     private final int x;
@@ -21,11 +27,26 @@ public class Location {
     private final List<Organism> organisms = new CopyOnWriteArrayList<>();
     private final Map<String, Integer> organismCounts = new ConcurrentHashMap<>();
 
+    /**
+     * Constructs a Location object.
+     *
+     * @param x      The x-coordinate of the location.
+     * @param y      The y-coordinate of the location.
+     * @param island The Island to which this location belongs.
+     */
+
     public Location(int x, int y, Island island) {
         this.x = x;
         this.y = y;
         this.island = island;
     }
+
+    /**
+     * Checks if an organism can be added to this location based on the maximum capacity.
+     *
+     * @param organism The organism to be added.
+     * @return True if the organism can be added, otherwise false.
+     */
 
     public boolean canAddOrganism(Organism organism) {
         String species = organism.getClass().getSimpleName();
@@ -33,6 +54,12 @@ public class Location {
         int currentCount = organismCounts.getOrDefault(species, 0);
         return currentCount < maxCount;
     }
+
+    /**
+     * Adds an organism to this location and updates the organism count.
+     *
+     * @param organism The organism to be added.
+     */
 
     public void addOrganism(Organism organism) {
         lock.lock();
@@ -48,6 +75,12 @@ public class Location {
         }
     }
 
+    /**
+     * Removes an organism from this location and updates the organism count.
+     *
+     * @param organism The organism to be removed.
+     */
+
     public void removeOrganism(Organism organism) {
         lock.lock();
         try {
@@ -62,9 +95,22 @@ public class Location {
         }
     }
 
+    /**
+     * Retrieves the count of organisms of a specific species in this location.
+     *
+     * @param species The species name to count.
+     * @return The number of organisms of the specified species in this location.
+     */
+
     public int getOrganismCount(String species) {
         return organismCounts.getOrDefault(species, 0);
     }
+
+    /**
+     * Returns a list of adjacent locations (up, down, left, right) for this location.
+     *
+     * @return A list of neighboring Location objects.
+     */
 
     public List<Location> getAdjacentLocations() {
         List<Location> adjacentLocations = new ArrayList<>();
@@ -92,6 +138,12 @@ public class Location {
         }
         return adjacentLocations;
     }
+
+    /**
+     * Processes all organisms in this location, allowing them to perform actions
+     * such as moving, eating, reproducing, and increasing hunger. This method
+     * is called during each simulation step by multiple threads.
+     */
 
     public void processOrganisms() {
         lock.lock();
