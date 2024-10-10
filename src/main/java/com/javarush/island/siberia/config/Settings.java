@@ -29,7 +29,7 @@ public class Settings {
                 try {
                     in.close();
                 } catch (Exception e) {
-                    //TODO не забыть
+                    throw new RuntimeException("Error while close");
                 }
             }
         }

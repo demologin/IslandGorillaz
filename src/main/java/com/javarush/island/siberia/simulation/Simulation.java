@@ -123,7 +123,7 @@ public class Simulation {
     }
 
     private void printBirthStatistics() {
-        System.out.printf("Births: %d%n", birthsCount);
+        System.out.printf("Births or dead if minus: %d%n", birthsCount);
     }
 
 }
