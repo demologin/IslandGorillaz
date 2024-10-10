@@ -1,5 +1,7 @@
 package com.javarush.island.khmelov.entity.organizm;
 
+import com.javarush.island.khmelov.api.entity.Eating;
+import com.javarush.island.khmelov.api.entity.Movable;
 import com.javarush.island.khmelov.api.entity.Reproducible;
 import com.javarush.island.khmelov.config.Setting;
 import com.javarush.island.khmelov.entity.map.Cell;
@@ -18,7 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @SuppressWarnings("unused")
 @Getter
 @EqualsAndHashCode(of = "id")
-public abstract class Organism implements Reproducible, Cloneable {
+public abstract class Organism implements Movable, Eating, Reproducible, Cloneable {
 
     private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
     private final Set<Map.Entry<String, Integer>> foodMap;
@@ -70,14 +72,19 @@ public abstract class Organism implements Reproducible, Cloneable {
 
     }
 
+    protected boolean isHere(Cell cell) {
+        return cell.getResidents().get(this.getType()).contains(this);
+    }
+
 
     protected boolean safeDie(Cell target) {
         target.getLock().lock();
         try {
-            return target
-                    .getResidents()
-                    .get(type)
-                    .remove(this);
+            return isHere(target)
+                   && target
+                           .getResidents()
+                           .get(type)
+                           .remove(this);
         } finally {
             target.getLock().unlock();
         }
@@ -90,7 +97,7 @@ public abstract class Organism implements Reproducible, Cloneable {
             weight += maxWeight * percent / 100;
             weight = Math.max(0, weight);
             weight = Math.min(weight, maxWeight);
-            return currentCell
+            return isHere(currentCell) && currentCell
                     .getResidents()
                     .get(type)
                     .contains(this);
@@ -130,7 +137,7 @@ public abstract class Organism implements Reproducible, Cloneable {
         try {
             Residents residents = cell.getResidents();
             Organisms organisms = residents.get(getType());
-            return organisms.remove(this);
+            return isHere(cell) && organisms.remove(this);
         } finally {
             cell.getLock().unlock();
         }
@@ -140,30 +147,31 @@ public abstract class Organism implements Reproducible, Cloneable {
         currentCell.getLock().lock();
         boolean foodFound = false;
         try {
-            double needFood = getNeedFood();
-            if (!(needFood <= 0)) {
-
-                var foodIterator = foodMap.iterator();
-                while (needFood > 0 && foodIterator.hasNext()) {
-                    Map.Entry<String, Integer> entry = foodIterator.next();
-                    String keyFood = entry.getKey();
-                    Integer probably = entry.getValue();
-                    Residents residents = currentCell.getResidents();
-                    var foods = residents.get(keyFood);
-                    if (Objects.nonNull(foods) && !foods.isEmpty() && Rnd.get(probably)) {
-                        for (Iterator<Organism> organismIterator = foods.iterator(); organismIterator.hasNext(); ) {
-                            Organism o = organismIterator.next();
-                            double foodWeight = o.getWeight();
-                            double delta = Math.min(foodWeight, needFood);
-                            setWeight(getWeight() + delta);
-                            o.setWeight(foodWeight - delta);
-                            if (o.getWeight() <= 0) {
-                                organismIterator.remove();
-                            }
-                            needFood -= delta;
-                            foodFound = true;
-                            if (needFood <= 0) {
-                                break;
+            if (isHere(currentCell)) {
+                double needFood = getNeedFood();
+                if (!(needFood <= 0)) {
+                    var foodIterator = foodMap.iterator();
+                    while (needFood > 0 && foodIterator.hasNext()) {
+                        Map.Entry<String, Integer> entry = foodIterator.next();
+                        String keyFood = entry.getKey();
+                        Integer probably = entry.getValue();
+                        Residents residents = currentCell.getResidents();
+                        var foods = residents.get(keyFood);
+                        if (Objects.nonNull(foods) && !foods.isEmpty() && Rnd.get(probably)) {
+                            for (Iterator<Organism> organismIterator = foods.iterator(); organismIterator.hasNext(); ) {
+                                Organism o = organismIterator.next();
+                                double foodWeight = o.getWeight();
+                                double delta = Math.min(foodWeight, needFood);
+                                setWeight(getWeight() + delta);
+                                o.setWeight(foodWeight - delta);
+                                if (o.getWeight() <= 0) {
+                                    organismIterator.remove();
+                                }
+                                needFood -= delta;
+                                foodFound = true;
+                                if (needFood <= 0) {
+                                    break;
+                                }
                             }
                         }
                     }

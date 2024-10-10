@@ -7,8 +7,10 @@ import com.javarush.island.khmelov.entity.Game;
 import com.javarush.island.khmelov.entity.map.GameMap;
 import com.javarush.island.khmelov.repository.EntityCreator;
 import com.javarush.island.khmelov.repository.GameMapCreator;
-import com.javarush.island.khmelov.services.GameWorker;
+import com.javarush.island.khmelov.services.*;
 import com.javarush.island.khmelov.view.console.ConsoleView;
+
+import java.util.List;
 
 public class ConsoleRunner {
     public static void main(String[] args) {
@@ -16,10 +18,17 @@ public class ConsoleRunner {
         GameMapCreator gameMapCreator = new GameMapCreator(entityFactory);
         int rows = Setting.get().life.getRows();
         int cols = Setting.get().life.getCols();
-        GameMap gameMap = gameMapCreator.createRandomFilledGameMap(rows, cols, 50);
+        GameMap gameMap = gameMapCreator.createRandomFilledGameMap(rows, cols, 1);
         View view = new ConsoleView(gameMap);
         Game game = new Game(gameMap, entityFactory, view);
-        GameWorker gameWorker = new GameWorker(game);
-        gameWorker.start();
+        List<Runnable> services = List.of(
+                new EatingService(game),
+                new MovingService(game),
+                new ReproducingService(game),
+                new RandomFillService(game),
+                new ViewService(game)
+        );
+        GameServiceProcessor gameWorkerService = new GameServiceProcessor(game, services);
+        gameWorkerService.start();
     }
 }

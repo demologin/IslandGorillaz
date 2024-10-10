@@ -3,7 +3,9 @@ package com.javarush.island.khmelov.entity;
 import com.javarush.island.khmelov.api.init.Initialization;
 import com.javarush.island.khmelov.api.view.View;
 import com.javarush.island.khmelov.entity.map.GameMap;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
