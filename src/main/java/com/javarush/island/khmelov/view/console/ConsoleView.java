@@ -5,9 +5,7 @@ import com.javarush.island.khmelov.config.Console;
 import com.javarush.island.khmelov.config.Setting;
 import com.javarush.island.khmelov.entity.map.Cell;
 import com.javarush.island.khmelov.entity.map.GameMap;
-import com.javarush.island.khmelov.entity.organizm.Organism;
 
-import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -55,31 +53,29 @@ public class ConsoleView implements View {
 
     @Override
     public void show() {
-        synchronized (System.out) {
-            System.out.println("\n\n" + showMap() + showStatistics() + showScale());
-            System.out.flush();
-        }
+        showMap();
+        showStatistics();
+        showScale();
     }
 
     @Override
-    public String showStatistics() {
-        Map<Organism, Long> statistics = gameMap.getStatistics();
-        return statistics + LINE_BREAK;
+    public void showStatistics() {
+        System.out.println(gameMap.getStatistics());
     }
 
     @Override
-    public String showScale() {
+    public void showScale() {
         int n = 100;
         StringJoiner joiner = new StringJoiner(" ");
         for (int i = 10; i <= n; i += 10) {
             String color = Color.getColor(i, n);
             joiner.add(color + i + "%" + Color.RESET);
         }
-        return "Scale: " + joiner + LINE_BREAK;
+        System.out.println("Scale: " + joiner);
     }
 
     @Override
-    public String showMap() {
+    public void showMap() {
         StringBuilder out = new StringBuilder();
         Cell[][] cells = gameMap.getCells();
         for (int row = 0; row < rows; row++) {
@@ -91,7 +87,7 @@ public class ConsoleView implements View {
             out.append(cutCols ? INF_MARGIN : CELL_MARGIN).append(LINE_BREAK);
         }
         out.append(cutRows ? bottomInfBorder : bottomBorder).append(LINE_BREAK);
-        return out.toString();
+        System.out.println(out);
     }
 
     private String getResidentSting(Cell cell) {

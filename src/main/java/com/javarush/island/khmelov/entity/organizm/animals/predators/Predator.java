@@ -1,12 +1,15 @@
 package com.javarush.island.khmelov.entity.organizm.animals.predators;
 
+import com.javarush.island.khmelov.config.Setting;
 import com.javarush.island.khmelov.entity.map.Cell;
 import com.javarush.island.khmelov.entity.map.Residents;
 import com.javarush.island.khmelov.entity.organizm.Limit;
 import com.javarush.island.khmelov.entity.organizm.animals.Animal;
 import com.javarush.island.khmelov.exception.GameException;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class Predator extends Animal {
 

@@ -43,4 +43,14 @@ public class Grass extends Organism {
         }
         return false;
     }
+
+    @Override
+    public boolean eat(Cell currentCell) {
+        return false;
+    }
+
+    @Override
+    public boolean move(Cell startCell) {
+        return false;
+    }
 }

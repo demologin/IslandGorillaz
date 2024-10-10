@@ -46,7 +46,7 @@ public abstract class Animal extends Organism implements Eating, Reproducible, M
         try {
             Organisms organisms = cell.getResidents().get(getType());
             double maxWeight = getLimit().getMaxWeight();
-            if (getWeight() > maxWeight / 2 &&
+            if (isHere(cell) && getWeight() > maxWeight / 2 &&
                     organisms.contains(this) &&
                     (organisms.getLimit().getFlockSize() > 1 || organisms.size() >= 2) &&
                     organisms.size() < getLimit().getMaxCountInCell()
