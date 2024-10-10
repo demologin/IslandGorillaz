@@ -1,20 +1,21 @@
 package com.javarush.island.levchuk.map;
 
-import com.javarush.island.levchuk.entitys.Entity;
+import com.javarush.island.levchuk.entities.Entity;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
+@Getter
 public class Cell {
 
-    public final int row;
-    public final int col;
-    public List<Cell> neighbors;
-    public HashMap< Class<? extends Entity>, Set<Entity>> residents;
+    private final int row;
+    private final int col;
+    private List<Cell> neighbors;
+    private HashMap<Class<? extends Entity>, List<Entity>> residents;
 
-    Cell(int row, int col) {
+    public Cell(int row, int col) {
         this.row = row;
         this.col = col;
     }
@@ -37,13 +38,22 @@ public class Cell {
     }
 
     public void addEntity(Entity entity) {
+        Class<? extends Entity> clazz = entity.getClass();
+        if (!residents.containsKey(clazz)) {
+            List<Entity> entitiesList = new ArrayList<>();
+            entitiesList.add(entity);
+            residents.put(clazz, entitiesList);
+        } else {
+            List<Entity> entitiesList = residents.get(clazz);
+            entitiesList.add(entity);
+        }
     }
 
     public void removeEntity(Entity entity) {
-    }
-
-    public boolean checkLimit(Entity entity){
-
-        return false;
+        Class<? extends Entity> clazz = entity.getClass();
+        if (residents.containsKey(clazz)) {
+            List<Entity> entitiesList = residents.get(clazz);
+            entitiesList.remove(entity);
+        }
     }
 }

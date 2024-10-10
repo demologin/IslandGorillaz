@@ -1,6 +1,6 @@
 package com.javarush.island.levchuk.utils;
 
-import com.javarush.island.levchuk.entitys.Entity;
+import com.javarush.island.levchuk.entities.Entity;
 import lombok.Getter;
 
 import java.lang.reflect.Field;
@@ -12,12 +12,15 @@ import java.util.Map;
 
 public class EntityFactory {
     @Getter
-    private Map <Class <? extends Entity>, Entity> entities = new HashMap<>();
+    private final static Map <Class <? extends Entity>, Entity> entities = new HashMap<>();
 
     public void registerEntity(List<Entity> prototypes) {
         for (Entity entity : prototypes) {
             entities.put(entity.getClass(), entity);
         }
+    }
+    public static Entity getEntityClass(Class<? extends Entity> type) {
+        return copyEntity(entities.get(type));
     }
 
     public static <T> T copyEntity(T entity) {

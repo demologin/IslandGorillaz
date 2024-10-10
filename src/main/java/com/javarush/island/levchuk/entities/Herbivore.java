@@ -1,4 +1,4 @@
-package com.javarush.island.levchuk.entitys;
+package com.javarush.island.levchuk.entities;
 
 
 

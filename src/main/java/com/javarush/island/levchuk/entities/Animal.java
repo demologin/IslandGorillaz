@@ -1,8 +1,8 @@
-package com.javarush.island.levchuk.entitys;
+package com.javarush.island.levchuk.entities;
 
 import java.util.Map;
 
-public class Animal {
+public class Animal extends Entity {
     private double weight;
     private double weightDefault;
     private double weightSaturation;

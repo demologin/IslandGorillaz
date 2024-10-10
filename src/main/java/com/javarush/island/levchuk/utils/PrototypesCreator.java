@@ -2,7 +2,7 @@ package com.javarush.island.levchuk.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javarush.island.levchuk.entitys.Entity;
+import com.javarush.island.levchuk.entities.Entity;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class PrototypesCreator {
 
     public List<Entity> loadPrototypes() {
         List<Entity> prototypes = new ArrayList<>();
-        Reflections reflections = new Reflections("com.javarush.island.levchuk.entitys.organisms");
+        Reflections reflections = new Reflections("com.javarush.island.levchuk.entities.organisms");
         Set<Class<? extends Entity>> entityClasses = reflections.getSubTypesOf(Entity.class);
         entityClasses.forEach(entityClass -> prototypes.add(setConfiguration(entityClass)));
         return prototypes;
