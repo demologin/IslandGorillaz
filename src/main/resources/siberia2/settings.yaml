@@ -1,0 +1,185 @@
+island:
+  width: 50 # default 100
+  height: 50 # default 20
+  simulationStepDuration: 1000
+
+animals:
+  Wolf:
+    name: "Wolf"
+    icon: "\uD83D\uDC3A"
+    weight: 50
+    maxCountPerCell: 30
+    speed: 3
+    maxFood: 8
+    eatProbability:
+      Horse: 10
+      Deer: 15
+      Rabbit: 60
+      Mouse: 80
+      Goat: 60
+      Sheep: 70
+      Boar: 15
+      Buffalo: 10
+      Duck: 40
+  Boa:
+    name: "Boa"
+    icon: "\ud83d\udc0d"
+    weight: 15
+    maxCountPerCell: 30
+    speed: 1
+    maxFood: 3
+    eatProbability:
+      Fox: 15
+      Rabbit: 20
+      Mouse: 40
+      Duck: 10
+  Fox:
+    name: "Fox"
+    icon: "\ud83e\udd8a"
+    weight: 8
+    maxCountPerCell: 30
+    speed: 2
+    maxFood: 2
+    eatProbability:
+      Rabbit: 70
+      Mouse: 90
+      Duck: 10
+      Caterpillar: 40
+  Bear:
+    name: "Bear"
+    icon: "\ud83d\udc3b"
+    weight: 500
+    maxCountPerCell: 5
+    speed: 2
+    maxFood: 80
+    eatProbability:
+      Boa: 80
+      Horse: 40
+      Deer: 80
+      Rabbit: 80
+      Mouse: 90
+      Goat: 70
+      Sheep: 70
+      Boar: 50
+      Buffalo: 20
+      Duck: 10
+  Eagle:
+    name: "Eagle"
+    icon: "\ud83e\udd85"
+    weight: 6
+    maxCountPerCell: 20
+    speed: 3
+    maxFood: 1
+    eatProbability:
+      Fox: 10
+      Rabbit: 90
+      Mouse: 90
+      Duck: 80
+  Horse:
+    name: "Horse"
+    icon: "\ud83d\udc0e"
+    weight: 400
+    maxCountPerCell: 20
+    speed: 4
+    maxFood: 60
+    eatProbability:
+      Grass: 100
+  Deer:
+    name: "Deer"
+    icon: "\ud83e\udd8c"
+    weight: 300
+    maxCountPerCell: 20
+    speed: 4
+    maxFood: 50
+    eatProbability:
+      Grass: 100
+  Rabbit:
+    name: "Rabbit"
+    icon: "\uD83D\uDC07"
+    weight: 2
+    maxCountPerCell: 150
+    speed: 2
+    maxFood: 0.45
+    eatProbability:
+      Grass: 100
+  Mouse:
+    name: "Mouse"
+    icon: "\ud83d\udc01"
+    weight: 0.05
+    maxCountPerCell: 500
+    speed: 1
+    maxFood: 0.01
+    eatProbability:
+      Caterpillar: 90
+      Grass: 100
+  Goat:
+    name: "Goat"
+    icon: "\ud83d\udc10"
+    weight: 60
+    maxCountPerCell: 140
+    speed: 3
+    maxFood: 10
+    eatProbability:
+      Grass: 100
+  Sheep:
+    name: "Sheep"
+    icon: "\ud83d\udc11"
+    weight: 70
+    maxCountPerCell: 140
+    speed: 3
+    maxFood: 15
+    eatProbability:
+      Grass: 100
+  Boar:
+    name: "Boar"
+    icon: "\ud83d\udc17"
+    weight: 400
+    maxCountPerCell: 50
+    speed: 2
+    maxFood: 50
+    eatProbability:
+      Mouse: 50
+      Caterpillar: 90
+      Grass: 100
+  Buffalo:
+    name: "Buffalo"
+    icon: "\ud83d\udc03"
+    weight: 700
+    maxCountPerCell: 10
+    speed: 3
+    maxFood: 100
+    eatProbability:
+      Grass: 100
+  Duck:
+    name: "Duck"
+    icon: "\ud83e\udd86"
+    weight: 1
+    maxCountPerCell: 200
+    speed: 4
+    maxFood: 0.15
+    eatProbability:
+      Caterpillar: 90
+      Grass: 100
+  Caterpillar:
+    name: "Caterpillar"
+    icon: "\ud83d\udc1c"
+    weight: 0.01
+    maxCountPerCell: 1000
+    speed: 0
+    maxFood: 0.005
+    eatProbability:
+      Grass: 100
+
+plants:
+  Grass:
+    name: "Grass"
+    icon: "\uD83C\uDF3F"
+    weight: 1
+    maxCountPerCell: 200
+    growthRate: 0.5
+  Tree:
+    name: "Tree"
+    icon: "\uD83C\uDF33"
+    weight: 10
+    maxCountPerCell: 1
+    growthRate: 0.1
