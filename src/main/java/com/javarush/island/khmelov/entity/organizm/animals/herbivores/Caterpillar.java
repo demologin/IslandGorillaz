@@ -1,4 +1,4 @@
-package com.javarush.island.khmelov.entity.organizm.plants;
+package com.javarush.island.khmelov.entity.organizm.animals.herbivores;
 
 import com.javarush.island.khmelov.api.annotation.TypeData;
 import com.javarush.island.khmelov.config.Setting;
@@ -8,9 +8,10 @@ import com.javarush.island.khmelov.entity.organizm.Organism;
 import com.javarush.island.khmelov.entity.organizm.Organisms;
 import com.javarush.island.khmelov.util.Rnd;
 
-@TypeData(name = "Трава", icon = "\uD83E\uDEB4", maxWeight = 1, maxCountInCell = 200, flockSize = 20, maxSpeed = 0, maxFood = 0)
-public class Grass extends Organism {
-    public Grass(String name, String icon, Limit limit) {
+@TypeData(name = "Гусеница", icon = "\uD83D\uDC1B", maxWeight = 0.01, maxCountInCell = 1000,
+        flockSize = 100, maxSpeed = 0, maxFood = 0)
+public class Caterpillar extends Herbivore {
+    public Caterpillar(String name, String icon, Limit limit) {
         super(name, icon, limit);
     }
 
@@ -41,16 +42,6 @@ public class Grass extends Organism {
         } finally {
             cell.getLock().unlock();
         }
-        return false;
-    }
-
-    @Override
-    public boolean eat(Cell currentCell) {
-        return false;
-    }
-
-    @Override
-    public boolean move(Cell startCell) {
         return false;
     }
 }
