@@ -8,4 +8,5 @@ public class Settings {
     private IslandSettings islandSettings;
     private Map<String, AnimalSettings> animalsSettings;
     private Map<String, PlantSettings> plantsSettings;
+    private WindowSettings windowSettings;
 }

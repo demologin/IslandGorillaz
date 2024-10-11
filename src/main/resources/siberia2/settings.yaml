@@ -1,9 +1,16 @@
-island:
+islandSettings:
   width: 50 # default 100
   height: 50 # default 20
   simulationStepDuration: 1000
 
-animals:
+windowSettings:
+  width: 800
+  height: 600
+  fps: 30
+  tileSize: 16
+  scale: 3
+
+animalsSettings:
   Wolf:
     name: "Wolf"
     icon: "\uD83D\uDC3A"
@@ -170,7 +177,7 @@ animals:
     eatProbability:
       Grass: 100
 
-plants:
+plantsSettings:
   Grass:
     name: "Grass"
     icon: "\uD83C\uDF3F"
