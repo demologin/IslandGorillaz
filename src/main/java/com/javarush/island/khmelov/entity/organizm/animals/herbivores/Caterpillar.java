@@ -16,8 +16,13 @@ public class Caterpillar extends Herbivore {
     }
 
     @Override
+    public boolean eat(Cell currentCell) {
+        int percentPlantGrow = Setting.get().life.getPercentPlantGrow();
+        return safeChangeWeight(currentCell, percentPlantGrow);
+    }
+
+    @Override
     public boolean spawn(Cell cell) {
-        this.safeChangeWeight(cell, Setting.get().life.getPercentPlantGrow()*2);
         boolean born = false;
         for (int i = 0; i < 6; i++) {
             Cell neighborCell = cell.getNextCell(Rnd.random(0, 2));
@@ -28,7 +33,7 @@ public class Caterpillar extends Herbivore {
 
     private boolean safePlantPropagation(Cell cell) {
         Limit limit = getLimit();
-        synchronized (cell.monitor()){
+        synchronized (cell.monitor()) {
             Organisms plants = cell.getResidents().get(getType());
             if (plants.size() < limit.getMaxCountInCell() &&
                 getWeight() > limit.getMaxWeight() / 2

@@ -2,8 +2,6 @@ package com.javarush.island.khmelov.services;
 
 import com.javarush.island.khmelov.entity.Game;
 
-import java.util.Arrays;
-
 public class MovingService extends AbstractService {
 
     public MovingService(Game game) {
