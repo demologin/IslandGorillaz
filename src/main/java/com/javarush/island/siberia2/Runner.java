@@ -8,8 +8,8 @@ public class Runner {
 
         Settings settings = ConfigLoader.loadSettings();
         if (settings != null) {
-            System.out.println("Island Width: " + settings.getIsland().getWidth());
-            System.out.println("Wolf speed: " + settings.getAnimals().get("Wolf").getSpeed());
+            System.out.println("Island Width: " + settings.getIslandSettings().getWidth());
+            System.out.println("Wolf speed: " + settings.getAnimalsSettings().get("Wolf").getSpeed());
         }
     }
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 
 @Data
 public class Settings {
-    private IslandSettings island;
-    private Map<String, AnimalSettings> animals;
-    private Map<String, PlantSettings> plants;
+    private IslandSettings islandSettings;
+    private Map<String, AnimalSettings> animalsSettings;
+    private Map<String, PlantSettings> plantsSettings;
 }
