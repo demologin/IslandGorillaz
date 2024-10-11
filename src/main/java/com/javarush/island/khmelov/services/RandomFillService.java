@@ -23,16 +23,13 @@ public class RandomFillService extends AbstractService {
     public void run() {
         int row = Rnd.random(0, ROWS);
         int col = Rnd.random(0, COLS);
-        Cell cell = game.getGameMap().getCells()[row][col];
+        Cell cell = game.getGameMap().getCell(row, col);
         safeFill(cell);
     }
 
     private void safeFill(Cell cell) {
-        cell.getLock().lock();
-        try {
+        synchronized (cell.monitor()) {
             entityFactory.fill(cell, PERCENT_PROBABLY);
-        } finally {
-            cell.getLock().unlock();
         }
     }
 }

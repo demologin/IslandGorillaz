@@ -2,7 +2,7 @@ package com.javarush.island.khmelov.services;
 
 import com.javarush.island.khmelov.entity.Game;
 
-public class ViewService implements Runnable{
+public class ViewService implements Runnable {
 
     private final Game game;
 
@@ -12,7 +12,11 @@ public class ViewService implements Runnable{
 
     @Override
     public void run() {
-        game.getGameMap().updateStatistics();
-        game.getView().show();
+        try {
+            game.getGameMap().updateStatistics();
+            game.getView().show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

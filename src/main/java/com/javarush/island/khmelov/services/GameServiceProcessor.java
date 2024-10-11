@@ -26,7 +26,7 @@ public class GameServiceProcessor extends Thread {
     @Override
     public void run() {
         mainPool = Executors.newSingleThreadScheduledExecutor();
-        mainPool.scheduleWithFixedDelay(this::doOneStepGame, 0, PERIOD, TimeUnit.MILLISECONDS);
+        mainPool.scheduleAtFixedRate(this::doOneStepGame, 0, PERIOD, TimeUnit.MILLISECONDS);
     }
 
     private void doOneStepGame() {

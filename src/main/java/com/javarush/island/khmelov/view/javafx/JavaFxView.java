@@ -2,9 +2,10 @@ package com.javarush.island.khmelov.view.javafx;
 
 import com.javarush.island.khmelov.api.view.View;
 import com.javarush.island.khmelov.config.Setting;
-import com.javarush.island.khmelov.config.Window;
+import com.javarush.island.khmelov.config.field.Window;
 import com.javarush.island.khmelov.entity.Game;
 import com.javarush.island.khmelov.entity.map.Cell;
+import com.javarush.island.khmelov.entity.map.GameMap;
 import com.javarush.island.khmelov.entity.organizm.Organisms;
 import com.javarush.island.khmelov.services.GameServiceProcessor;
 import javafx.application.Application;
@@ -137,26 +138,23 @@ public class JavaFxView extends Application implements View {
     }
 
     private void fillViewMap() {
-        Cell[][] cells = game.getGameMap().getCells();
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                String text = getIcons(cells[i][j]);
+        GameMap gameMap = game.getGameMap();
+        for (int i = 0; i < gameMap.getRows(); i++) {
+            for (int j = 0; j < gameMap.getCols(); j++) {
+                String text = getIcons(gameMap.getCell(i, j));
                 labelCells[i][j].setText(text);
             }
         }
     }
 
     private String getIcons(Cell cell) {
-        try {
-            cell.getLock().lock();
+        synchronized (cell.monitor()) {
             return cell.getResidents().values().stream()
                     .filter((list) -> !list.isEmpty())
                     .sorted((o1, o2) -> o2.size() - o1.size())
                     .limit(cellIconCount)
                     .map(Organisms::getIcon)
                     .collect(Collectors.joining());
-        } finally {
-            cell.getLock().unlock();
         }
     }
 }

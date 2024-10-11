@@ -42,8 +42,7 @@ public abstract class Animal extends Organism implements Eating, Reproducible, M
     }
 
     private boolean safeSpawnAnimal(Cell cell) {
-        cell.getLock().lock();
-        try {
+        synchronized (cell.monitor()){
             Organisms organisms = cell.getResidents().get(getType());
             double maxWeight = getLimit().getMaxWeight();
             if (isHere(cell) && getWeight() > maxWeight / 2 &&
@@ -59,8 +58,6 @@ public abstract class Animal extends Organism implements Eating, Reproducible, M
                 organisms.add(clone);
                 return true;
             }
-        } finally {
-            cell.getLock().unlock();
         }
         return false;
     }

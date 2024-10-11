@@ -23,15 +23,12 @@ abstract class AbstractService implements Runnable {
     }
 
     private Set<Organism> safeReadAll(Cell cell) {
-        cell.getLock().lock();
-        try {
+        synchronized (cell.monitor()){
             return cell.getResidents()
                     .values()
                     .stream()
                     .flatMap(Organisms::stream)
                     .collect(Collectors.toSet());
-        } finally {
-            cell.getLock().unlock();
         }
     }
 }

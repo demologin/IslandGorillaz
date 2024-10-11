@@ -1,4 +1,4 @@
-package com.javarush.island.khmelov.config;
+package com.javarush.island.khmelov.config.field;
 
 import lombok.AccessLevel;
 import lombok.Getter;

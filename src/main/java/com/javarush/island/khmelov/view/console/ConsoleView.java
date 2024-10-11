@@ -1,7 +1,7 @@
 package com.javarush.island.khmelov.view.console;
 
 import com.javarush.island.khmelov.api.view.View;
-import com.javarush.island.khmelov.config.Console;
+import com.javarush.island.khmelov.config.field.Console;
 import com.javarush.island.khmelov.config.Setting;
 import com.javarush.island.khmelov.entity.map.Cell;
 import com.javarush.island.khmelov.entity.map.GameMap;
@@ -77,11 +77,10 @@ public class ConsoleView implements View {
     @Override
     public void showMap() {
         StringBuilder out = new StringBuilder();
-        Cell[][] cells = gameMap.getCells();
         for (int row = 0; row < rows; row++) {
             out.append(row == 0 ? topBorder : centerBorder).append(LINE_BREAK);
             for (int col = 0; col < cols; col++) {
-                String residentSting = getResidentSting(cells[row][col]);
+                String residentSting = getResidentSting(gameMap.getCell(row, col));
                 out.append(String.format(CELL_MARGIN + "%-" + cellCharCount + "s", residentSting));
             }
             out.append(cutCols ? INF_MARGIN : CELL_MARGIN).append(LINE_BREAK);
@@ -91,7 +90,7 @@ public class ConsoleView implements View {
     }
 
     private String getResidentSting(Cell cell) {
-        cell.getLock().lock();
+        synchronized (cell.monitor()) {
         String collect = cell.getResidents().values().stream()
                 .filter((list) -> !list.isEmpty())
                 .sorted((o1, o2) -> o2.size() - o1.size())
@@ -110,8 +109,8 @@ public class ConsoleView implements View {
                 .limit(cellCharCount)
                 .count();
         String blank = count < cellCharCount ? DOT.repeat((int) (cellCharCount - count)) : BLANK;
-        cell.getLock().unlock();
         return collect + blank;
+        }
     }
 
     private String border(int cols, char left, char center, char right) {

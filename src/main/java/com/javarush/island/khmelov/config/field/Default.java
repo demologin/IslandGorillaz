@@ -1,4 +1,4 @@
-package com.javarush.island.khmelov.config;
+package com.javarush.island.khmelov.config.field;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,13 +16,13 @@ public class Default {
     public static final int WINDOW_HEIGHT = 800;
     public static final int WINDOW_CELL_ICON_COUNT = 4;
     @JsonIgnore
-    static final String[] names = {
+    public static final String[] names = {
             "Wolf", "Boa", "Fox", "Bear", "Eagle",
             "Horse", "Deer", "Rabbit", "Mouse", "Goat", "Sheep", "Boar", "Buffalo", "Duck", "Caterpillar",
             "Grass",
     };
     @JsonIgnore
-    static final int[][] setProbablyTable = {
+    public static final int[][] setProbablyTable = {
             {0, 0, 0, 0, 0, 10, 15, 60, 80, 60, 70, 15, 10, 40, 0, 0},
             {0, 0, 15, 0, 0, 0, 0, 20, 40, 0, 0, 0, 0, 10, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 70, 90, 0, 0, 0, 0, 60, 40, 0},

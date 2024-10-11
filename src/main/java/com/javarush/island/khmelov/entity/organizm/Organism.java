@@ -78,21 +78,17 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
 
 
     protected boolean safeDie(Cell target) {
-        target.getLock().lock();
-        try {
+        synchronized (target.monitor()) {
             return isHere(target)
                    && target
                            .getResidents()
                            .get(type)
                            .remove(this);
-        } finally {
-            target.getLock().unlock();
         }
     }
 
     protected boolean safeChangeWeight(Cell currentCell, int percent) {
-        currentCell.getLock().lock();
-        try {
+        synchronized (currentCell.monitor()){
             double maxWeight = limit.getMaxWeight();
             weight += maxWeight * percent / 100;
             weight = Math.max(0, weight);
@@ -101,8 +97,6 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
                     .getResidents()
                     .get(type)
                     .contains(this);
-        } finally {
-            currentCell.getLock().unlock();
         }
     }
 
@@ -119,34 +113,27 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
     }
 
     protected boolean safeAddTo(Cell cell) {
-        cell.getLock().lock();
-        try {
+        synchronized (cell.monitor()){
             Organisms organisms = cell
                     .getResidents()
                     .get(getType());
             int maxCount = getLimit().getMaxCountInCell();
             int size = organisms.size();
             return size < maxCount && organisms.add(this);
-        } finally {
-            cell.getLock().unlock();
         }
     }
 
     protected boolean safePollFrom(Cell cell) {
-        cell.getLock().lock();
-        try {
+        synchronized (cell.monitor()){
             Residents residents = cell.getResidents();
             Organisms organisms = residents.get(getType());
             return isHere(cell) && organisms.remove(this);
-        } finally {
-            cell.getLock().unlock();
         }
     }
 
     protected boolean safeFindFood(Cell currentCell) {
-        currentCell.getLock().lock();
         boolean foodFound = false;
-        try {
+        synchronized (currentCell.monitor()){
             if (isHere(currentCell)) {
                 double needFood = getNeedFood();
                 if (!(needFood <= 0)) {
@@ -177,8 +164,6 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
                     }
                 }
             }
-        } finally {
-            currentCell.getLock().unlock();
         }
         return foodFound;
     }

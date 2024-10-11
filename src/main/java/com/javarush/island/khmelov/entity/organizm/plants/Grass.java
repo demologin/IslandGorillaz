@@ -27,8 +27,7 @@ public class Grass extends Organism {
 
     private boolean safePlantPropagation(Cell cell) {
         Limit limit = getLimit();
-        cell.getLock().lock();
-        try {
+        synchronized (cell.monitor()){
             Organisms plants = cell.getResidents().get(getType());
             if (plants.size() < limit.getMaxCountInCell() &&
                 getWeight() > limit.getMaxWeight() / 2
@@ -38,8 +37,6 @@ public class Grass extends Organism {
                 newPlant.setWeight(childWeight);
                 return plants.add(newPlant);
             }
-        } finally {
-            cell.getLock().unlock();
         }
         return false;
     }
