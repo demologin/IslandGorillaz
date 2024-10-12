@@ -1,0 +1,62 @@
+predation:
+Wolf:
+  Horse: 50
+  Deer: 15
+  Rabbit: 60
+  Mouse: 80
+  Goat: 60
+  Sheep: 70
+  Boar: 15
+  Buffalo: 10
+  Duck: 40
+Snake:
+  Fox: 15
+  Rabbit: 20
+  Mouse: 40
+  Duck: 10
+Fox:
+  Rabbit: 70
+  Mouse: 90
+  Duck: 60
+  Caterpillar: 40
+Bear:
+  Boa: 80
+  Horse: 40
+  Deer: 80
+  Rabbit: 80
+  Mouse: 90
+  Goat: 70
+  Sheep: 70
+  Boar: 50
+  Buffalo: 20
+  Duck: 10
+Eagle:
+  Fox: 10
+  Rabbit: 90
+  Mouse: 90
+  Duck: 80
+Horse:
+  Vegetation: 100
+Deer:
+  Vegetation: 100
+Rabbit:
+  Vegetation: 100
+Mouse:
+  Caterpillar: 90
+  Vegetation: 100
+Goat:
+  Vegetation: 100
+Sheep:
+  Vegetation: 100
+Hog:
+  Mouse: 50
+  Caterpillar: 90
+  Vegetation: 100
+Bull:
+  Vegetation: 100
+Duck:
+  Caterpillar: 90
+  Vegetation: 100
+Worm:
+  Vegetation: 100
+Vegetation: {}
