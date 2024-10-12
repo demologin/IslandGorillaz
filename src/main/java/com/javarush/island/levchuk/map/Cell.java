@@ -3,17 +3,14 @@ package com.javarush.island.levchuk.map;
 import com.javarush.island.levchuk.entities.Entity;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class Cell {
 
     private final int row;
     private final int col;
-    private List<Cell> neighbors;
+    private Set<Cell> neighbors;
     private Map<Class<? extends Entity>, List<Entity>> residents = new HashMap<>();
 
     public Cell(int row, int col) {
@@ -22,7 +19,7 @@ public class Cell {
     }
 
     public void findNeighbors(Cell[][] array) {
-        List<Cell> cells = new ArrayList();
+        Set<Cell> cells = new HashSet<>();
         for (int deltaRow = -1; deltaRow < 2; deltaRow++) {
             for (int deltaCol = -1; deltaCol < 2; deltaCol++) {
                 if (deltaRow == 0 && deltaCol == 0) {

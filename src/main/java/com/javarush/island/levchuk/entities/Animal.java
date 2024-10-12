@@ -53,19 +53,19 @@ public class Animal extends Entity implements Eating, Movable {
         }
     }
 
-
     @Override
-    public boolean move(Cell cell) {
-        Cell targetCell;
-        int cellNumber = Randomizer.getRandomInt(cell.getNeighbors().size());
-        for (int i = 0; i < cell.getNeighbors().size() ; i++) {
-            if (cellNumber == cell.getNeighbors().size()) {
-                cellNumber = 0;
+    public void move(Cell cell) {
+        Cell targetCell = null;
+        for (int i = 0; i < this.getSpeedMax(); i++) {
+            Cell temp = cell.getNeighbors().stream().filter(n -> n != null && n.checkFreeSpace(this)).findFirst().get();
+            if (temp == null) {
+                break;
             }
-            targetCell = cell.getNeighbors().get(i);
+            targetCell = temp;
+        }
+        if (targetCell != null) {
             targetCell.addEntity(this);
             cell.removeEntity(this);
         }
-       return false;
     }
 }
