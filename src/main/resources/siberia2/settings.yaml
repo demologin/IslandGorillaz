@@ -1,14 +1,14 @@
 islandSettings:
-  width: 50 # default 100
-  height: 50 # default 20
+  width: 60 # default 100 | for fullHD 60
+  height: 31 # default 20 | for fullHD 31
   simulationStepDuration: 1000
 
 windowSettings:
   width: 800
   height: 600
   fps: 30
-  tileSize: 16
-  scale: 3
+  tileSize: 16 # default 16
+  scale: 2 # optimal is 2
 
 animalsSettings:
   Wolf:

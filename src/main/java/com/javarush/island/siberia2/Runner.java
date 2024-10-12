@@ -14,7 +14,6 @@ public class Runner {
             System.out.println("Wolf speed: " + settings.getAnimalsSettings().get("Wolf").getSpeed());
             System.out.println("Wolf what to eat: " + settings.getAnimalsSettings().get("Wolf").getEatProbability());
         }
-
         Thread windowThread = new Thread(new WindowFrame()); {
             windowThread.start();
         }

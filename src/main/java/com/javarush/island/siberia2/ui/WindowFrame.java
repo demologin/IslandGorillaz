@@ -2,15 +2,22 @@ package com.javarush.island.siberia2.ui;
 
 import com.javarush.island.siberia2.config.ConfigLoader;
 import com.javarush.island.siberia2.config.Settings;
+import com.javarush.island.siberia2.ui.tileFactory.TileFiller;
+import com.javarush.island.siberia2.ui.tileFactory.TileManager;
+import com.javarush.island.siberia2.ui.tileFactory.TilePanel;
 import javax.swing.*;
-import java.awt.*;
 
 public class WindowFrame extends JFrame implements Runnable {
 
     Settings settings = ConfigLoader.loadSettings();
-    int width = settings.getWindowSettings().getWidth();
-    int height = settings.getWindowSettings().getHeight();
-    private JButton startButton;
+    int islandWidth = settings.getIslandSettings().getWidth();
+    int islandHeight = settings.getIslandSettings().getHeight();
+    int windowWidth = settings.getWindowSettings().getWidth();
+    int windowHeight = settings.getWindowSettings().getHeight();
+    int tileSize = settings.getWindowSettings().getTileSize();
+    int scale = settings.getWindowSettings().getScale();
+    private TileFiller tileFiller;
+    private TilePanel tilePanel;
 
     public WindowFrame() {
         initUI();
@@ -18,19 +25,16 @@ public class WindowFrame extends JFrame implements Runnable {
 
     private void initUI() {
         setTitle("Island simulation");
-        setSize(width, height);
-        setResizable(false);
+        setSize(windowWidth, windowHeight);
+        setResizable(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        startButton = new JButton("Start simulation");
-        startButton.setBounds(200, 100, 100, 50);
-        startButton.setBackground(Color.GREEN);
-        startButton.setEnabled(true);
-        startButton.addActionListener(e -> System.out.println("start was pressed"));
+        TileManager groundAssetToTile = new TileManager("/siberia2/tiles/Grass.png", tileSize);
+        tileFiller = new TileFiller(groundAssetToTile, tileSize, scale);
 
-        setLayout(new FlowLayout(FlowLayout.CENTER));
-        add(startButton);
+        tilePanel = new TilePanel(tileFiller, islandWidth, islandHeight);
+        add(tilePanel);
 
         Sound sound = new Sound();
         sound.setFile(0);
