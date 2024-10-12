@@ -12,15 +12,23 @@ import java.util.Map;
 
 public class EntityFactory {
     @Getter
-    private final static Map <Class <? extends Entity>, Entity> entities = new HashMap<>();
+    private final static Map<Class<? extends Entity>, Entity> entities = new HashMap<>();
 
     public void registerEntity(List<Entity> prototypes) {
         for (Entity entity : prototypes) {
             entities.put(entity.getClass(), entity);
         }
     }
-    public static Entity getEntityClass(Class<? extends Entity> type) {
+
+    public static Entity getEntity(Class<? extends Entity> type) {
         return copyEntity(entities.get(type));
+    }
+
+    public static Class<? extends Entity> getEntityClass(String className) {
+        return entities.keySet().stream()
+                .filter(e -> e.getName().equals(className))
+                .findFirst().get();
+
     }
 
     public static <T> T copyEntity(T entity) {

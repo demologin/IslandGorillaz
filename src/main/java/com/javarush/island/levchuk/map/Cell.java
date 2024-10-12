@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 public class Cell {
@@ -13,7 +14,7 @@ public class Cell {
     private final int row;
     private final int col;
     private List<Cell> neighbors;
-    private HashMap<Class<? extends Entity>, List<Entity>> residents;
+    private Map<Class<? extends Entity>, List<Entity>> residents = new HashMap<>();
 
     public Cell(int row, int col) {
         this.row = row;
@@ -55,5 +56,13 @@ public class Cell {
             List<Entity> entitiesList = residents.get(clazz);
             entitiesList.remove(entity);
         }
+    }
+
+    public boolean checkFreeSpace(Entity entity) {
+
+        if (residents.get(entity.getClass()).size() < entity.getAmountMax()) {
+            return true;
+        }
+        return false;
     }
 }
