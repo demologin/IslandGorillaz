@@ -2,12 +2,12 @@ package com.javarush.island.siberia2;
 
 import com.javarush.island.siberia2.config.ConfigLoader;
 import com.javarush.island.siberia2.config.Settings;
-import com.javarush.island.siberia2.ui.Sound;
-import com.javarush.island.siberia2.ui.WindowPanel;
+import com.javarush.island.siberia2.ui.WindowFrame;
 
 public class Runner {
     public static void main(String[] args) {
 
+        //for testing only. will remove in future
         Settings settings = ConfigLoader.loadSettings();
         if (settings != null) {
             System.out.println("Island Width: " + settings.getIslandSettings().getWidth());
@@ -15,9 +15,7 @@ public class Runner {
             System.out.println("Wolf what to eat: " + settings.getAnimalsSettings().get("Wolf").getEatProbability());
         }
 
-        Thread windowThread = new Thread(new WindowPanel(
-                settings.getIslandSettings().getWidth(),
-                settings.getIslandSettings().getHeight())); {
+        Thread windowThread = new Thread(new WindowFrame()); {
             windowThread.start();
         }
 
