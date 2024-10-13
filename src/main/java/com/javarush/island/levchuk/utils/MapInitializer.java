@@ -19,7 +19,6 @@ public class MapInitializer {
             }
         }
     }
-
     public void fillMapEntities(Cell[][] map) {
         EntityFactory entityFactory = new EntityFactory();
         PrototypesCreator prototypesCreator = new PrototypesCreator();
@@ -29,7 +28,7 @@ public class MapInitializer {
             for (int col = 0; col < map[row].length; col++) {
                 for (Map.Entry<Class<? extends Entity>, Entity> entityItem : entities.entrySet()) {
                     int amountMax = entityItem.getValue().getAmountMax();
-                    int countEntitiesByType = Randomizer.getRandomInt(amountMax) ;
+                    int countEntitiesByType = Randomizer.getRandomInt(amountMax);
                     for (int i = 0; i < countEntitiesByType; i++) {
                         map[row][col].addEntity(entityFactory.copyEntity(entityItem.getValue()));
                     }

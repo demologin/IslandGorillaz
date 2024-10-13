@@ -1,6 +1,5 @@
 package com.javarush.island.levchuk;
 
-import com.javarush.island.levchuk.map.Cell;
 import com.javarush.island.levchuk.map.IslandMap;
 import com.javarush.island.levchuk.utils.MapInitializer;
 

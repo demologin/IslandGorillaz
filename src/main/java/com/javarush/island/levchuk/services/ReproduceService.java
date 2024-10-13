@@ -22,7 +22,7 @@ public class ReproduceService {
         }
     }
 
-    public void reproduceAllInCall(Cell cell, Entity entityParent) {
+    public void reproduceAllInCall(Cell cell) {
         Set<Class<? extends Entity>> typesParents = cell.getResidents().keySet();
         for (Class<? extends Entity> typesParent : typesParents) {
             if (!cell.getResidents().get(typesParent).isEmpty()) {
