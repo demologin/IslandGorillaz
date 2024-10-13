@@ -59,22 +59,31 @@ public class TileFiller {
     }
 
     private void generateWater(int[][] worldMap, int rows, int cols) {
-        int riverCount = Constants.RIVER_COUNT + random.nextInt(3);
 
+        int riverCount = Constants.RIVER_COUNT + random.nextInt(3);
         for (int i = 0; i < riverCount; i++) {
             int riverStart = random.nextInt(cols);
             int currentCol = riverStart;
             for (int row = 0; row < rows; row++) {
+                // Рисуем реку шириной 1 блок
                 worldMap[row][currentCol] = WATER_TILE;
-                if (currentCol > 0 && random.nextBoolean()) {
+                if (currentCol > 0) {
+                    worldMap[row][currentCol - 1] = WATER_TILE;
+                }
+                if (currentCol < cols - 1) {
+                    worldMap[row][currentCol + 1] = WATER_TILE;
+                }
+
+                int direction = random.nextInt(3);
+                if (direction == 0 && currentCol > 0) {
                     currentCol--;
-                } else if (currentCol < cols - 1 && random.nextBoolean()) {
+                } else if (direction == 1 && currentCol < cols - 1) {
                     currentCol++;
                 }
             }
         }
 
-        int lakeCount = Constants.LAKE_COUNT + random.nextInt(5);
+        int lakeCount = Constants.LAKE_COUNT + random.nextInt(3);
         for (int i = 0; i < lakeCount; i++) {
             int lakeRow = random.nextInt(rows);
             int lakeCol = random.nextInt(cols);
@@ -93,10 +102,18 @@ public class TileFiller {
             int pathStart = random.nextInt(rows);
             int currentRow = pathStart;
             for (int col = 0; col < cols; col++) {
-                worldMap[currentRow][col] = random.nextBoolean() ? PATH_TILE_1 : PATH_TILE_2;
-                if (currentRow > 0 && random.nextBoolean()) {
+                if (worldMap[currentRow][col] == WATER_TILE) {
+                    worldMap[currentRow][col] = random.nextBoolean() ? PATH_TILE_1 : PATH_TILE_2;
+                } else {
+                    worldMap[currentRow][col] = random.nextBoolean() ? PATH_TILE_1 : PATH_TILE_2;
+                }
+                if (currentRow > 0 && col > 0 && worldMap[currentRow - 1][col - 1] == PATH_TILE_1) {
+                    worldMap[currentRow][col - 1] = PATH_TILE_1;
+                }
+                int direction = random.nextInt(4);
+                if (direction == 0 && currentRow > 0) {
                     currentRow--;
-                } else if (currentRow < rows - 1 && random.nextBoolean()) {
+                } else if (direction == 1 && currentRow < rows - 1) {
                     currentRow++;
                 }
             }
