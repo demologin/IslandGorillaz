@@ -7,16 +7,19 @@ public class TilePanel extends JPanel {
     private TileFiller tileFiller;
     private int islandWidth;
     private int islandHeight;
+    private int[][] worldMap;
 
     public TilePanel(TileFiller tileFiller, int islandWidth, int islandHeight) {
         this.tileFiller = tileFiller;
         this.islandWidth = islandWidth;
         this.islandHeight = islandHeight;
+
+        worldMap = tileFiller.generateWorld(islandWidth, islandHeight);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        tileFiller.fillTiles(g, islandWidth, islandHeight, getWidth(), getHeight());
+        tileFiller.renderWorld(g, worldMap, getWidth(), getHeight());
     }
 }

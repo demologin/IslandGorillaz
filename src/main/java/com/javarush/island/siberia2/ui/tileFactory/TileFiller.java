@@ -23,16 +23,20 @@ public class TileFiller {
         random = new Random();
     }
 
-    public void fillTiles(Graphics g, int islandWidth, int islandHeight, int width, int height) {
+    public int[][] generateWorld(int islandWidth, int islandHeight) {
+        int[][] worldMap = new int[islandHeight][islandWidth];
+
+        generateBaseTerrain(worldMap, islandHeight, islandWidth);
+        generateWater(worldMap, islandHeight, islandWidth);
+        generatePaths(worldMap, islandHeight, islandWidth);
+
+        return worldMap;
+    }
+
+    public void renderWorld(Graphics g, int[][] worldMap, int width, int height) {
         int scaledTileSize = tileSize * scale;
-
-        int cols = Math.min(islandWidth, width / scaledTileSize);
-        int rows = Math.min(islandHeight, height / scaledTileSize);
-
-        int[][] worldMap = new int[rows][cols];
-        generateBaseTerrain(worldMap, rows, cols);
-        generateWater(worldMap, rows, cols);
-        generatePaths(worldMap, rows, cols);
+        int cols = Math.min(worldMap[0].length, width / scaledTileSize);
+        int rows = Math.min(worldMap.length, height / scaledTileSize);
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
