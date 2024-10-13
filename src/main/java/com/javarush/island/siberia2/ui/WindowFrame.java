@@ -1,6 +1,7 @@
 package com.javarush.island.siberia2.ui;
 
 import com.javarush.island.siberia2.config.ConfigLoader;
+import com.javarush.island.siberia2.config.Constants;
 import com.javarush.island.siberia2.config.Settings;
 import com.javarush.island.siberia2.ui.tileFactory.ObjectLayer;
 import com.javarush.island.siberia2.ui.tileFactory.TileFiller;
@@ -26,16 +27,16 @@ public class WindowFrame extends JFrame implements Runnable {
     }
 
     private void initUI() {
-        setTitle("Island simulation");
+        setTitle(Constants.WINDOW_NAME);
         setSize(windowWidth, windowHeight);
         setResizable(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        TileManager groundAssetToTile = new TileManager("/siberia2/tiles/Grass.png", tileSize);
-        TileManager rocksAssetToTile = new TileManager("/siberia2/plants/Rocks.png", tileSize);
-        TileManager treesAssetToTile = new TileManager("/siberia2/plants/Trees.png", tileSize);
-        TileManager wheatAssetToTile = new TileManager("/siberia2/plants/Wheatfield.png", tileSize);
+        TileManager groundAssetToTile = new TileManager(Constants.GRASS_PATH_X16, tileSize);
+        TileManager rocksAssetToTile = new TileManager(Constants.ROCKS_PATH_X16, tileSize);
+        TileManager treesAssetToTile = new TileManager(Constants.TREES_PATH_X16, tileSize);
+        TileManager wheatAssetToTile = new TileManager(Constants.WHEATS_PATH_X16, tileSize);
 
         tileFiller = new TileFiller(groundAssetToTile, tileSize, scale);
         objectLayer = new ObjectLayer(rocksAssetToTile, treesAssetToTile, wheatAssetToTile, tileSize, scale);

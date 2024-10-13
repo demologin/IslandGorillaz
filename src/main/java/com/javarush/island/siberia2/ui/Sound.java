@@ -1,5 +1,6 @@
 package com.javarush.island.siberia2.ui;
 
+import com.javarush.island.siberia2.config.Constants;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -12,9 +13,9 @@ public class Sound {
 
     public Sound() {
         try {
-            soundURL[0] = getClass().getClassLoader().getResource("siberia2/sound/Music.wav");
+            soundURL[0] = getClass().getClassLoader().getResource(Constants.MAIN_SOUND_PATH);
             if (soundURL[0] == null) {
-                throw new FileNotFoundException("Can't find file 'Music.wav'.");
+                throw new FileNotFoundException(Constants.NO_MUSIC_FILE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,7 +38,7 @@ public class Sound {
         new Thread(() -> {
             try {
                 while (clip.isRunning()) {
-                    Thread.sleep(100); // Проверяем каждые 100 мс
+                    Thread.sleep(Constants.SLEEP_TIME_CHECK_THREAD); // Проверяем каждые 100 мс
                 }
                 clip.close();
             } catch (InterruptedException e) {

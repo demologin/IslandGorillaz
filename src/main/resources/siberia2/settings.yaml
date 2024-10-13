@@ -7,8 +7,8 @@ windowSettings:
   width: 800
   height: 600
   fps: 30
-  tileSize: 16 # default 16
-  scale: 2 # optimal is 2
+  tileSize: 16 # use 16 or 32 only
+  scale: 2 # for x16 is2, for x32 is 1
 
 animalsSettings:
   Wolf:

@@ -51,6 +51,7 @@ public class TileFiller {
     private void generateBaseTerrain(int[][] worldMap, int rows, int cols) {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
+                //landscape probability for grass 70 and 30 for soil
                 worldMap[row][col] = random.nextInt(100) < 70 ? GRASS_TILE : SOIL_TILE;
             }
         }

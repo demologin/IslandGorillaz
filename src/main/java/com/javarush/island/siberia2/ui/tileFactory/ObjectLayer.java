@@ -1,5 +1,6 @@
 package com.javarush.island.siberia2.ui.tileFactory;
 
+import com.javarush.island.siberia2.config.Constants;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -24,26 +25,64 @@ public class ObjectLayer {
     public int[][] generateObjectLayer(int[][] worldMap, int islandWidth, int islandHeight) {
         int[][] objectLayer = new int[islandHeight][islandWidth];
 
+        placeRock(objectLayer, worldMap, islandWidth, islandHeight);
+        generateForest(objectLayer, worldMap, islandWidth, islandHeight);
+        generateWheatField(objectLayer, worldMap, islandWidth, islandHeight);
+
+        return objectLayer;
+    }
+
+    private void placeRock(int[][] objectLayer, int[][] worldMap, int islandWidth, int islandHeight) {
         for (int row = 0; row < islandHeight; row++) {
             for (int col = 0; col < islandWidth; col++) {
-                if (worldMap[row][col] == TileFiller.GRASS_TILE ||
-                worldMap[row][col] == TileFiller.SOIL_TILE) {
+                if (worldMap[row][col] == TileFiller.GRASS_TILE || worldMap[row][col] == TileFiller.SOIL_TILE) {
                     int objectChance = random.nextInt(100);
                     if (objectChance < 3) {
                         objectLayer[row][col] = random.nextInt(rockManager.getTileCount());
-                    } else if (objectChance < 25) {
-                        objectLayer[row][col] = 100 + random.nextInt(treeManager.getTileCount());
-                    } else if (objectChance < 35) {
-                        objectLayer[row][col] = 200 + random.nextInt(wheatManager.getTileCount());
                     } else {
                         objectLayer[row][col] = -1;
                     }
                 } else {
-                    objectLayer[row][col] = -1; // no objects on water or roads
+                    objectLayer[row][col] = -1;
                 }
             }
         }
-        return objectLayer;
+    }
+
+    private void generateForest(int[][] objectLayer, int[][] worldMap, int islandWidth, int islandHeight) {
+        int forestCount = Constants.FOREST_COUNT + random.nextInt(3);
+        int forestSize = Constants.FOREST_SIZE + random.nextInt(3);
+
+        for (int i = 0; i < forestCount; i++) {
+            int centerRow = random.nextInt(islandHeight);
+            int centerCol = random.nextInt(islandWidth);
+
+            for (int row = Math.max(0, centerRow - forestSize); row < Math.min(islandHeight, centerRow + forestSize); row++) {
+                for (int col = Math.max(0, centerCol - forestSize); col < Math.min(islandWidth, centerCol + forestSize); col++) {
+                    if (worldMap[row][col] == TileFiller.GRASS_TILE || worldMap[row][col] == TileFiller.SOIL_TILE) {
+                        objectLayer[row][col] = 100 + random.nextInt(treeManager.getTileCount());
+                    }
+                }
+            }
+        }
+    }
+
+    private void generateWheatField(int[][] objectLayer, int[][] worldMap, int islandWidth, int islandHeight) {
+        int fieldCount = Constants.FIELD_COUNT + random.nextInt(3);
+        int fieldSize = Constants.FIELD_SIZE + random.nextInt(4);
+
+        for (int i = 0; i < fieldCount; i++) {
+            int centerRow = random.nextInt(islandHeight);
+            int centerCol = random.nextInt(islandWidth);
+
+            for (int row = Math.max(0, centerRow - fieldSize); row < Math.min(islandHeight, centerRow + fieldSize); row++) {
+                for (int col = Math.max(0, centerCol - fieldSize); col < Math.min(islandWidth, centerCol + fieldSize); col++) {
+                    if (worldMap[row][col] == TileFiller.GRASS_TILE || worldMap[row][col] == TileFiller.SOIL_TILE) {
+                        objectLayer[row][col] = 200 + random.nextInt(wheatManager.getTileCount());
+                    }
+                }
+            }
+        }
     }
 
     public void renderObjectLayer(Graphics g, int[][] objectLayer, int width, int height) {
