@@ -29,7 +29,7 @@ public class ObjectLayer {
                 if (worldMap[row][col] == TileFiller.GRASS_TILE ||
                 worldMap[row][col] == TileFiller.SOIL_TILE) {
                     int objectChance = random.nextInt(100);
-                    if (objectChance < 5) {
+                    if (objectChance < 3) {
                         objectLayer[row][col] = random.nextInt(rockManager.getTileCount());
                     } else if (objectChance < 25) {
                         objectLayer[row][col] = 100 + random.nextInt(treeManager.getTileCount());
@@ -57,11 +57,11 @@ public class ObjectLayer {
                 BufferedImage objectTile = null;
 
                 if (objectIndex >= 0 && objectIndex < rockManager.getTileCount()) {
-                    objectTile = rockManager.getTileByIndex(objectIndex); // Камни
+                    objectTile = rockManager.getTileByIndex(objectIndex);
                 } else if (objectIndex >= 100 && objectIndex < 100 + treeManager.getTileCount()) {
-                    objectTile = treeManager.getTileByIndex(objectIndex - 100); // Деревья
+                    objectTile = treeManager.getTileByIndex(objectIndex - 100);
                 } else if (objectIndex >= 200 && objectIndex < 200 + wheatManager.getTileCount()) {
-                    objectTile = wheatManager.getTileByIndex(objectIndex - 200); // Пшеница
+                    objectTile = wheatManager.getTileByIndex(objectIndex - 200);
                 }
 
                 if (objectTile != null) {
