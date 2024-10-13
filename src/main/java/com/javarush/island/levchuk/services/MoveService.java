@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 public class MoveService {
     public void moveAllInCall(Cell cell) {
         List<Class<? extends Entity>> entitiesTypes = cell.getResidents().keySet()
-                .stream().filter(Movable.class ::isAssignableFrom).collect(Collectors.toList());
+                .stream().filter(Movable.class::isAssignableFrom).collect(Collectors.toList());
         for (Class<? extends Entity> entityClass : entitiesTypes) {
-            if (!cell.getResidents().get(entityClass).isEmpty()){
+            if (!cell.getResidents().get(entityClass).isEmpty()) {
                 moveTypeInCell(cell.getResidents().get(entityClass), cell);
             }
         }
