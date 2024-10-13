@@ -13,6 +13,9 @@ public class Constants {
     public static final int FOREST_SIZE = 6;
     public static final int FIELD_COUNT = 2;
     public static final int FIELD_SIZE = 4;
+    public static final int RIVER_COUNT = 2;
+    public static final int ROAD_COUNT = 2;
+    public static final int LAKE_COUNT = 1;
 
     //Ui
     public static final String WINDOW_NAME = "Island simulation";

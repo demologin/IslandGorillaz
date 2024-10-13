@@ -1,5 +1,7 @@
 package com.javarush.island.siberia2.ui.tileFactory;
 
+import com.javarush.island.siberia2.config.Constants;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -57,11 +59,11 @@ public class TileFiller {
     }
 
     private void generateWater(int[][] worldMap, int rows, int cols) {
-        int riverCount = 2 + random.nextInt(3);
+        int riverCount = Constants.RIVER_COUNT + random.nextInt(3);
 
         for (int i = 0; i < riverCount; i++) {
             int riverStart = random.nextInt(cols);
-            int currentCol =riverStart;
+            int currentCol = riverStart;
             for (int row = 0; row < rows; row++) {
                 worldMap[row][currentCol] = WATER_TILE;
                 if (currentCol > 0 && random.nextBoolean()) {
@@ -72,11 +74,11 @@ public class TileFiller {
             }
         }
 
-        int lakeCount = 1 + random.nextInt(5);
+        int lakeCount = Constants.LAKE_COUNT + random.nextInt(5);
         for (int i = 0; i < lakeCount; i++) {
             int lakeRow = random.nextInt(rows);
             int lakeCol = random.nextInt(cols);
-            for (int r = lakeRow; r < Math.min(lakeRow +3, rows); r++) {
+            for (int r = lakeRow; r < Math.min(lakeRow + 3, rows); r++) {
                 for (int c = lakeCol; c < Math.min(lakeCol + 3, cols); c++) {
                     worldMap[r][c] = WATER_TILE;
                 }
@@ -85,7 +87,7 @@ public class TileFiller {
     }
 
     private void generatePaths(int[][] worldMap, int rows, int cols) {
-        int pathCount = 2 + random.nextInt(3);
+        int pathCount = Constants.ROAD_COUNT + random.nextInt(3);
 
         for (int i = 0; i < pathCount; i++) {
             int pathStart = random.nextInt(rows);
