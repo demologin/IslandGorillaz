@@ -10,11 +10,11 @@ public class TileFiller {
     private int scale;
     private Random random;
 
-    private static final int WATER_TILE = 0;
-    private static final int SOIL_TILE = 1;
-    private static final int GRASS_TILE = 2;
-    private static final int PATH_TILE_1 = 3;
-    private static final int PATH_TILE_2 = 4;
+    public static final int WATER_TILE = 0;
+    public static final int SOIL_TILE = 1;
+    public static final int GRASS_TILE = 2;
+    public static final int PATH_TILE_1 = 3;
+    public static final int PATH_TILE_2 = 4;
 
     public TileFiller(TileManager tileManager, int tileSize, int scale) {
         this.tileManager = tileManager;

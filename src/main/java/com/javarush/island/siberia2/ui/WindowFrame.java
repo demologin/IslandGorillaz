@@ -2,6 +2,7 @@ package com.javarush.island.siberia2.ui;
 
 import com.javarush.island.siberia2.config.ConfigLoader;
 import com.javarush.island.siberia2.config.Settings;
+import com.javarush.island.siberia2.ui.tileFactory.ObjectLayer;
 import com.javarush.island.siberia2.ui.tileFactory.TileFiller;
 import com.javarush.island.siberia2.ui.tileFactory.TileManager;
 import com.javarush.island.siberia2.ui.tileFactory.TilePanel;
@@ -17,6 +18,7 @@ public class WindowFrame extends JFrame implements Runnable {
     int tileSize = settings.getWindowSettings().getTileSize();
     int scale = settings.getWindowSettings().getScale();
     private TileFiller tileFiller;
+    private ObjectLayer objectLayer;
     private TilePanel tilePanel;
 
     public WindowFrame() {
@@ -31,9 +33,14 @@ public class WindowFrame extends JFrame implements Runnable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         TileManager groundAssetToTile = new TileManager("/siberia2/tiles/Grass.png", tileSize);
-        tileFiller = new TileFiller(groundAssetToTile, tileSize, scale);
+        TileManager rocksAssetToTile = new TileManager("/siberia2/plants/Rocks.png", tileSize);
+        TileManager treesAssetToTile = new TileManager("/siberia2/plants/Trees.png", tileSize);
+        TileManager wheatAssetToTile = new TileManager("/siberia2/plants/Wheatfield.png", tileSize);
 
-        tilePanel = new TilePanel(tileFiller, islandWidth, islandHeight);
+        tileFiller = new TileFiller(groundAssetToTile, tileSize, scale);
+        objectLayer = new ObjectLayer(rocksAssetToTile, treesAssetToTile, wheatAssetToTile, tileSize, scale);
+
+        tilePanel = new TilePanel(tileFiller, objectLayer, islandWidth, islandHeight);
         add(tilePanel);
 
         Sound sound = new Sound();
