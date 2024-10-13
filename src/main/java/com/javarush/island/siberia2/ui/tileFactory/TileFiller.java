@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class TileFiller {
-    private TileManager tileManager;
-    private int tileSize;
-    private int scale;
-    private Random random;
+    private final TileManager tileManager;
+    private final int tileSize;
+    private final int scale;
+    private final Random random = new Random();
 
     public static final int WATER_TILE = 0;
     public static final int SOIL_TILE = 1;
@@ -20,7 +20,6 @@ public class TileFiller {
         this.tileManager = tileManager;
         this.tileSize = tileSize;
         this.scale = scale;
-        random = new Random();
     }
 
     public int[][] generateWorld(int islandWidth, int islandHeight) {

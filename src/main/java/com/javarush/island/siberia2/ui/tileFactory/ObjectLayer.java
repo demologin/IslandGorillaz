@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class ObjectLayer {
-    private TileManager rockManager;
-    private TileManager treeManager;
-    private TileManager wheatManager;
-    private int tileSize;
-    private int scale;
-    private Random random;
+    private final TileManager rockManager;
+    private final TileManager treeManager;
+    private final TileManager wheatManager;
+    private final int tileSize;
+    private final int scale;
+    private final Random random = new Random();
 
     public ObjectLayer(TileManager rockManager, TileManager treeManager, TileManager wheatManager, int tileSize, int scale) {
         this.rockManager = rockManager;
@@ -19,7 +19,6 @@ public class ObjectLayer {
         this.wheatManager = wheatManager;
         this.tileSize = tileSize;
         this.scale = scale;
-        this.random = new Random();
     }
 
     public int[][] generateObjectLayer(int[][] worldMap, int islandWidth, int islandHeight) {

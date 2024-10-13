@@ -4,18 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TilePanel extends JPanel {
-    private TileFiller tileFiller;
-    private ObjectLayer objectLayer;
-    private int islandWidth;
-    private int islandHeight;
-    private int[][] worldMap;
-    private int[][] objectMap;
+    private final TileFiller tileFiller;
+    private final ObjectLayer objectLayer;
+    private final int[][] worldMap;
+    private final int[][] objectMap;
 
     public TilePanel(TileFiller tileFiller, ObjectLayer objectLayer, int islandWidth, int islandHeight) {
         this.tileFiller = tileFiller;
         this.objectLayer = objectLayer;
-        this.islandWidth = islandWidth;
-        this.islandHeight = islandHeight;
 
         worldMap = tileFiller.generateWorld(islandWidth, islandHeight);
         objectMap = objectLayer.generateObjectLayer(worldMap, islandWidth, islandHeight);

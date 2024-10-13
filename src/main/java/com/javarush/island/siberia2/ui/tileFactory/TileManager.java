@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class TileManager {
     private BufferedImage asset;
-    private int tileSize;
+    private final int tileSize;
     private int tilesPerRow;
 
     public TileManager(String resourcePath, int tileSize) {

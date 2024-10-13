@@ -18,9 +18,6 @@ public class WindowFrame extends JFrame implements Runnable {
     int windowHeight = settings.getWindowSettings().getHeight();
     int tileSize = settings.getWindowSettings().getTileSize();
     int scale = settings.getWindowSettings().getScale();
-    private TileFiller tileFiller;
-    private ObjectLayer objectLayer;
-    private TilePanel tilePanel;
 
     public WindowFrame() {
         initUI();
@@ -38,10 +35,10 @@ public class WindowFrame extends JFrame implements Runnable {
         TileManager treesAssetToTile = new TileManager(Constants.TREES_PATH_X16, tileSize);
         TileManager wheatAssetToTile = new TileManager(Constants.WHEATS_PATH_X16, tileSize);
 
-        tileFiller = new TileFiller(groundAssetToTile, tileSize, scale);
-        objectLayer = new ObjectLayer(rocksAssetToTile, treesAssetToTile, wheatAssetToTile, tileSize, scale);
+        TileFiller tileFiller = new TileFiller(groundAssetToTile, tileSize, scale);
+        ObjectLayer objectLayer = new ObjectLayer(rocksAssetToTile, treesAssetToTile, wheatAssetToTile, tileSize, scale);
 
-        tilePanel = new TilePanel(tileFiller, objectLayer, islandWidth, islandHeight);
+        TilePanel tilePanel = new TilePanel(tileFiller, objectLayer, islandWidth, islandHeight);
         add(tilePanel);
 
         Sound sound = new Sound();
