@@ -2,7 +2,6 @@ package com.javarush.island.gerasimov.entity.creatures;
 
 import com.javarush.island.gerasimov.entity.map.Cell;
 import com.javarush.island.gerasimov.entity.map.GameMap;
-
 import com.javarush.island.gerasimov.intefaces.ReproductionAble;
 import com.javarush.island.gerasimov.service.EntityService;
 import lombok.Getter;
@@ -32,7 +31,7 @@ public abstract class Organism implements ReproductionAble {
 
     public synchronized Cell appointmentTargetCell(Cell currentCell) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        int ran = random.nextInt(this.getMaxSpeed()+1);
+        int ran = random.nextInt(this.getMaxSpeed() + 1);
         currentCell = this.getCurrentCell();
         int row = currentCell.getRow();
         int col = currentCell.getCol();

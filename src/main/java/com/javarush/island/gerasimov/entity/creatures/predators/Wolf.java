@@ -1,15 +1,7 @@
 package com.javarush.island.gerasimov.entity.creatures.predators;
 
-import com.javarush.island.gerasimov.entity.creatures.Organism;
-import com.javarush.island.gerasimov.entity.creatures.Plant;
-import com.javarush.island.gerasimov.entity.creatures.herbivores.Herbivore;
-import com.javarush.island.gerasimov.entity.creatures.herbivores.Horse;
 import com.javarush.island.gerasimov.entity.map.Cell;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

@@ -2,7 +2,6 @@ package com.javarush.island.gerasimov.entity.creatures;
 
 import com.javarush.island.gerasimov.entity.creatures.grass.Grass;
 import com.javarush.island.gerasimov.entity.map.Cell;
-import com.javarush.island.gerasimov.service.EntityService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,33 +21,31 @@ public abstract class Plant extends Organism {
 
     @Override
     public synchronized boolean reproduce(Cell currentCell) {
-            targetCell = appointmentTargetCell(this.getCurrentCell());
-            currentCell = this.getCurrentCell();
-//        System.out.println("CURRR"+currentCell);
-//        System.out.println("TARRR"+targetCell);
-            int countPlantCurrentCell = 0;
-            for (Organism organism : currentCell.getOrganisms()) {
-                if (organism.getClass().equals(this.getClass())) {
-                    countPlantCurrentCell++;
-                }
+        targetCell = appointmentTargetCell(this.getCurrentCell());
+        currentCell = this.getCurrentCell();
+        int countPlantCurrentCell = 0;
+        for (Organism organism : currentCell.getOrganisms()) {
+            if (organism.getClass().equals(this.getClass())) {
+                countPlantCurrentCell++;
             }
-            int countPlantTargetCell = 0;
-            for (Organism organism : targetCell.getOrganisms()) {
-                if (organism.getClass().equals(this.getClass())) {
-                    countPlantTargetCell++;
-                }
+        }
+        int countPlantTargetCell = 0;
+        for (Organism organism : targetCell.getOrganisms()) {
+            if (organism.getClass().equals(this.getClass())) {
+                countPlantTargetCell++;
             }
-            if (countPlantCurrentCell < this.getMaxCountInCell()) {
+        }
+        if (countPlantCurrentCell < this.getMaxCountInCell()) {
+            Organism organism = new Grass();
+            currentCell.getOrganisms().add(organism);
+        } else {
+            if (countPlantTargetCell < this.getMaxCountInCell()) {
                 Organism organism = new Grass();
-                currentCell.getOrganisms().add(organism);
-            } else  {
-                if (countPlantTargetCell < this.getMaxCountInCell()) {
-                    Organism organism = new Grass();
-                    targetCell.getOrganisms().add(organism);
-                }
-                return false;
+                targetCell.getOrganisms().add(organism);
             }
-            reproduceCounter++;
-            return true;
+            return false;
+        }
+        reproduceCounter++;
+        return true;
     }
 }

@@ -1,14 +1,9 @@
 package com.javarush.island.gerasimov.entity.creatures.grass;
 
 import com.javarush.island.gerasimov.entity.creatures.Plant;
-import com.javarush.island.gerasimov.entity.map.Cell;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.Objects;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Grass extends Plant {
@@ -21,7 +16,7 @@ public class Grass extends Plant {
 
     @Override
     public String toString() {
-        return getIcon()+getId();
+        return getIcon() + getId();
     }
 }
 

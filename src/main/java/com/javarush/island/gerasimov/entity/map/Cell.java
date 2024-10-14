@@ -1,9 +1,8 @@
 package com.javarush.island.gerasimov.entity.map;
+
 import com.javarush.island.gerasimov.entity.creatures.Organism;
 import lombok.Data;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
@@ -25,7 +24,7 @@ public class Cell {
 
     @Override
     public String toString() {
-        return "Ячейка" + id  +
+        return "Ячейка" + id +
                 ", множество=" + organisms +
                 '}';
     }

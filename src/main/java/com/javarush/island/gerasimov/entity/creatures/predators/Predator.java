@@ -6,7 +6,6 @@ import com.javarush.island.gerasimov.entity.creatures.herbivores.*;
 import com.javarush.island.gerasimov.entity.map.Cell;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public abstract class Predator extends Animal {
             case Horse horse -> eating(horse, this.getProbabilityEatenHorse());
             case Buffalo buffalo -> eating(buffalo, this.getProbabilityEatenBuffalo());
             case Deer deer -> eating(deer, this.getProbabilityEatenDeer());
-            case Boar boar -> eating(boar , this.getProbabilityEatenBoar());
+            case Boar boar -> eating(boar, this.getProbabilityEatenBoar());
             case Sheep sheep -> eating(sheep, this.getProbabilityEatenSheep());
             case Goat goat -> eating(goat, this.getProbabilityEatenGoat());
             case Duck duck -> eating(duck, this.getProbabilityEatenDuck());

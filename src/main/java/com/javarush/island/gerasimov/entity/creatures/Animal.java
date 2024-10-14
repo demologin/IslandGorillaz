@@ -1,12 +1,10 @@
 package com.javarush.island.gerasimov.entity.creatures;
 
 import com.javarush.island.gerasimov.entity.map.Cell;
-
 import com.javarush.island.gerasimov.intefaces.EatAble;
 import com.javarush.island.gerasimov.intefaces.MoveAble;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -64,7 +62,7 @@ public abstract class Animal extends Organism implements MoveAble, EatAble {
         int chooseAnimal = random.nextInt(organismsForReproduce.size());
 
         if ((!organismsForReproduce.get(chooseAnimal).equals(this)) && probabilityReproduce < 30 && counter < this.getMaxCountInCell()) {
-            Organism newAnimal =  this;
+            Organism newAnimal = this;
             newAnimal.setWeight(this.getWeight() / 3);
             targetCell.getOrganisms().add(newAnimal);
         }
