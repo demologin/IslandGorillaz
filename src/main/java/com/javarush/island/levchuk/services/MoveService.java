@@ -10,19 +10,11 @@ import java.util.stream.Collectors;
 
 public class MoveService {
     public void moveAllInCall(Cell cell) {
-        List<Class<? extends Entity>> entitiesTypes = cell.getResidents().keySet()
-                .stream().filter(Movable.class::isAssignableFrom).collect(Collectors.toList());
-        for (Class<? extends Entity> entityClass : entitiesTypes) {
-            if (!cell.getResidents().get(entityClass).isEmpty()) {
-                moveTypeInCell(cell.getResidents().get(entityClass), cell);
-            }
+        List<Movable> movables = cell.getResidents().values().stream()
+                .flatMap(List::stream)
+                .filter(Movable.class::isInstance)
+                .map(Movable.class::cast)
+                .collect(Collectors.toList());
+        movables.forEach(movable -> movable.move(cell));
         }
     }
-
-    private void moveTypeInCell(List<Entity> entities, Cell cell) {
-        ListIterator<Entity> iterator = entities.listIterator();
-        while (iterator.hasNext()) {
-            ((Movable) iterator.next()).move(cell);
-        }
-    }
-}

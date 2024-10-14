@@ -58,7 +58,10 @@ public class Cell {
     }
 
     public boolean checkFreeSpace(Entity entity) {
-
+        if (!residents.containsKey(entity.getClass())) {
+            residents.put(entity.getClass(), new ArrayList<>());
+            return true;
+        }
         if (residents.get(entity.getClass()).size() < entity.getAmountMax()) {
             return true;
         }

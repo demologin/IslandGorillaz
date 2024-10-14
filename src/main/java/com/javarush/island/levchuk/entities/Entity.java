@@ -20,7 +20,7 @@ public class Entity implements Reproductive {
 
 
     @Override
-    public < T extends Entity> T reproduce() {
+    public < T extends Entity> T reproduce(Cell cell) {
         T childEntity = (T) EntityFactory.getEntity(this.getClass());
         return childEntity;
     }
