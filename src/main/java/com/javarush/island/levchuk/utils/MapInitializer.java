@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class MapInitializer {
+
     public void createEmptyMap(Cell[][] map) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -19,9 +20,9 @@ public class MapInitializer {
             }
         }
     }
-    public void fillMapEntities(Cell[][] map) {
-        EntityFactory entityFactory = new EntityFactory();
-        PrototypesCreator prototypesCreator = new PrototypesCreator();
+
+    public void fillMapEntities(Cell[][] map, EntityFactory entityFactory, PrototypesCreator prototypesCreator ) {
+        createEmptyMap(map);
         entityFactory.registerEntity(prototypesCreator.loadPrototypes());
         Map<Class<? extends Entity>, Entity> entities = EntityFactory.getEntities();
         for (int row = 0; row < map.length; row++) {
