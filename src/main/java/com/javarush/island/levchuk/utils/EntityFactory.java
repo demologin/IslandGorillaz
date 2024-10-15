@@ -25,9 +25,11 @@ public class EntityFactory {
     }
 
     public static Class<? extends Entity> getEntityClass(String className) {
-        return entities.keySet().stream()
-                .filter(e -> e.getName().equals(className))
-                .findFirst().get();
+        return entities.entrySet().stream()
+                .filter( entry -> entry.getValue().getName().equals(className))
+                .findFirst()
+                .map(Map.Entry :: getKey)
+                .orElse(null);
 
     }
 
