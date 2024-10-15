@@ -5,11 +5,8 @@ import com.javarush.island.levchuk.liveActions.Reproductive;
 import com.javarush.island.levchuk.map.Cell;
 
 import com.javarush.island.levchuk.utils.EntityFactory;
-import com.javarush.island.levchuk.utils.Randomizer;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

@@ -1,6 +1,5 @@
 package com.javarush.island.levchuk.engine;
 
-import com.javarush.island.levchuk.map.Cell;
 import com.javarush.island.levchuk.map.IslandMap;
 import com.javarush.island.levchuk.services.EatingService;
 import com.javarush.island.levchuk.services.MoveService;
@@ -17,10 +16,14 @@ public class TaskManager {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
                 .flatMap(Arrays::stream)
                 .map(cell -> (Callable<Void>) () -> {
-                    cell.getLock().lock();
-                    eatingService.eatAllInCell(cell);
-                    cell.getLock().unlock();
-                    return null;
+                    try {
+                        cell.getLock().lock();
+                        eatingService.eatAllInCell(cell);
+                        cell.getLock().unlock();
+                        return null;
+                    } finally {
+                        cell.getLock().unlock();
+                    }
                 })
                 .toList();
     }
@@ -29,10 +32,13 @@ public class TaskManager {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
                 .flatMap(Arrays::stream)
                 .map(cell -> (Callable<Void>) () -> {
-                    cell.getLock().lock();
-                    moveService.moveAllInCall(cell);
-                    cell.getLock().unlock();
-                    return null;
+                    try {
+                        cell.getLock().lock();
+                        moveService.moveAllInCall(cell);
+                        return null;
+                    } finally {
+                        cell.getLock().unlock();
+                    }
                 })
                 .toList();
     }
@@ -41,11 +47,14 @@ public class TaskManager {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
                 .flatMap(Arrays::stream)
                 .map(cell -> (Callable<Void>) () -> {
-                    cell.getLock().lock();
-                    reproduceService.reproduceAllInCall(cell);
-                    cell.getLock().unlock();
-                    return null;
-
+                    try {
+                        cell.getLock().lock();
+                        reproduceService.reproduceAllInCall(cell);
+                        cell.getLock().unlock();
+                        return null;
+                    } finally {
+                        cell.getLock().unlock();
+                    }
                 })
                 .toList();
     }
