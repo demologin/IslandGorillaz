@@ -12,15 +12,13 @@ import com.javarush.island.siberia2.services.ReproductionService;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.concurrent.locks.ReentrantLock;
-//import net.jcip.annotations.ThreadSafe;
 
 @Getter
 @Setter
-//@ThreadSafe
 public abstract class Animal extends Organism implements Eatable, Reproducible, Movable {
     protected AnimalSettings settings;
     protected double currentFoodLevel;
-    protected final ReentrantLock lock = new ReentrantLock();
+    protected ReentrantLock lock = new ReentrantLock();
 
     private EatingService eatingService;
     private MovementService movementService;

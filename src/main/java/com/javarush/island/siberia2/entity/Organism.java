@@ -16,4 +16,5 @@ public abstract class Organism implements Cloneable{
     public Organism clone() throws CloneNotSupportedException{
         return (Organism) super.clone();
     }
+
 }
