@@ -9,6 +9,7 @@ import com.javarush.island.levchuk.utils.Randomizer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,36 +23,7 @@ public class Animal extends Entity implements Eating, Movable {
     private int speedMax;
     private Map<String, Integer> likelyFood;
 
-    @Override
-    public void eat(Cell cell) {
-        List<String> foodTypes = likelyFood
-                .entrySet().stream()
-                .filter(m -> m.getValue() > 0)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-        if (!foodTypes.isEmpty()) {
-            String food = foodTypes.get(Randomizer.getRandomInt(foodTypes.size()));
-            Integer chanceToEat = likelyFood.get(food);
-            if (chanceToEat >= Randomizer.getRandomInt(Constants.MAX_CHANCE_TO_EAT)) {
-                Class<? extends Entity> targetFood = EntityFactory.getEntityClass(food);
-                List<Entity> entityList = cell.getResidents().get(targetFood);
-                if (entityList != null && !entityList.isEmpty()) {
-                    double saturation = 0;
-                    if (entityList.get(0) instanceof Animal) {
-                        saturation = ((Animal) entityList.get(0)).getWeightDefault();
-                    } else {
-                        saturation = weightSaturation;
-                    }
-                    weight = weight + saturation;
-                    cell.removeEntity(entityList.get(0));
-                }
-            }
-        }
-        weight = weight - weightSaturation;
-        if (weight / ((Animal) EntityFactory.getEntity(this.getClass())).getWeightDefault() < Constants.MIN_PERCENT_WEIGHT_TO_DIE) {
-            cell.removeEntity(this);
-        }
-    }
+
 
     @Override
     public void move(Cell cell) {
@@ -67,5 +39,43 @@ public class Animal extends Entity implements Eating, Movable {
             targetCell.addEntity(this);
             cell.removeEntity(this);
         }
+    }
+    @Override
+    public void eat(Cell cell) {
+        List<String> potentialFoodTypes = getPotentialFood();
+        if (!potentialFoodTypes.isEmpty()) {
+            String foodType = potentialFoodTypes.get(Randomizer.getRandomInt(potentialFoodTypes.size()));
+            int chanceToEat = likelyFood.get(foodType);
+            if (chanceToEat >= Randomizer.getRandomInt(Constants.MAX_CHANCE_TO_EAT)) {
+                tryToEat(foodType, cell);
+            }
+
+            weight-=weightSaturation;
+            if (minimumPossibleWeightThresholdHasBeenExceed()) {
+                cell.removeEntity(this);
+            }
+        }
+    }
+
+    private List<String> getPotentialFood() {
+        return likelyFood.entrySet().stream()
+                .filter(entry -> entry.getValue() > 0)
+                .map(Map.Entry::getKey)
+                .filter(entityName -> EntityFactory.getEntityClass(entityName) !=null)
+                .collect(Collectors.toList());
+    }
+    private boolean minimumPossibleWeightThresholdHasBeenExceed() {
+        return weight / ((Animal) EntityFactory.getEntity(getClass())).getWeightDefault() < Constants.MIN_PERCENT_WEIGHT_TO_DIE;
+    }
+    private void tryToEat(String selectedFood, Cell cell) {
+        cell.getResidents().computeIfPresent(EntityFactory.getEntityClass(selectedFood),( food, entities) ->{
+            if(!entities.isEmpty()){
+                Entity entity = entities.get(0);
+                double saturation = (entity instanceof Animal ? ((Animal) entity).getWeight() : weightSaturation);
+                weight += saturation;
+                entities.remove(0);
+            }
+            return entities;
+        });
     }
 }

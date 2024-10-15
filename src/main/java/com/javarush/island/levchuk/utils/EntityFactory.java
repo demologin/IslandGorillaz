@@ -31,6 +31,7 @@ public class EntityFactory {
 
     }
 
+
     public static <T> T copyEntity(T entity) {
         Class<?> entityClass = entity.getClass();
         T newEntity;
