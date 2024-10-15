@@ -37,7 +37,12 @@ public class WindowFrame extends JFrame implements Runnable {
         WindowFrame.initResource initResource = getInitResource();
 
         TileFiller tileFiller = new TileFiller(initResource.groundAssetToTile(), tileSize, scale, mapData);
-        ObjectLayer objectLayer = new ObjectLayer(initResource.rocksAssetToTile(), initResource.treesAssetToTile(), initResource.wheatAssetToTile(), tileSize, scale, mapData);
+        ObjectLayer objectLayer = new ObjectLayer(initResource.rocksAssetToTile(),
+                initResource.treesAssetToTile(),
+                initResource.wheatAssetToTile(),
+                tileSize,
+                scale,
+                mapData);
 
         TilePanel tilePanel = new TilePanel(tileFiller, objectLayer);
         add(tilePanel);
@@ -48,14 +53,20 @@ public class WindowFrame extends JFrame implements Runnable {
         sound.loop();
     }
 
-    private record initResource(TileManager groundAssetToTile, TileManager rocksAssetToTile, TileManager treesAssetToTile, TileManager wheatAssetToTile) {
+    private record initResource(TileManager groundAssetToTile,
+                                TileManager rocksAssetToTile,
+                                TileManager treesAssetToTile,
+                                TileManager wheatAssetToTile) {
     }
     private initResource getInitResource() {
         TileManager groundAssetToTile = new TileManager(Constants.GRASS_PATH_X16, tileSize);
         TileManager rocksAssetToTile = new TileManager(Constants.ROCKS_PATH_X16, tileSize);
         TileManager treesAssetToTile = new TileManager(Constants.TREES_PATH_X16, tileSize);
         TileManager wheatAssetToTile = new TileManager(Constants.WHEATS_PATH_X16, tileSize);
-        initResource initResource = new initResource(groundAssetToTile, rocksAssetToTile, treesAssetToTile, wheatAssetToTile);
+        initResource initResource = new initResource(groundAssetToTile,
+                rocksAssetToTile,
+                treesAssetToTile,
+                wheatAssetToTile);
         return initResource;
     }
 

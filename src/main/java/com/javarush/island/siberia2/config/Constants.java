@@ -30,5 +30,23 @@ public class Constants {
     public static final String ERROR_LOAD_SETTING = "Error loading settings";
     public static final String RANDOM_UTIL_MIX_MAX = "min must be < max";
     public static final String RANDOM_UTIL_PERCENT = "percent must be from 0 to 100";
+    public static final String ISLAND_OUT_IF_ISLAND = "Coordinates out of island bounds";
+    public static final String FACTORY_UNKNOWN_ANIMAL = "Unknown animal: ";
 
+    //ANIMALS PNG PATHS
+    public static final String PNG_WOLF_PATH = "/siberia2/x16/animals/Wolf.png";
+    public static final String PNG_BOA_PATH = "/siberia2/x16/animals/Boa.png";
+    public static final String PNG_FOX_PATH = "/siberia2/x16/animals/Fox.png";
+    public static final String PNG_BEAR_PATH = "/siberia2/x16/animals/Bear.png";
+    public static final String PNG_EAGLE_PATH = "/siberia2/x16/animals/Eagle.png";
+    public static final String PNG_HORSE_PATH = "/siberia2/x16/animals/Horse.png";
+    public static final String PNG_DEER_PATH = "/siberia2/x16/animals/Deer.png";
+    public static final String PNG_RABBIT_PATH = "/siberia2/x16/animals/Rabbit.png";
+    public static final String PNG_MOUSE_PATH = "/siberia2/x16/animals/Mouse.png";
+    public static final String PNG_GOAT_PATH = "/siberia2/x16/animals/Goat.png";
+    public static final String PNG_SHEEP_PATH = "/siberia2/x16/animals/Sheep.png";
+    public static final String PNG_BOAR_PATH = "/siberia2/x16/animals/Boar.png";
+    public static final String PNG_BUFFALO_PATH = "/siberia2/x16/animals/Buffalo.png";
+    public static final String PNG_DUCK_PATH = "/siberia2/x16/animals/Duck.png";
+    public static final String PNG_CATERPILLAR_PATH = "/siberia2/x16/animals/Caterpillar.png";
 }

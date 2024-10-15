@@ -12,6 +12,7 @@ public class MapDataTerrain {
     private final int height;
     private final Random random = new Random();
 
+    //for easy object index
     public static final int WATER_TILE = 0;
     public static final int SOIL_TILE = 1;
     public static final int GRASS_TILE = 2;

@@ -13,6 +13,7 @@ public class MapDataObject {
     private final int height;
     private final Random random = new Random();
 
+    //for easy terrain index
     public static final int NO_OBJECT = -1;
     public static final int ROCK_OBJECT = 0;
     public static final int TREE_OBJECT = 100;
