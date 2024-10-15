@@ -1,5 +1,6 @@
 package com.javarush.island.siberia2.api;
 
-public interface Runnable {
+@FunctionalInterface
+public interface Movable {
     void move();
 }
