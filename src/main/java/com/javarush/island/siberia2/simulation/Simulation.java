@@ -7,6 +7,7 @@ import com.javarush.island.siberia2.entity.map.Cell;
 import com.javarush.island.siberia2.entity.map.Island;
 import com.javarush.island.siberia2.entity.map.MapData;
 import com.javarush.island.siberia2.services.PopulateOrganisms;
+import com.javarush.island.siberia2.services.StatisticsService;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Simulation implements Runnable{
     @Getter
     private final Island island;
+    private final StatisticsService statisticsService;
     private final int simulationStepDuration;
     int numberOfThreads = Runtime.getRuntime().availableProcessors();
     private final AtomicInteger bornCount = new AtomicInteger(0);
@@ -29,6 +31,7 @@ public class Simulation implements Runnable{
         this.simulationStepDuration = settings.getIslandSettings().getSimulationStepDuration();
         MapData mapData = new MapData(settings.getIslandSettings().getWidth(), settings.getIslandSettings().getHeight());
         this.island = new Island(settings.getIslandSettings().getWidth(), settings.getIslandSettings().getHeight(), mapData);
+        this.statisticsService = new StatisticsService(island);
 
         PopulateOrganisms populateOrganisms = new PopulateOrganisms();
         populateOrganisms.populate(island, settings);
@@ -39,7 +42,16 @@ public class Simulation implements Runnable{
     public void run() {
         while (true) {
             simulateStep();
-            Thread.sleep(simulationStepDuration);
+            statisticsService.printStatistics(bornCount.get(), eatenCount.get(), starvedCount.get());
+            bornCount.set(0);
+            eatenCount.set(0);
+            starvedCount.set(0);
+            //Thread.sleep(simulationStepDuration);
+            try {
+                Thread.sleep(simulationStepDuration);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
@@ -98,17 +110,17 @@ public class Simulation implements Runnable{
 
                     animal.liveCycle();
 
-//                    if (animal.getCurrentFoodLevel() <= 0) {
-//                        starvedCount.incrementAndGet();
-//                    }
-//
-//                    if (cell.getAnimals().size() > organisms.size()) {
-//                        bornCount.incrementAndGet();
-//                    }
-//
-//                    if (animal.getCurrentFoodLevel() > previousFoodLevel) {
-//                        eatenCount.incrementAndGet();
-//                    }
+                    if (animal.getCurrentFoodLevel() <= 0) {
+                        starvedCount.incrementAndGet();
+                    }
+
+                    if (cell.getAnimals().size() > organisms.size()) {
+                        bornCount.incrementAndGet();
+                    }
+
+                    if (animal.getCurrentFoodLevel() > previousFoodLevel) {
+                        eatenCount.incrementAndGet();
+                    }
                 }
             }
         }

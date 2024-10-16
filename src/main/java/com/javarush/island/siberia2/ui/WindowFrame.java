@@ -40,9 +40,6 @@ public class WindowFrame extends JFrame implements Runnable {
         tilePanel = getTilePanel(mapData, island);
         add(tilePanel);
 
-        Simulation simulation = new Simulation(settings);
-        new Thread(simulation).start();
-
         Sound sound = new Sound();
         sound.setFile(0);
         sound.play();
@@ -59,9 +56,10 @@ public class WindowFrame extends JFrame implements Runnable {
                 tileSize,
                 scale,
                 island.getMapData());
+        PlantLayer plantLayer = new PlantLayer(island, settings, tileSize, scale);
         AnimalLayer animalLayer = new AnimalLayer(island, settings, tileSize, scale);
 
-        return new TilePanel(tileFiller, objectLayer, animalLayer);
+        return new TilePanel(tileFiller, objectLayer, animalLayer, plantLayer);
     }
 
     private record initResource(TileManager groundAssetToTile,
@@ -83,6 +81,11 @@ public class WindowFrame extends JFrame implements Runnable {
         SwingUtilities.invokeLater(() -> {
             setVisible(true);
             tilePanel.repaint();
+
+            new Thread(() -> {
+                Simulation simulation = new Simulation(settings);
+                simulation.run();
+            }).start();
         });
     }
 

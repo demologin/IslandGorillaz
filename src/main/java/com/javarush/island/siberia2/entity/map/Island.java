@@ -24,7 +24,8 @@ public class Island {
             for (int x = 0; x < width; x++) {
                 int tileIndex = terrainMap[y][x];
                 boolean isWater = (tileIndex == MapDataTerrain.WATER_TILE);
-                cells[y][x] = new Cell(x, y, isWater, this);            }
+                cells[y][x] = new Cell(x, y, isWater, this);
+            }
         }
     }
 

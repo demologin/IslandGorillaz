@@ -7,11 +7,13 @@ public class TilePanel extends JPanel {
     private final TileFiller tileFiller;
     private final ObjectLayer objectLayer;
     private final AnimalLayer animalLayer;
+    private final PlantLayer plantLayer;
 
-    public TilePanel(TileFiller tileFiller, ObjectLayer objectLayer, AnimalLayer animalLayer) {
+    public TilePanel(TileFiller tileFiller, ObjectLayer objectLayer, AnimalLayer animalLayer, PlantLayer plantLayer) {
         this.tileFiller = tileFiller;
         this.objectLayer = objectLayer;
         this.animalLayer = animalLayer;
+        this.plantLayer = plantLayer;
     }
 
     @Override
@@ -19,7 +21,8 @@ public class TilePanel extends JPanel {
         super.paintComponent(g);
         tileFiller.renderWorld(g, getWidth(), getHeight());
         objectLayer.renderObjectLayer(g, getWidth(), getHeight());
-        animalLayer.renderAnimals(g);
+        plantLayer.renderPlants(g, getWidth(), getHeight());
+        animalLayer.renderAnimals(g, getWidth(), getHeight());
     }
 
 }

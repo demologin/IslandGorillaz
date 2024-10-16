@@ -1,20 +1,19 @@
 package com.javarush.island.siberia2.ui.tileFactory;
 
-import com.javarush.island.siberia2.config.Constants;
 import com.javarush.island.siberia2.config.Settings;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.map.Cell;
 import com.javarush.island.siberia2.entity.map.Island;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AnimalLayer {
-
     private final Island island;
     private final int tileSize;
     private final int scale;
@@ -31,41 +30,24 @@ public class AnimalLayer {
     }
 
     private void loadAnimalImages() {
-        settings.getAnimalsSettings().forEach((name, animalSettings) -> {
-            String imgPath = animalSettings.getImgPath();
-            BufferedImage image = loadImageFromResources(imgPath);
-            if (image != null) {
-                animalImages.put(name, image);
-                //// для отладки. удалить
-                System.out.println("изо для животинки: " + name);
-            } else {
-                // для отладки. удалить
-                System.err.println("изо не загружено: " + name + " from path: " + imgPath);
+        settings.getAnimalsSettings().forEach((animalName, animalSettings) -> {
+            BufferedImage animalImage = null;
+            try {
+                animalImage = ImageIO.read(getClass().getResourceAsStream(animalSettings.getImgPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            animalImages.put(animalName, animalImage);
         });
     }
 
-    private BufferedImage loadImageFromResources(String resourcePath) {
-        try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(resourcePath)));
-        } catch (Exception e) {
-            System.err.println(Constants.ERROR_LOAD_IMG + resourcePath);
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void renderAnimals(Graphics g) {
+    public void renderAnimals(Graphics g, int width, int height) {
         int scaledTileSize = tileSize * scale;
 
         for (int y = 0; y < island.getHeight(); y++) {
             for (int x = 0; x < island.getWidth(); x++) {
                 Cell cell = island.getCell(x, y);
                 List<Animal> animals = cell.getAnimals();
-
-                if (!animals.isEmpty()) {
-                    System.out.println("Rendering " + animals.size() + " animals at (" + x + ", " + y + ")");
-                }
 
                 int maxAnimalsToDraw = Math.min(animals.size(), 4);
                 int animalIndex = 0;
@@ -77,17 +59,11 @@ public class AnimalLayer {
                         int drawX = x * scaledTileSize + (animalIndex % 2) * (tileSize / 2);
                         int drawY = y * scaledTileSize + (animalIndex / 2) * (tileSize / 2);
 
-                        // для отладки. удалить
-                        System.out.println("животинка нарисована: " + animal.getSettings().getName() + " at (" + drawX + ", " + drawY + ")");
-
-
-                        g.drawImage(animalImage, drawX, drawY, tileSize, tileSize, null);
+                        if (drawX < width && drawY < height) {
+                            g.drawImage(animalImage, drawX, drawY, tileSize, tileSize, null);
+                        }
                         animalIndex++;
                     }
-                    // для отладки. удалить
-                    else {
-                    System.err.println("нет изо для животинки " + animal.getSettings().getName());
-                }
                 }
             }
         }
