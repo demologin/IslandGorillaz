@@ -32,6 +32,6 @@ public class Snake extends Predator{
 
     @Override
     public String toString() {
-        return getIcon() + getId();
+        return getIcon();
     }
 }

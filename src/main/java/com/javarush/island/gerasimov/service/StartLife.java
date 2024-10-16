@@ -36,7 +36,7 @@ public class StartLife extends Thread {
         int ran = random.nextInt(organisms.size());
         Organism organism = organisms.get(ran);
         organism.setCurrentCell(currentCell);
-        organism.setGameMap(gameMap);
+//        organism.setGameMap(gameMap);
         return organism;
     }
 

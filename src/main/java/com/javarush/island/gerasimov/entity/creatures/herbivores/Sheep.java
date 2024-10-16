@@ -18,6 +18,6 @@ public class Sheep extends Herbivore{
 
     @Override
     public String toString() {
-        return getIcon() + getId();
+        return getIcon();
     }
 }

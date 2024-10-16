@@ -1,16 +1,16 @@
 package com.javarush.island.gerasimov;
 
 import com.javarush.island.gerasimov.service.*;
-
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Runner {
 
-    public static ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(4);
+    public static ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(5);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 
         EntityCreator entityCreator = new EntityCreator();
         entityCreator.start();

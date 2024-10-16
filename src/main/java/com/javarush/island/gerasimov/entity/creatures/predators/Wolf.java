@@ -1,11 +1,14 @@
 package com.javarush.island.gerasimov.entity.creatures.predators;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.javarush.island.gerasimov.entity.map.Cell;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@JsonPOJOBuilder
 public class Wolf extends Predator {
 
     private String name = "Волк";
@@ -33,6 +36,6 @@ public class Wolf extends Predator {
 
     @Override
     public String toString() {
-        return getIcon() + getId();
+        return getIcon();
     }
 }

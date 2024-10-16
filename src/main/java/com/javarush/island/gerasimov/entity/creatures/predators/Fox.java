@@ -33,6 +33,6 @@ public class Fox extends Predator{
 
     @Override
     public String toString() {
-        return getIcon() + getId();
+        return getIcon();
     }
 }

@@ -14,8 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 public abstract class Organism implements ReproductionAble {
 
-    private static final AtomicInteger COUNTER = new AtomicInteger(1);
-    private int id;
     private String name;
     private String icon;
     private double weight;
@@ -24,11 +22,6 @@ public abstract class Organism implements ReproductionAble {
     private double maxFood;
     private volatile Cell currentCell;
     private volatile Cell targetCell;
-    private GameMap gameMap = EntityCreator.gameMap;
-
-    public Organism() {
-        id = COUNTER.getAndIncrement();
-    }
 
     /*
     Returns a cell with a possible direction of movement
@@ -36,12 +29,12 @@ public abstract class Organism implements ReproductionAble {
     */
 
     public synchronized Cell appointmentTargetCell(Cell currentCell) {
+        GameMap gameMap = EntityCreator.gameMap;
         ThreadLocalRandom random = ThreadLocalRandom.current();
         int ran = random.nextInt(this.getMaxSpeed() + 1);
-        currentCell = this.getCurrentCell();
         int row = currentCell.getRow();
         int col = currentCell.getCol();
-        targetCell = currentCell;
+        Cell targetCell = currentCell;
         try {
             if (row > ran) {
                 targetCell = gameMap.getCells()
