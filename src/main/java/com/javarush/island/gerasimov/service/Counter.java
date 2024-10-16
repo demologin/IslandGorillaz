@@ -81,9 +81,9 @@ public class Counter extends Thread {
 
         counter++;
 
-        System.out.println("*** Неделя на острове: " + counter + " ***" + "\n" +
-                "Всего на острове " + sumOrganisms + " организмов: " + (sumOrganisms - countGrass) + " животных и " + countGrass + " растений.\n" +
-                "Животные: " +
+        System.out.println("*** Week on the island: " + counter + " ***" + "\n" +
+                "Total organisms on the islands: " + sumOrganisms + ". Animals: " + (sumOrganisms - countGrass) + ", plants: " + countGrass + ".\n" +
+                "Animals: " +
                 "\uD83D\uDC17" + "=" + countBoar +
                 " \uD83D\uDC3A" + "=" + countWolf +
                 " \uD83D\uDC0E" + "=" + countHorse +
@@ -99,15 +99,15 @@ public class Counter extends Thread {
                 " \uD83D\uDC2D" + "=" + countMouse +
                 " \uD83D\uDC07" + "=" + countRabbit +
                 " \uD83D\uDC11" + "=" + countSheep + "\n" +
-                "Растения: " + "\uD83C\uDF3F" + countGrass + "\n\n" +
-                "-Растений выросло: " + Plant.reproduceCounter + "\n" +
-                "-Растений съедено: " + Herbivore.eatCounter + "\n" +
-                "-Растений умерло своей смертью: " + PlantsControlWeight.deadCounter + "\n" +
-                "-Перемещений животных в другие локации: " + Animal.moveCounter + "\n" +
-                "-Съедено животных: " + Predator.eatCounter + "\n" +
-                "-Родилось животных: " + Animal.reproduceCounter + "\n" +
-                "-Хищных животных умерло от голода: " + PredatorsDecrementWeight.deadCounter + "\n" +
-                "-Травоядных животных умерло от голода: " + HerbivoresDecrementWeight.deadCounter + "\n" +
+                "Plants: " + "\uD83C\uDF3F" + countGrass + "\n\n" +
+                "-Plants grown: " + Plant.reproduceCounter + "\n" +
+                "-Plants eaten: " + Herbivore.eatCounter + "\n" +
+                "-Plants died naturally: " + PlantsControlWeight.deadCounter + "\n" +
+                "-Movement of animals to other locations: " + Animal.moveCounter + "\n" +
+                "-Animals eaten: " + Predator.eatCounter + "\n" +
+                "-Animals born: " + Animal.reproduceCounter + "\n" +
+                "-Predators died of starvation: " + PredatorsDecrementWeight.deadCounter + "\n" +
+                "-Herbivores died of starvation: " + HerbivoresDecrementWeight.deadCounter + "\n" +
                 "____________________________________________________________________________________________________");
 
         countGrass = 0;
