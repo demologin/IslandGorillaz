@@ -16,4 +16,8 @@ public class ConsoleProvider {
     public void println(Object message) {
         System.out.println(message);
     }
+    public void printfMessage(String contextMessage, String... message) {
+        System.out.printf(contextMessage, message);
+    }
+
 }

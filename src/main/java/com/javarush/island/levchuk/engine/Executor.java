@@ -36,8 +36,8 @@ public class Executor {
         statisticProvider.printByCell(islandMap, console);
         long start = System.currentTimeMillis();
         try {
-            for (int i = 0; i < numberGameDays; i++) {
-                console.println("************ day " + (i + 1) + " ************");
+            for (int i = 1; i <= numberGameDays; i++) {
+                console.printfMessage(ConsoleMessages.DAY_NUMBER, String.valueOf(numberGameDays));
                 taskManager.reproduceAllInIsland(islandMap, reproduceService, executorService);
                 taskManager.moveAllInIsland(islandMap, moveService, executorService);
                 taskManager.eatAllInIsland(islandMap, eatingService, executorService);
@@ -47,14 +47,14 @@ public class Executor {
             throw new RuntimeException(e);
         }
         long end = System.currentTimeMillis();
-        console.println("Total time: " + (end - start) * 1.0 / 1000 + " s");
+        console.println(ConsoleMessages.TOTAL_TIME + (end - start) * 1.0 / 1000 + " s");
         statisticProvider.printByCell(islandMap, console);
         executorService.shutdown();
 
     }
 
     private int getNumberSimulationDays() {
-        console.print("Enter number simulation days :");
+        console.printfMessage(ConsoleMessages.ENTER_SIMULATION_DAYS, String.valueOf(Constants.MAX_NUMBER_SIMULATION_DAYS));
         String inputLine = console.read();
         if (inputLine != null) {
             try {
@@ -62,12 +62,12 @@ public class Executor {
                 if (size > 0 && size <= Constants.MAX_NUMBER_SIMULATION_DAYS) {
                     return size;
                 }
-                throw new IllegalArgumentException("Invalid input size. Check input data. ");
+                throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_SIZE);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Input is not a number. Check input data. ");
+                throw new IllegalArgumentException(ConsoleMessages.NOT_A_NUMBER);
             }
         }
-        throw new IllegalArgumentException("Invalid input data. Check input data. ");
+        throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_DATA);
     }
 }
 

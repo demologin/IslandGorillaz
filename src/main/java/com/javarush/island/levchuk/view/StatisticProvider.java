@@ -1,5 +1,6 @@
 package com.javarush.island.levchuk.view;
 
+import com.javarush.island.levchuk.constants.ConsoleMessages;
 import com.javarush.island.levchuk.entities.Entity;
 import com.javarush.island.levchuk.map.Cell;
 import com.javarush.island.levchuk.map.IslandMap;
@@ -28,25 +29,9 @@ public class StatisticProvider {
                 }
             }
         }
-        console.println("*** Area statistic ***");
+        console.println(ConsoleMessages.ISLAND_STATISTIC);
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             console.println(entry.getKey() + ": " + entry.getValue());
-        }
-    }
-
-    public void printIconsMap(IslandMap islandMap, ConsoleProvider console) {
-        Cell[][] cells = islandMap.getIslandMap();
-        for (Cell[] row : cells) {
-            System.out.println();
-            for (Cell cell : row) {
-                Map<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> entities = cell.getResidents();
-                for (Map.Entry<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> entry : entities.entrySet()) {
-                    if(entry.getValue().size() > 0) {
-                        System.out.print((entry.getValue().getFirst().getIcon() + " " + entry.getValue().size()));
-                    }
-                }
-
-            }
         }
     }
 

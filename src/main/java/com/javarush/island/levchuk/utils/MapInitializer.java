@@ -1,5 +1,6 @@
 package com.javarush.island.levchuk.utils;
 
+import com.javarush.island.levchuk.constants.ConsoleMessages;
 import com.javarush.island.levchuk.constants.Constants;
 import com.javarush.island.levchuk.entities.Entity;
 import com.javarush.island.levchuk.map.Cell;
@@ -46,32 +47,32 @@ public class MapInitializer {
     }
 
     public Cell[][] getMapArray() {
-        return new Cell[getMapSizeX()][getMapSizeY()];
+        return new Cell[getMapRows()][getMapCols()];
     }
 
-    private int getMapSizeX() {
-        return getMapDimension("X", Constants.DEFAULT_MAP_ROW, console);
+    private int getMapRows() {
+        return getMapDimension("X", Constants.MAX_MAP_ROW, console);
     }
 
-    private int getMapSizeY() {
-        return getMapDimension("Y", Constants.DEFAULT_MAP_COL, console);
+    private int getMapCols() {
+        return getMapDimension("Y", Constants.MAX_MAP_COL, console);
     }
 
-    private int getMapDimension(String dimension, int maxSizeDimension, ConsoleProvider console) {
-        console.print("Enter Island " + dimension + " size :");
+    private int getMapDimension(String dimension, int maxSize, ConsoleProvider console) {
+        console.print("Enter Island " + dimension + " size (1:" + maxSize + "):");
         String inputLine = console.read();
         if (inputLine != null) {
             try {
                 int size = Integer.parseInt(inputLine);
-                if (size > 0 && size <= maxSizeDimension) {
+                if (size > 0 && size <= maxSize) {
                     return size;
                 }
-                throw new IllegalArgumentException("Invalid input size. Check input data. ");
+                throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_SIZE);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Input is not a number. Check input data. ");
+                throw new IllegalArgumentException(ConsoleMessages.NOT_A_NUMBER);
             }
         }
-        throw new IllegalArgumentException("Invalid input data. Check input data. ");
+        throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_DATA);
     }
 
 }
