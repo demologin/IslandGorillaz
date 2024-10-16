@@ -10,7 +10,7 @@ public class Runner {
 
     public static ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(5);
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws InterruptedException {
 
         EntityCreator entityCreator = new EntityCreator();
         entityCreator.start();

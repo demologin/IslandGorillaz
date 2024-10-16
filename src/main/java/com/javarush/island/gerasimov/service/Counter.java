@@ -1,5 +1,6 @@
 package com.javarush.island.gerasimov.service;
 
+import com.javarush.island.gerasimov.Runner;
 import com.javarush.island.gerasimov.entity.creatures.Animal;
 import com.javarush.island.gerasimov.entity.creatures.Organism;
 import com.javarush.island.gerasimov.entity.creatures.Plant;
@@ -69,10 +70,14 @@ public class Counter extends Thread {
                 }
             }
         }
-        sumOrganisms = countGrass + countGoat + countDuck + countBear +
+        sumOrganisms =  countGoat + countDuck + countBear +
                 countEagle + countFox + countSnake + countRabbit +
                 countSheep + countHorse + countMouse + countDeer +
                 countCaterpillar + countBuffalo + countBoar + countWolf;
+        if (sumOrganisms == 0) {
+            Runner.threadPool.shutdown();
+        }
+        sumOrganisms += countGrass;
 
         counter++;
 
