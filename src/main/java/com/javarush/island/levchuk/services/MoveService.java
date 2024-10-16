@@ -10,11 +10,12 @@ import java.util.stream.Collectors;
 
 public class MoveService {
     public void moveAllInCall(Cell cell) {
-        List<Movable> movables = cell.getResidents().values().stream()
+        cell.getResidents().values().stream()
                 .flatMap(List::stream)
                 .filter(Movable.class::isInstance)
                 .map(Movable.class::cast)
-                .collect(Collectors.toList());
-        movables.forEach(movable -> movable.move(cell));
+                .forEach(movable ->{
+                    movable.move(cell);
+                });
         }
     }

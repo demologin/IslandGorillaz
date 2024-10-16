@@ -14,6 +14,7 @@ import com.javarush.island.levchuk.view.StatisticPrinter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Executor {
     ConsoleProvider console = new ConsoleProvider();
@@ -32,7 +33,7 @@ public class Executor {
         console.println(ConsoleMessages.INIT_GAME);
         int numberGameDays = getNumberSimulationDays();
         mapInitializer.fillMapEntities(islandMap.getIslandMap(), entityFactory, prototypesCreator);
-        statisticPrinter.printIconsMap(islandMap,console);
+        statisticPrinter.printIconsMap(islandMap, console);
         long start = System.currentTimeMillis();
         try {
             for (int i = 0; i < numberGameDays; i++) {
@@ -40,14 +41,14 @@ public class Executor {
                 taskManager.reproduceAllInIsland(islandMap, reproduceService, executorService);
                 taskManager.moveAllInIsland(islandMap, moveService, executorService);
                 taskManager.eatAllInIsland(islandMap, eatingService, executorService);
-                statisticPrinter.printTextStatistic(islandMap,console);
+                statisticPrinter.printTextStatistic(islandMap, console);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         long end = System.currentTimeMillis();
         console.println("Total time: " + (end - start) * 1.0 / 1000 + " s");
-        statisticPrinter.printIconsMap(islandMap,console);
+        statisticPrinter.printIconsMap(islandMap, console);
         executorService.shutdown();
 
     }
