@@ -1,0 +1,26 @@
+{
+  "name": "Eagle",
+  "icon": "\uD83E\uDD85",
+  "weight": 6,
+  "weightDefault": 6,
+  "amountMax": 20,
+  "speedMax": 5,
+  "weightSaturation": 1,
+  "likelyFood": {
+    "Bear": 0,
+    "Boa": 0,
+    "Boar": 0,
+    "Buffalo": 0,
+    "Caterpillar": 0,
+    "Deer": 0,
+    "Duck": 80,
+    "Eagle": 0,
+    "Fox": 10,
+    "Goat": 0,
+    "Horse": 0,
+    "Mouse": 90,
+    "Rabbit": 90,
+    "Sheep": 0,
+    "Wolf": 0
+  }
+}

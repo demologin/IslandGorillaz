@@ -1,0 +1,26 @@
+{
+  "name": "Wolf",
+  "icon": "\uD83D\uDC3A",
+  "weight": 50,
+  "weightDefault": 50,
+  "amountMax": 30,
+  "speedMax": 3,
+  "weightSaturation": 8,
+  "likelyFood": {
+    "Bear": 0,
+    "Boa": 0,
+    "Boar": 15,
+    "Buffalo": 10,
+    "Caterpillar": 0,
+    "Deer": 15,
+    "Duck": 40,
+    "Eagle": 0,
+    "Fox": 0,
+    "Goat": 60,
+    "Horse": 10,
+    "Mouse": 80,
+    "Rabbit": 60,
+    "Sheep": 70,
+    "Wolf": 0
+  }
+}

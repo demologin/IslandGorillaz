@@ -1,0 +1,27 @@
+{
+  "name": "Mouse",
+  "icon": "\uD83D\uDC01",
+  "weight": 0.05,
+  "weightDefault": 0.05,
+  "amountMax": 500,
+  "speedMax": 1,
+  "weightSaturation": 0.01,
+  "likelyFood": {
+    "Bear": 0,
+    "Boa": 0,
+    "Boar": 0,
+    "Buffalo": 0,
+    "Caterpillar": 90,
+    "Deer": 0,
+    "Duck": 0,
+    "Eagle": 0,
+    "Fox": 0,
+    "Goat": 0,
+    "Horse": 0,
+    "Mouse": 0,
+    "Rabbit": 0,
+    "Sheep": 0,
+    "Wolf": 0,
+    "Grass": 100
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Boar",
+  "icon": "\uD83D\uDC17",
+  "weight": 400,
+  "weightDefault": 400,
+  "amountMax": 50,
+  "speedMax": 2,
+  "weightSaturation": 50,
+  "likelyFood": {
+    "Bear": 0,
+    "Boa": 0,
+    "Boar": 0,
+    "Buffalo": 0,
+    "Caterpillar": 90,
+    "Deer": 0,
+    "Duck": 0,
+    "Eagle": 0,
+    "Fox": 0,
+    "Goat": 0,
+    "Horse": 0,
+    "Mouse": 50,
+    "Rabbit": 0,
+    "Sheep": 0,
+    "Wolf": 0,
+    "Grass": 100
+  }
+}

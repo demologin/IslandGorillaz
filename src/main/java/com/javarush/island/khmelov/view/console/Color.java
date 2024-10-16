@@ -1,8 +1,7 @@
-package com.javarush.island.khmelov.view;
+package com.javarush.island.khmelov.view.console;
 
 @SuppressWarnings("unused")
 public class Color {
-
 
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
