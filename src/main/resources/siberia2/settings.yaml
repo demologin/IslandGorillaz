@@ -14,6 +14,7 @@ animalsSettings:
   Wolf:
     name: "Wolf"
     icon: "\uD83D\uDC3A"
+    imgPath: "/siberia2/x16/animals/Wolf.png"
     weight: 50
     maxCountPerCell: 30
     speed: 3
@@ -31,6 +32,7 @@ animalsSettings:
   Boa:
     name: "Boa"
     icon: "\ud83d\udc0d"
+    imgPath: "/siberia2/x16/animals/Boa.png"
     weight: 15
     maxCountPerCell: 30
     speed: 1
@@ -43,6 +45,7 @@ animalsSettings:
   Fox:
     name: "Fox"
     icon: "\ud83e\udd8a"
+    imgPath: "/siberia2/x16/animals/Fox.png"
     weight: 8
     maxCountPerCell: 30
     speed: 2
@@ -55,6 +58,7 @@ animalsSettings:
   Bear:
     name: "Bear"
     icon: "\ud83d\udc3b"
+    imgPath: "/siberia2/x16/animals/Bear.png"
     weight: 500
     maxCountPerCell: 5
     speed: 2
@@ -73,6 +77,7 @@ animalsSettings:
   Eagle:
     name: "Eagle"
     icon: "\ud83e\udd85"
+    imgPath: "/siberia2/x16/animals/Eagle.png"
     weight: 6
     maxCountPerCell: 20
     speed: 3
@@ -85,6 +90,7 @@ animalsSettings:
   Horse:
     name: "Horse"
     icon: "\ud83d\udc0e"
+    imgPath: "/siberia2/x16/animals/Horse.png"
     weight: 400
     maxCountPerCell: 20
     speed: 4
@@ -94,6 +100,7 @@ animalsSettings:
   Deer:
     name: "Deer"
     icon: "\ud83e\udd8c"
+    imgPath: "/siberia2/x16/animals/Deer.png"
     weight: 300
     maxCountPerCell: 20
     speed: 4
@@ -103,6 +110,7 @@ animalsSettings:
   Rabbit:
     name: "Rabbit"
     icon: "\uD83D\uDC07"
+    imgPath: "/siberia2/x16/animals/Rabbit.png"
     weight: 2
     maxCountPerCell: 150
     speed: 2
@@ -112,6 +120,7 @@ animalsSettings:
   Mouse:
     name: "Mouse"
     icon: "\ud83d\udc01"
+    imgPath: "/siberia2/x16/animals/Mouse.png"
     weight: 0.05
     maxCountPerCell: 500
     speed: 1
@@ -122,6 +131,7 @@ animalsSettings:
   Goat:
     name: "Goat"
     icon: "\ud83d\udc10"
+    imgPath: "/siberia2/x16/animals/Goat.png"
     weight: 60
     maxCountPerCell: 140
     speed: 3
@@ -131,6 +141,7 @@ animalsSettings:
   Sheep:
     name: "Sheep"
     icon: "\ud83d\udc11"
+    imgPath: "/siberia2/x16/animals/Sheep.png"
     weight: 70
     maxCountPerCell: 140
     speed: 3
@@ -140,6 +151,7 @@ animalsSettings:
   Boar:
     name: "Boar"
     icon: "\ud83d\udc17"
+    imgPath: "/siberia2/x16/animals/Boar.png"
     weight: 400
     maxCountPerCell: 50
     speed: 2
@@ -151,6 +163,7 @@ animalsSettings:
   Buffalo:
     name: "Buffalo"
     icon: "\ud83d\udc03"
+    imgPath: "/siberia2/x16/animals/Buffalo.png"
     weight: 700
     maxCountPerCell: 10
     speed: 3
@@ -160,6 +173,7 @@ animalsSettings:
   Duck:
     name: "Duck"
     icon: "\ud83e\udd86"
+    imgPath: "/siberia2/x16/animals/Duck.png"
     weight: 1
     maxCountPerCell: 200
     speed: 4
@@ -170,6 +184,7 @@ animalsSettings:
   Caterpillar:
     name: "Caterpillar"
     icon: "\ud83d\udc1c"
+    imgPath: "/siberia2/x16/animals/Caterpillar.png"
     weight: 0.01
     maxCountPerCell: 1000
     speed: 0
@@ -181,12 +196,14 @@ plantsSettings:
   Grass:
     name: "Grass"
     icon: "\uD83C\uDF3F"
+    imgPath: "/siberia2/x16/plants/Grass.png"
     weight: 1
     maxCountPerCell: 200
     growthRate: 0.5
   Tree:
     name: "Tree"
     icon: "\uD83C\uDF33"
+    imgPath: "/siberia2/x16/plants/Tree.png"
     weight: 10
     maxCountPerCell: 1
     growthRate: 0.1

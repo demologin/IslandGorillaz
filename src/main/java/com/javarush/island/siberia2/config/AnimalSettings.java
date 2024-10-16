@@ -7,6 +7,7 @@ import java.util.Map;
 public class AnimalSettings {
     private String name;
     private String icon;
+    private String imgPath;
     private double weight;
     private int maxCountPerCell;
     private int speed;

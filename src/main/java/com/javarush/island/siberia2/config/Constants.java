@@ -6,8 +6,7 @@ public class Constants {
 
     //TILES
     public static final String GRASS_PATH_X16 = "/siberia2/x16/ground/Grass.png";
-    //public static final String ROCKS_PATH_X16 = "/siberia2/x16/plants/Rocks.png"; //TODO uncomment
-    public static final String ROCKS_PATH_X16 = "/siberia2/x16/ground/buildings/RedResources.png"; //TODO for visual test only. delete this!
+    public static final String ROCKS_PATH_X16 = "/siberia2/x16/plants/Rocks.png";
     public static final String TREES_PATH_X16 = "/siberia2/x16/plants/Trees.png";
     public static final String WHEATS_PATH_X16 = "/siberia2/x16/plants/Wheatfield.png";
     public static final int FOREST_COUNT = 5;
@@ -33,7 +32,7 @@ public class Constants {
     public static final String ISLAND_OUT_IF_ISLAND = "Coordinates out of island bounds";
     public static final String FACTORY_UNKNOWN_ORGANISM = "Unknown organism: ";
 
-    //ANIMALS PNG PATHS
+    //ORGANISMS PNG PATHS
     public static final String PNG_WOLF_PATH = "/siberia2/x16/animals/Wolf.png";
     public static final String PNG_BOA_PATH = "/siberia2/x16/animals/Boa.png";
     public static final String PNG_FOX_PATH = "/siberia2/x16/animals/Fox.png";
@@ -49,4 +48,6 @@ public class Constants {
     public static final String PNG_BUFFALO_PATH = "/siberia2/x16/animals/Buffalo.png";
     public static final String PNG_DUCK_PATH = "/siberia2/x16/animals/Duck.png";
     public static final String PNG_CATERPILLAR_PATH = "/siberia2/x16/animals/Caterpillar.png";
+    public static final String PNG_GRASS_PATH = "/siberia2/x16/plants/Grass.png";
+    public static final String PNG_TREE_PATH = "/siberia2/x16/plants/Tree.png";
 }
