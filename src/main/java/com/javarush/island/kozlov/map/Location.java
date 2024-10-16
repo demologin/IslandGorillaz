@@ -3,6 +3,7 @@ package com.javarush.island.kozlov.map;
 import com.javarush.island.kozlov.actions.Reproduce;
 import com.javarush.island.kozlov.entities.animals.Animal;
 import com.javarush.island.kozlov.entities.plants.Vegetation;
+import com.javarush.island.kozlov.exception.ReproductionException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Location {
         }
     }
 
-    public void reproduceAnimals() {
+    public void reproduceAnimals() throws ReproductionException {
         for (Animal animal : animals) {
             if (animal instanceof Reproduce) {
                 ((Reproduce) animal).reproduce(this);

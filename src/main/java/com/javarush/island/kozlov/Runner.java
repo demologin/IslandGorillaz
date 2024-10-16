@@ -3,6 +3,8 @@ package com.javarush.island.kozlov;
 import com.javarush.island.kozlov.actions.AnimalsEat;
 import com.javarush.island.kozlov.actions.Movable;
 import com.javarush.island.kozlov.entities.animals.Animal;
+import com.javarush.island.kozlov.exception.MoveException;
+import com.javarush.island.kozlov.exception.ReproductionException;
 import com.javarush.island.kozlov.logic.AnimalLifecycleTask;
 import com.javarush.island.kozlov.logic.PlantGrowthTask;
 import com.javarush.island.kozlov.logic.StatisticTask;
@@ -18,13 +20,17 @@ public class Runner {
     public static void main(String[] args) {
         Island island = new Island(100, 20);
 
-        ScheduledExecutorService sheduler = Executors.newScheduledThreadPool(3);
+        ScheduledExecutorService sheduler = Executors.newScheduledThreadPool(5);
         sheduler.scheduleAtFixedRate(new PlantGrowthTask(island), 0, 3, TimeUnit.SECONDS);
 
         sheduler.scheduleAtFixedRate(() -> {
             for (Location[] row : island.getLocations()) {
                 for (Location loc : row) {
-                    loc.reproduceAnimals();
+                    try {
+                        loc.reproduceAnimals();
+                    } catch (ReproductionException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }, 0, 3, TimeUnit.SECONDS);
@@ -35,8 +41,10 @@ public class Runner {
             for (Location[] row : island.getLocations()) {
                 for (Location loc : row) {
                     for (Animal animal : loc.getAnimals()) {
-                        if (animal instanceof Movable) {
-                            ((Movable) animal).move(loc, island);
+                        try {
+                            animal.move(loc, island);
+                        } catch (MoveException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 }
@@ -47,9 +55,7 @@ public class Runner {
             for (Location[] row : island.getLocations()) {
                 for (Location loc : row) {
                     for (Animal animal : loc.getAnimals()) {
-                        if (animal instanceof AnimalsEat) {
-                            ((AnimalsEat) animal).eat(loc, animal);
-                        }
+                        animal.eat(loc, animal);
                     }
                 }
             }
