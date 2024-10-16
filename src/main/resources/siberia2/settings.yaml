@@ -1,7 +1,7 @@
 islandSettings:
   width: 60 # default 100 | for fullHD 60
   height: 31 # default 20 | for fullHD 31
-  simulationStepDuration: 1000
+  simulationStepDuration: 2000
 
 windowSettings:
   width: 800

@@ -8,7 +8,6 @@ import com.javarush.island.siberia2.entity.map.MapData;
 import com.javarush.island.siberia2.simulation.Simulation;
 import com.javarush.island.siberia2.ui.tileFactory.*;
 import lombok.Getter;
-
 import javax.swing.*;
 
 public class WindowFrame extends JFrame implements Runnable {
@@ -22,6 +21,7 @@ public class WindowFrame extends JFrame implements Runnable {
     int scale = settings.getWindowSettings().getScale();
     @Getter
     private TilePanel tilePanel;
+    private Simulation simulation;
 
     public WindowFrame() {
         initUI();
@@ -40,10 +40,12 @@ public class WindowFrame extends JFrame implements Runnable {
         tilePanel = getTilePanel(mapData, island);
         add(tilePanel);
 
-        Sound sound = new Sound();
-        sound.setFile(0);
-        sound.play();
-        sound.loop();
+//        Sound sound = new Sound();
+//        sound.setFile(0);
+//        sound.play();
+//        sound.loop();
+
+        simulation = new Simulation(island, settings, this);
     }
 
     private TilePanel getTilePanel(MapData mapData, Island island) {
@@ -82,10 +84,7 @@ public class WindowFrame extends JFrame implements Runnable {
             setVisible(true);
             tilePanel.repaint();
 
-            new Thread(() -> {
-                Simulation simulation = new Simulation(settings);
-                simulation.run();
-            }).start();
+            new Thread(simulation).start();
         });
     }
 
