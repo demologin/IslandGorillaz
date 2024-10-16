@@ -9,7 +9,15 @@ public class Tree extends Plant {
 
     @Override
     public void grow() {
-        weight += 0.05;
+        lock.lock();
+        try {
+            weight += settings.getGrowthRate();
+            if (weight > settings.getWeight()) {
+                weight = settings.getWeight();
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 
 }

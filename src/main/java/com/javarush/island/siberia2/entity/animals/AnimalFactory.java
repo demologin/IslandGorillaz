@@ -7,23 +7,23 @@ import com.javarush.island.siberia2.entity.animals.herbivores.*;
 
 public class AnimalFactory {
     public static Animal createAnimal(String name, AnimalSettings animalSettings) {
-        switch (name) {
-            case "Wolf": return new Wolf(animalSettings);
-            case "Boa": return new Boa(animalSettings);
-            case "Fox": return new Fox(animalSettings);
-            case "Bear": return new Bear(animalSettings);
-            case "Eagle": return new Eagle(animalSettings);
-            case "Horse" : return new Horse(animalSettings);
-            case "Deer" : return new Deer(animalSettings);
-            case "Rabbit" : return new Rabbit(animalSettings);
-            case "Mouse" : return new Mouse(animalSettings);
-            case "Goat" : return new Goat(animalSettings);
-            case "Sheep" : return new Sheep(animalSettings);
-            case "Boar" : return new Boar(animalSettings);
-            case "Buffalo" : return new Buffalo(animalSettings);
-            case "Duck" : return new Duck(animalSettings);
-            case "Caterpillar" : return new Caterpillar(animalSettings);
-            default: throw new IllegalArgumentException(Constants.FACTORY_UNKNOWN_ANIMAL + name);
-        }
+        return switch (name) {
+            case "Wolf" -> new Wolf(animalSettings);
+            case "Boa" -> new Boa(animalSettings);
+            case "Fox" -> new Fox(animalSettings);
+            case "Bear" -> new Bear(animalSettings);
+            case "Eagle" -> new Eagle(animalSettings);
+            case "Horse" -> new Horse(animalSettings);
+            case "Deer" -> new Deer(animalSettings);
+            case "Rabbit" -> new Rabbit(animalSettings);
+            case "Mouse" -> new Mouse(animalSettings);
+            case "Goat" -> new Goat(animalSettings);
+            case "Sheep" -> new Sheep(animalSettings);
+            case "Boar" -> new Boar(animalSettings);
+            case "Buffalo" -> new Buffalo(animalSettings);
+            case "Duck" -> new Duck(animalSettings);
+            case "Caterpillar" -> new Caterpillar(animalSettings);
+            default -> throw new IllegalArgumentException(Constants.FACTORY_UNKNOWN_ORGANISM + name);
+        };
     }
 }
