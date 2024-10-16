@@ -37,7 +37,7 @@ public class Executor {
         long start = System.currentTimeMillis();
         try {
             for (int i = 1; i <= numberGameDays; i++) {
-                console.printfMessage(ConsoleMessages.DAY_NUMBER, String.valueOf(numberGameDays));
+                console.printfMessage(ConsoleMessages.DAY_NUMBER, String.valueOf(i));
                 taskManager.reproduceAllInIsland(islandMap, reproduceService, executorService);
                 taskManager.moveAllInIsland(islandMap, moveService, executorService);
                 taskManager.eatAllInIsland(islandMap, eatingService, executorService);
