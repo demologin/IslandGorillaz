@@ -1,6 +1,7 @@
 package com.javarush.island.gerasimov.service;
 
 import com.javarush.island.gerasimov.entity.creatures.Organism;
+import com.javarush.island.gerasimov.entity.creatures.predators.Bear;
 import com.javarush.island.gerasimov.entity.creatures.predators.Eagle;
 import com.javarush.island.gerasimov.entity.creatures.predators.Fox;
 import com.javarush.island.gerasimov.entity.creatures.predators.Predator;
@@ -16,13 +17,21 @@ public class PredatorsDecrementWeight extends Thread {
                 for (Organism organism : cell.getOrganisms()) {
                     if (organism instanceof Predator &&
                             !(organism instanceof Fox) &&
-                            !(organism instanceof Eagle)) {
+                            !(organism instanceof Eagle) &&
+                            !(organism instanceof Bear)) {
                         organism.setWeight(organism.getWeight() - 0.0005);
                         if (organism.getWeight() <= 0) {
                             deadCounter++;
                             cell.getOrganisms().remove(organism);
                         }
-                    } else if ((organism instanceof Fox) || (organism instanceof Eagle)) {
+                    }
+                    else if (organism instanceof Bear) {
+                        organism.setWeight(organism.getWeight() - 0.009);
+                        if (organism.getWeight() <= 0) {
+                            deadCounter++;
+                            cell.getOrganisms().remove(organism);
+                        }
+                    }else if ((organism instanceof Fox) || (organism instanceof Eagle)) {
                         organism.setWeight(organism.getWeight() - 0.00005);
                         if (organism.getWeight() <= 0) {
                             deadCounter++;

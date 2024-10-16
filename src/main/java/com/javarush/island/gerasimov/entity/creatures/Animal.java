@@ -5,13 +5,14 @@ import com.javarush.island.gerasimov.intefaces.EatAble;
 import com.javarush.island.gerasimov.intefaces.MoveAble;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Setter
-public abstract class Animal extends Organism implements MoveAble, EatAble {
+public abstract class Animal extends Organism implements MoveAble, EatAble, Cloneable {
 
     static public int moveCounter = 0;
     static public int reproduceCounter = 0;
@@ -42,6 +43,7 @@ public abstract class Animal extends Organism implements MoveAble, EatAble {
         return false;
     }
 
+    @SneakyThrows
     @Override
     public synchronized boolean reproduce(Cell targetCell) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
@@ -59,7 +61,7 @@ public abstract class Animal extends Organism implements MoveAble, EatAble {
         if ((!organismsForReproduce.get(chooseAnimal).equals(this)) &&
                 probabilityReproduce < 30 &&
                 counter < this.getMaxCountInCell()) {
-            Organism newAnimal = this;
+            Organism newAnimal = (Organism) this.clone();
             newAnimal.setWeight(this.getWeight() / 3);
             targetCell.getOrganisms().add(newAnimal);
             reproduceCounter++;
