@@ -3,10 +3,9 @@ package com.javarush.island.siberia2.entity.map;
 import com.javarush.island.siberia2.config.Constants;
 import lombok.Getter;
 
+@Getter
 public class Island {
-    @Getter
     private final int width;
-    @Getter
     private final int height;
     private final Cell[][] cells;
     private final MapData mapData;

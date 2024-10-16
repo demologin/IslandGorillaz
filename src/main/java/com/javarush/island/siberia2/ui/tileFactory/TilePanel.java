@@ -6,10 +6,12 @@ import java.awt.*;
 public class TilePanel extends JPanel {
     private final TileFiller tileFiller;
     private final ObjectLayer objectLayer;
+    private final AnimalLayer animalLayer;
 
-    public TilePanel(TileFiller tileFiller, ObjectLayer objectLayer) {
+    public TilePanel(TileFiller tileFiller, ObjectLayer objectLayer, AnimalLayer animalLayer) {
         this.tileFiller = tileFiller;
         this.objectLayer = objectLayer;
+        this.animalLayer = animalLayer;
     }
 
     @Override
@@ -17,6 +19,7 @@ public class TilePanel extends JPanel {
         super.paintComponent(g);
         tileFiller.renderWorld(g, getWidth(), getHeight());
         objectLayer.renderObjectLayer(g, getWidth(), getHeight());
+        animalLayer.renderAnimals(g);
     }
 
 }

@@ -27,6 +27,9 @@ public class PopulateOrganisms {
                     Animal animal = AnimalFactory.createAnimal(name, animalSettings);
                     animal.setCurrentCell(cell);
                     cell.addAnimal(animal);
+                    // для отладки. удалить
+                    System.out.println("животное создано: " + name + " в клетке (" + x + ", " + y + ")");
+
                 }
             }
         });
@@ -45,6 +48,8 @@ public class PopulateOrganisms {
                     Plant plant = PlantFactory.createPlant(name, plantSettings);
                     plant.setCurrentCell(cell);
                     cell.addPlant(plant);
+                    // для отладки. удалить
+                    System.out.println(" растение создано: " + name + " в клетке(" + x + ", " + y + ")");
                 }
             }
         });

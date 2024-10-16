@@ -36,6 +36,11 @@ public class AnimalLayer {
             BufferedImage image = loadImageFromResources(imgPath);
             if (image != null) {
                 animalImages.put(name, image);
+                //// для отладки. удалить
+                System.out.println("изо для животинки: " + name);
+            } else {
+                // для отладки. удалить
+                System.err.println("изо не загружено: " + name + " from path: " + imgPath);
             }
         });
     }
@@ -58,6 +63,10 @@ public class AnimalLayer {
                 Cell cell = island.getCell(x, y);
                 List<Animal> animals = cell.getAnimals();
 
+                if (!animals.isEmpty()) {
+                    System.out.println("Rendering " + animals.size() + " animals at (" + x + ", " + y + ")");
+                }
+
                 int maxAnimalsToDraw = Math.min(animals.size(), 4);
                 int animalIndex = 0;
 
@@ -68,15 +77,18 @@ public class AnimalLayer {
                         int drawX = x * scaledTileSize + (animalIndex % 2) * (tileSize / 2);
                         int drawY = y * scaledTileSize + (animalIndex / 2) * (tileSize / 2);
 
+                        // для отладки. удалить
+                        System.out.println("животинка нарисована: " + animal.getSettings().getName() + " at (" + drawX + ", " + drawY + ")");
+
+
                         g.drawImage(animalImage, drawX, drawY, tileSize, tileSize, null);
                         animalIndex++;
                     }
+                    // для отладки. удалить
+                    else {
+                    System.err.println("нет изо для животинки " + animal.getSettings().getName());
                 }
-
-                String countText = String.valueOf(animals.size());
-                g.setColor(Color.WHITE);
-                g.setFont(new Font("Arial", Font.BOLD, 12));
-                g.drawString(countText, x * scaledTileSize + 2, y * scaledTileSize + 12);
+                }
             }
         }
     }

@@ -3,11 +3,11 @@ package com.javarush.island.siberia2.ui;
 import com.javarush.island.siberia2.config.ConfigLoader;
 import com.javarush.island.siberia2.config.Constants;
 import com.javarush.island.siberia2.config.Settings;
+import com.javarush.island.siberia2.entity.map.Island;
 import com.javarush.island.siberia2.entity.map.MapData;
-import com.javarush.island.siberia2.ui.tileFactory.ObjectLayer;
-import com.javarush.island.siberia2.ui.tileFactory.TileFiller;
-import com.javarush.island.siberia2.ui.tileFactory.TileManager;
-import com.javarush.island.siberia2.ui.tileFactory.TilePanel;
+import com.javarush.island.siberia2.simulation.Simulation;
+import com.javarush.island.siberia2.ui.tileFactory.*;
+import lombok.Getter;
 
 import javax.swing.*;
 
@@ -20,6 +20,8 @@ public class WindowFrame extends JFrame implements Runnable {
     int windowHeight = settings.getWindowSettings().getHeight();
     int tileSize = settings.getWindowSettings().getTileSize();
     int scale = settings.getWindowSettings().getScale();
+    @Getter
+    private TilePanel tilePanel;
 
     public WindowFrame() {
         initUI();
@@ -31,10 +33,24 @@ public class WindowFrame extends JFrame implements Runnable {
         setResizable(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        MapData mapData = new MapData(islandWidth, islandHeight);
 
-        WindowFrame.initResource initResource = getInitResource();
+        MapData mapData = new MapData(islandWidth, islandHeight);
+        Island island = new Island(islandWidth, islandHeight, mapData);
+
+        tilePanel = getTilePanel(mapData, island);
+        add(tilePanel);
+
+        Simulation simulation = new Simulation(settings);
+        new Thread(simulation).start();
+
+        Sound sound = new Sound();
+        sound.setFile(0);
+        sound.play();
+        sound.loop();
+    }
+
+    private TilePanel getTilePanel(MapData mapData, Island island) {
+        initResource initResource = getInitResource();
 
         TileFiller tileFiller = new TileFiller(initResource.groundAssetToTile(), tileSize, scale, mapData);
         ObjectLayer objectLayer = new ObjectLayer(initResource.rocksAssetToTile(),
@@ -42,15 +58,10 @@ public class WindowFrame extends JFrame implements Runnable {
                 initResource.wheatAssetToTile(),
                 tileSize,
                 scale,
-                mapData);
+                island.getMapData());
+        AnimalLayer animalLayer = new AnimalLayer(island, settings, tileSize, scale);
 
-        TilePanel tilePanel = new TilePanel(tileFiller, objectLayer);
-        add(tilePanel);
-
-        Sound sound = new Sound();
-        sound.setFile(0);
-        sound.play();
-        sound.loop();
+        return new TilePanel(tileFiller, objectLayer, animalLayer);
     }
 
     private record initResource(TileManager groundAssetToTile,
@@ -64,16 +75,15 @@ public class WindowFrame extends JFrame implements Runnable {
         TileManager rocksAssetToTile = new TileManager(Constants.ROCKS_PATH_X16, tileSize);
         TileManager treesAssetToTile = new TileManager(Constants.TREES_PATH_X16, tileSize);
         TileManager wheatAssetToTile = new TileManager(Constants.WHEATS_PATH_X16, tileSize);
-        initResource initResource = new initResource(groundAssetToTile,
-                rocksAssetToTile,
-                treesAssetToTile,
-                wheatAssetToTile);
-        return initResource;
+        return new initResource(groundAssetToTile, rocksAssetToTile, treesAssetToTile, wheatAssetToTile);
     }
 
     @Override
     public void run() {
-        SwingUtilities.invokeLater(() -> setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            setVisible(true);
+            tilePanel.repaint();
+        });
     }
 
 }
