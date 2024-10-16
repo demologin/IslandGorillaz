@@ -34,7 +34,7 @@ public abstract class Predator extends Animal {
     private int probabilityEatenCaterpillar;
 
     /*
-    Randomly selects a victim from the list and eats it
+    Randomly selects a sacrifice from the list and eats it
      */
 
     @Override
@@ -88,8 +88,7 @@ public abstract class Predator extends Animal {
     }
 
     /*
-    Checks whether the predator can eat the prey
-    and eats it
+    Checks whether the predator can eat the sacrifice and eats it
      */
 
     private synchronized boolean eatSacrifice(Organism sacrifice, int probabilityEatenAnyone) {
