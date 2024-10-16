@@ -19,6 +19,8 @@ public abstract class Animal extends Organism implements Eatable, Reproducible, 
     protected AnimalSettings settings;
     protected double currentFoodLevel;
     protected ReentrantLock lock = new ReentrantLock();
+    private boolean hasReproduced = false;
+    private boolean hasEaten = false;
 
     private EatingService eatingService;
     private MovementService movementService;
