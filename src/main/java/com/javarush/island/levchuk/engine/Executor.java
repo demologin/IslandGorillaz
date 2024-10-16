@@ -10,11 +10,10 @@ import com.javarush.island.levchuk.utils.EntityFactory;
 import com.javarush.island.levchuk.utils.MapInitializer;
 import com.javarush.island.levchuk.utils.PrototypesCreator;
 import com.javarush.island.levchuk.view.ConsoleProvider;
-import com.javarush.island.levchuk.view.StatisticPrinter;
+import com.javarush.island.levchuk.view.StatisticProvider;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Executor {
     ConsoleProvider console = new ConsoleProvider();
@@ -27,13 +26,13 @@ public class Executor {
     MoveService moveService = new MoveService();
     ReproduceService reproduceService = new ReproduceService();
     ExecutorService executorService = Executors.newWorkStealingPool();
-    StatisticPrinter statisticPrinter = new StatisticPrinter();
+    StatisticProvider statisticProvider = new StatisticProvider();
 
     public void startGame() {
         console.println(ConsoleMessages.INIT_GAME);
         int numberGameDays = getNumberSimulationDays();
         mapInitializer.fillMapEntities(islandMap.getIslandMap(), entityFactory, prototypesCreator);
-        statisticPrinter.printIconsMap(islandMap, console);
+        statisticProvider.printByCell(islandMap, console);
         long start = System.currentTimeMillis();
         try {
             for (int i = 0; i < numberGameDays; i++) {
@@ -41,14 +40,14 @@ public class Executor {
                 taskManager.reproduceAllInIsland(islandMap, reproduceService, executorService);
                 taskManager.moveAllInIsland(islandMap, moveService, executorService);
                 taskManager.eatAllInIsland(islandMap, eatingService, executorService);
-                statisticPrinter.printTextStatistic(islandMap, console);
+                statisticProvider.printTextStatistic(islandMap, console);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         long end = System.currentTimeMillis();
         console.println("Total time: " + (end - start) * 1.0 / 1000 + " s");
-        statisticPrinter.printIconsMap(islandMap, console);
+        statisticProvider.printByCell(islandMap, console);
         executorService.shutdown();
 
     }

@@ -15,48 +15,33 @@ public class TaskManager {
     public void eatAllInIsland(IslandMap islandMap, EatingService eatingService, ExecutorService executorService) throws InterruptedException {
 
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
-                .flatMap(Arrays::stream)
-                .map(cell -> (Callable<Void>) () -> {
-                    try {
-                        eatingService.eatAllInCell(cell);
-                    } finally {
-                        cell.getLock().unlock();
-                    }
-                    return null;
-                })
-                .toList();
+                .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
+            eatingService.eatAllInCell(cell);
+            cell.getLock().unlock();
+            return null;
+        }).toList();
         executorService.invokeAll(tasks);
     }
 
     public void moveAllInIsland(IslandMap islandMap, MoveService moveService, ExecutorService executorService) throws InterruptedException {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
-                .flatMap(Arrays::stream)
-                .map(cell -> (Callable<Void>) () -> {
-                    try {
-                        cell.getLock().lock();
-                        moveService.moveAllInCall(cell);
-                    } finally {
-                        cell.getLock().unlock();
-                    }
-                    return null;
-                })
-                .toList();
+                .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
+
+            moveService.moveAllInCall(cell);
+
+            return null;
+        }).toList();
         executorService.invokeAll(tasks);
     }
 
     public void reproduceAllInIsland(IslandMap islandMap, ReproduceService reproduceService, ExecutorService executorService) throws InterruptedException {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
-                .flatMap(Arrays::stream)
-                .map(cell -> (Callable<Void>) () -> {
-                    try {
-                        reproduceService.reproduceAllInCall(cell);
-                    } finally {
-                        cell.getLock().unlock();
-                    }
-                    return null;
+                .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
+            reproduceService.reproduceAllInCall(cell);
 
-                })
-                .toList();
+            return null;
+
+        }).toList();
         executorService.invokeAll(tasks);
     }
 }

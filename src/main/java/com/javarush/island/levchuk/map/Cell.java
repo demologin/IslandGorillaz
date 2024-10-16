@@ -4,6 +4,7 @@ import com.javarush.island.levchuk.entities.Entity;
 import lombok.Getter;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
@@ -13,7 +14,7 @@ public class Cell {
     private final int row;
     private final int col;
     private Set<Cell> neighbors;
-    private Map<Class<? extends Entity>, List<Entity>> residents = new HashMap<>();
+    private Map<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> residents = new HashMap<>();
 
     public Cell(int row, int col) {
         this.row = row;
@@ -40,7 +41,7 @@ public class Cell {
     public void addEntity(Entity entity) {
         Class<? extends Entity> clazz = entity.getClass();
         if (!residents.containsKey(clazz)) {
-            List<Entity> entitiesList = new ArrayList<>();
+            CopyOnWriteArrayList<Entity> entitiesList = new CopyOnWriteArrayList<>();
             entitiesList.add(entity);
             residents.put(clazz, entitiesList);
         } else {
@@ -59,7 +60,6 @@ public class Cell {
 
     public boolean checkFreeSpace(Entity entity) {
         if (!residents.containsKey(entity.getClass())) {
-            residents.put(entity.getClass(),new  ArrayList<Entity>());
             return true;
         }
         if (residents.get(entity.getClass()).size() < entity.getAmountMax()) {

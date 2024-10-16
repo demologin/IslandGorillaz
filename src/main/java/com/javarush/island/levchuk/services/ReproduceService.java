@@ -6,6 +6,7 @@ import com.javarush.island.levchuk.map.Cell;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class ReproduceService {
@@ -23,7 +24,7 @@ public class ReproduceService {
 
     }
 
-    private void resetReadinessForReproduction(Map<Class<? extends Entity>, List<Entity>> residents) {
+    private void resetReadinessForReproduction(Map<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> residents) {
         residents.values().stream()
                 .filter(list -> !list.isEmpty())
                 .flatMap(List::stream)

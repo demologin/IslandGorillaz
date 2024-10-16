@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 
 @Getter
@@ -22,12 +23,12 @@ public class Entity implements Reproductive {
     private boolean isReproduced;
 
     @Override
-    public < T extends Entity> T reproduce(Cell cell) {
-        if (!isReproduced){
-            List< Entity > entities = cell.getResidents().get(getClass());
-            if (entities.size() < amountMax){
+    public <T extends Entity> T reproduce(Cell cell) {
+        if (!isReproduced) {
+            CopyOnWriteArrayList<Entity> entities = cell.getResidents().get(getClass());
+            if (entities.size() < amountMax) {
                 Optional<Entity> nextParent = entities.stream().filter(Predicate.not(Entity::isReproduced)).findFirst();
-                if (nextParent.isPresent()){
+                if (nextParent.isPresent()) {
                     T newEntity = (T) EntityFactory.getEntity(this.getClass());
                     nextParent.get().setReproduced(true);
                     newEntity.setReproduced(true);
