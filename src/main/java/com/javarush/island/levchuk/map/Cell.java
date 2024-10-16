@@ -10,7 +10,6 @@ import java.util.concurrent.locks.ReentrantLock;
 @Getter
 public class Cell {
 
-    private final ReentrantLock lock = new ReentrantLock();
     private final int row;
     private final int col;
     private Set<Cell> neighbors;

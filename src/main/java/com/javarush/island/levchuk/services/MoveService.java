@@ -3,6 +3,7 @@ package com.javarush.island.levchuk.services;
 
 import com.javarush.island.levchuk.liveActions.Movable;
 import com.javarush.island.levchuk.map.Cell;
+
 import java.util.List;
 
 public class MoveService {
