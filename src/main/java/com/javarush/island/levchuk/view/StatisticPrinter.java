@@ -40,7 +40,9 @@ public class StatisticPrinter {
                 Map<Class<? extends Entity>, List<Entity>> entities = cell.getResidents();
                 for (Map.Entry<Class<? extends Entity>, List<Entity>> entry : entities.entrySet()) {
                     entry.getValue().stream().forEach(entity -> {
-                        System.out.print(entity.getIcon());
+                        if (entity != null) {
+                            System.out.print(entity.getIcon());
+                        }
                     });
                 }
             }

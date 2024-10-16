@@ -47,9 +47,6 @@ public class Cell {
             List<Entity> entitiesList = residents.get(clazz);
             entitiesList.add(entity);
         }
-/*        for (Map.Entry<Class<? extends Entity>, List<Entity>> entry : residents.entrySet()) {
-            System.out.println(entry.getValue().stream().findFirst().get().getIcon());
-        }*/
     }
 
     public void removeEntity(Entity entity) {
@@ -58,9 +55,6 @@ public class Cell {
             List<Entity> entitiesList = residents.get(clazz);
             entitiesList.remove(entity);
         }
-/*        for (Map.Entry<Class<? extends Entity>, List<Entity>> entry : residents.entrySet()) {
-            System.out.println(entry.getValue().stream().findFirst().get().getIcon());
-        }*/
     }
 
     public boolean checkFreeSpace(Entity entity) {

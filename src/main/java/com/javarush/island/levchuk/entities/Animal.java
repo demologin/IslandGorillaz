@@ -9,7 +9,6 @@ import com.javarush.island.levchuk.utils.Randomizer;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,17 +26,12 @@ public class Animal extends Entity implements Eating, Movable {
 
     @Override
     public void move(Cell cell) {
-        Cell targetCell = null;
         for (int i = 0; i < this.getSpeedMax(); i++) {
-            Cell temp = cell.getNeighbors().stream().filter(n -> n != null && n.checkFreeSpace(this)).findFirst().get();
-            if (temp == null) {
-                break;
+            Cell nextCell = cell.getNeighbors().stream().filter(n -> n != null && n.checkFreeSpace(this)).findFirst().get();
+            if (nextCell.checkFreeSpace(this)) {
+                nextCell.addEntity(this);
+                cell.removeEntity(this);
             }
-            targetCell = temp;
-        }
-        if (targetCell != null) {
-            targetCell.addEntity(this);
-            cell.removeEntity(this);
         }
     }
     @Override
