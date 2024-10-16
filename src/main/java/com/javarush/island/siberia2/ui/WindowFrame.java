@@ -58,6 +58,7 @@ public class WindowFrame extends JFrame implements Runnable {
                                 TileManager treesAssetToTile,
                                 TileManager wheatAssetToTile) {
     }
+
     private initResource getInitResource() {
         TileManager groundAssetToTile = new TileManager(Constants.GRASS_PATH_X16, tileSize);
         TileManager rocksAssetToTile = new TileManager(Constants.ROCKS_PATH_X16, tileSize);
@@ -69,7 +70,6 @@ public class WindowFrame extends JFrame implements Runnable {
                 wheatAssetToTile);
         return initResource;
     }
-
 
     @Override
     public void run() {

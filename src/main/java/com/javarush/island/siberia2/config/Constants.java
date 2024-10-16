@@ -31,7 +31,7 @@ public class Constants {
     public static final String RANDOM_UTIL_MIX_MAX = "min must be < max";
     public static final String RANDOM_UTIL_PERCENT = "percent must be from 0 to 100";
     public static final String ISLAND_OUT_IF_ISLAND = "Coordinates out of island bounds";
-    public static final String FACTORY_UNKNOWN_ANIMAL = "Unknown animal: ";
+    public static final String FACTORY_UNKNOWN_ORGANISM = "Unknown organism: ";
 
     //ANIMALS PNG PATHS
     public static final String PNG_WOLF_PATH = "/siberia2/x16/animals/Wolf.png";
