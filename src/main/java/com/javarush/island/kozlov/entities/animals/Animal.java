@@ -1,8 +1,12 @@
 package com.javarush.island.kozlov.entities.animals;
 
+import com.javarush.island.kozlov.actions.AnimalsEat;
+import com.javarush.island.kozlov.actions.Movable;
+import com.javarush.island.kozlov.logic.ProbabilityTable;
+import com.javarush.island.kozlov.map.Island;
 import com.javarush.island.kozlov.map.Location;
 
-public abstract class Animal {
+public abstract class Animal implements AnimalsEat, Movable {
 
     public double weight;
     protected int maxOnCell;
@@ -18,11 +22,30 @@ public abstract class Animal {
     }
 
     // Метод для передвижения
-    public abstract void move();
+    public void move(Location currentLocation, Island island) {
+        Location newLocation = island.getRandomNeighboringLocation(currentLocation);
+
+        if (newLocation != null) {
+            synchronized (newLocation) {
+                synchronized (currentLocation) {
+                    currentLocation.removeAnimal(this);
+                    newLocation.addAnimal(this);
+                    System.out.println("Animal moves to a new location");
+                }
+            }
+        }
+    }
 
     // Метод для размножения
-    public abstract void reproduce();
+    public void reproduce(Location location) {
+
+    }
+
 
     // Метод для питания
-    public abstract void eat(Location location);
+    @Override
+    public void eat(Location location, Animal predator) {
+        AnimalsEat.super.eat(location, predator);
+    }
+
 }

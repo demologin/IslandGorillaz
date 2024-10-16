@@ -3,14 +3,13 @@ package com.javarush.island.kozlov.logic;
 import java.util.Map;
 
 public class ProbabilityData {
+    private Map<String, AnimalData> animals;
 
-    private Map<String, Map<String, Integer>> percentages;
-
-    public Map<String, Map<String, Integer>> getPercentages() {
-        return percentages;
+    public Map<String, AnimalData> getAnimals() {
+        return animals;
     }
 
-    public void setPercentages(Map<String, Map<String, Integer>> percentages) {
-        this.percentages = percentages;
+    public void setAnimals(Map<String, AnimalData> animals) {
+        this.animals = animals;
     }
 }

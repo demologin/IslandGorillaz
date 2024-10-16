@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.island.kozlov.entities.animals.Animal;
 import com.fasterxml.jackson.dataformat.yaml.*;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ProbabilityTable {
 
     private static final Map<Class<? extends Animal>, Map<Class<? extends Animal>, Integer>> table = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends Animal>, Integer> maxOnCellTable = new ConcurrentHashMap<>();
 
     static {
         loadPredationData();
@@ -27,17 +27,17 @@ public class ProbabilityTable {
 
             ProbabilityData data = mapper.readValue(inputStream, ProbabilityData.class);
 
-            for (Map.Entry<String, Map<String, Integer>> predatorEntry : data.getPercentages().entrySet()) {
-                String predatorName = predatorEntry.getKey();
-                Map<String, Integer> preyData = predatorEntry.getValue();
+            for (Map.Entry<String, AnimalData> animalEntry : data.getAnimals().entrySet()) {
+                String animalName = animalEntry.getKey();
+                AnimalData animalData = animalEntry.getValue();
 
-                Class<? extends Animal> predatorClass = getAnimalClass(predatorName);
+                Class<? extends Animal> predatorClass = getAnimalClass(animalName);
                 if (predatorClass == null) {
                     continue;
                 }
 
                 Map<Class<? extends Animal>, Integer> preyMap = new ConcurrentHashMap<>();
-                for (Map.Entry<String, Integer> preyEntry : preyData.entrySet()) {
+                for (Map.Entry<String, Integer> preyEntry : animalData.getPrey().entrySet()) {
                     String preyName = preyEntry.getKey();
                     Integer chance = preyEntry.getValue();
                     Class<? extends Animal> preyClass = getAnimalClass(preyName);
@@ -71,5 +71,9 @@ public class ProbabilityTable {
 
         int randomValue = ThreadLocalRandom.current().nextInt(100);
         return randomValue < chance;
+    }
+
+    public static int getMaxOnCell(Class<? extends Animal> animalClass) {
+        return maxOnCellTable.getOrDefault(animalClass, 0);
     }
 }

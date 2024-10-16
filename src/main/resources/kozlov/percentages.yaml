@@ -1,5 +1,6 @@
-predation:
+animals:
 Wolf:
+  maxOnCell: 30
   Horse: 50
   Deer: 15
   Rabbit: 60
@@ -10,16 +11,19 @@ Wolf:
   Buffalo: 10
   Duck: 40
 Snake:
+  maxOnCell: 30
   Fox: 15
   Rabbit: 20
   Mouse: 40
   Duck: 10
 Fox:
+  maxOnCell: 30
   Rabbit: 70
   Mouse: 90
   Duck: 60
   Caterpillar: 40
 Bear:
+  maxOnCell: 5
   Boa: 80
   Horse: 40
   Deer: 80
@@ -31,32 +35,44 @@ Bear:
   Buffalo: 20
   Duck: 10
 Eagle:
+  maxOnCell: 20
   Fox: 10
   Rabbit: 90
   Mouse: 90
   Duck: 80
 Horse:
+  maxOnCell: 20
   Vegetation: 100
 Deer:
+  maxOnCell: 20
   Vegetation: 100
 Rabbit:
+  maxOnCell: 150
   Vegetation: 100
 Mouse:
+  maxOnCell: 500
   Caterpillar: 90
   Vegetation: 100
 Goat:
+  maxOnCell: 140
   Vegetation: 100
 Sheep:
+  maxOnCell: 140
   Vegetation: 100
 Hog:
+  maxOnCell: 50
   Mouse: 50
   Caterpillar: 90
   Vegetation: 100
 Bull:
+  maxOnCell: 10
   Vegetation: 100
 Duck:
+  maxOnCell: 200
   Caterpillar: 90
   Vegetation: 100
 Worm:
+  maxOnCell: 1000
   Vegetation: 100
-Vegetation: {}
+Vegetation:
+  maxOnCell: 200

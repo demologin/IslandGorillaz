@@ -1,6 +1,7 @@
 package com.javarush.island.kozlov.actions;
 
 import com.javarush.island.kozlov.entities.animals.Animal;
+import com.javarush.island.kozlov.entities.plants.Vegetation;
 import com.javarush.island.kozlov.logic.ProbabilityTable;
 import com.javarush.island.kozlov.map.Location;
 
@@ -10,25 +11,42 @@ public interface AnimalsEat {
 
     default void eat(Location location, Animal predator) {
 
-        List<Animal> animals = location.getAnimals();
+        if (predator instanceof Herbivore) {
+            List<Vegetation> plants = location.getVegetations();
 
-        for (Animal prey : animals) {
-            if (prey == predator) continue;
+            if (!plants.isEmpty()) {
+                Vegetation plant = plants.remove(0);
+                predator.foodNeed = Math.max(predator.foodNeed - plant.getNutritionalValue(), 0);
+                System.out.println(predator.getClass().getSimpleName() + " eats vegetation ");
+            }
 
-            boolean success = ProbabilityTable.tryToEat(predator.getClass(), prey.getClass());
+            if (predator.foodNeed > 0) {
+                System.out.println(predator.getClass().getSimpleName() + " is still hungry");
+            } else {
+                System.out.println(predator.getClass().getSimpleName() + " is full");
+            }
+        } else {
 
-            if (success) {
-                System.out.println(predator.getClass().getSimpleName() + " eats " + prey.getClass().getSimpleName());
-                predator.foodNeed = Math.max(predator.foodNeed - prey.weight, 0);
-                location.removeAnimal(prey);
-                if (predator.foodNeed == 0) {
-                    System.out.println(predator.getClass().getSimpleName() + " is full ");
-                    break;
+            List<Animal> animals = location.getAnimals();
+
+            for (Animal prey : animals) {
+                if (prey == predator) continue;
+
+                boolean success = ProbabilityTable.tryToEat(predator.getClass(), prey.getClass());
+
+                if (success) {
+                    System.out.println(predator.getClass().getSimpleName() + " eats " + prey.getClass().getSimpleName());
+                    predator.foodNeed = Math.max(predator.foodNeed - prey.weight, 0);
+                    location.removeAnimal(prey);
+                    if (predator.foodNeed == 0) {
+                        System.out.println(predator.getClass().getSimpleName() + " is full ");
+                        break;
+                    }
                 }
             }
-        }
-        if (predator.foodNeed > 0) {
-            System.out.println(predator.getClass().getSimpleName() + " is still hungry");
+            if (predator.foodNeed > 0) {
+                System.out.println(predator.getClass().getSimpleName() + " is still hungry");
+            }
         }
     }
 }
