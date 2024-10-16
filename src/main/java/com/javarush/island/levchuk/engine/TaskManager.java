@@ -16,10 +16,10 @@ public class TaskManager {
 
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
                 .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
-            eatingService.eatAllInCell(cell);
-            cell.getLock().unlock();
-            return null;
-        }).toList();
+                    eatingService.eatAllInCell(cell);
+                    cell.getLock().unlock();
+                    return null;
+                }).toList();
         executorService.invokeAll(tasks);
     }
 
@@ -27,21 +27,21 @@ public class TaskManager {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
                 .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
 
-            moveService.moveAllInCall(cell);
+                    moveService.moveAllInCall(cell);
 
-            return null;
-        }).toList();
+                    return null;
+                }).toList();
         executorService.invokeAll(tasks);
     }
 
     public void reproduceAllInIsland(IslandMap islandMap, ReproduceService reproduceService, ExecutorService executorService) throws InterruptedException {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
                 .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
-            reproduceService.reproduceAllInCall(cell);
+                    reproduceService.reproduceAllInCall(cell);
 
-            return null;
+                    return null;
 
-        }).toList();
+                }).toList();
         executorService.invokeAll(tasks);
     }
 }

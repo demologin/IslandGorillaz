@@ -6,7 +6,6 @@ import com.javarush.island.levchuk.map.IslandMap;
 import com.javarush.island.levchuk.utils.EntityFactory;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;

@@ -17,9 +17,9 @@ import java.util.concurrent.Executors;
 
 public class Executor {
     ConsoleProvider console = new ConsoleProvider();
-    IslandMap islandMap = new IslandMap(10, 10);
+    MapInitializer mapInitializer = new MapInitializer(console);
+
     EntityFactory entityFactory = new EntityFactory();
-    MapInitializer mapInitializer = new MapInitializer();
     PrototypesCreator prototypesCreator = new PrototypesCreator();
     TaskManager taskManager = new TaskManager();
     EatingService eatingService = new EatingService();
@@ -31,12 +31,13 @@ public class Executor {
     public void startGame() {
         console.println(ConsoleMessages.INIT_GAME);
         int numberGameDays = getNumberSimulationDays();
+        IslandMap islandMap = new IslandMap(mapInitializer);
         mapInitializer.fillMapEntities(islandMap.getIslandMap(), entityFactory, prototypesCreator);
         statisticProvider.printByCell(islandMap, console);
         long start = System.currentTimeMillis();
         try {
             for (int i = 0; i < numberGameDays; i++) {
-                console.println("************ day " + i + " ************");
+                console.println("************ day " + (i + 1) + " ************");
                 taskManager.reproduceAllInIsland(islandMap, reproduceService, executorService);
                 taskManager.moveAllInIsland(islandMap, moveService, executorService);
                 taskManager.eatAllInIsland(islandMap, eatingService, executorService);
@@ -53,7 +54,7 @@ public class Executor {
     }
 
     private int getNumberSimulationDays() {
-        console.print("Enter number simulation days (1:" + Constants.MAX_NUMBER_SIMULATION_DAYS + "): ");
+        console.print("Enter number simulation days :");
         String inputLine = console.read();
         if (inputLine != null) {
             try {

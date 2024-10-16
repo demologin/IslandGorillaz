@@ -1,7 +1,6 @@
 package com.javarush.island.levchuk.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.javarush.island.levchuk.constants.Constants;
 import com.javarush.island.levchuk.entities.Entity;
 import org.reflections.Reflections;
@@ -9,7 +8,7 @@ import org.reflections.Reflections;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 public class PrototypesCreator {
 

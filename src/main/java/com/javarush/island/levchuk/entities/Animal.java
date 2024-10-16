@@ -23,7 +23,6 @@ public class Animal extends Entity implements Eating, Movable {
     private Map<String, Integer> likelyFood;
 
 
-
     @Override
     public void move(Cell cell) {
 /*        Cell nextCell;
@@ -40,6 +39,7 @@ public class Animal extends Entity implements Eating, Movable {
             cell.removeEntity(this);
         });
     }
+
     @Override
     public void eat(Cell cell) {
         List<String> potentialFoodTypes = getPotentialFood();
@@ -50,7 +50,7 @@ public class Animal extends Entity implements Eating, Movable {
                 tryToEat(foodType, cell);
             }
 
-            weight-=weightSaturation;
+            weight -= weightSaturation;
             if (minimumPossibleWeightThresholdHasBeenExceed()) {
                 cell.removeEntity(this);
             }
@@ -61,15 +61,17 @@ public class Animal extends Entity implements Eating, Movable {
         return likelyFood.entrySet().stream()
                 .filter(entry -> entry.getValue() > 0)
                 .map(Map.Entry::getKey)
-                .filter(entityName -> EntityFactory.getEntityClass(entityName) !=null)
+                .filter(entityName -> EntityFactory.getEntityClass(entityName) != null)
                 .collect(Collectors.toList());
     }
+
     private boolean minimumPossibleWeightThresholdHasBeenExceed() {
         return weight / ((Animal) EntityFactory.getEntity(getClass())).getWeightDefault() < Constants.MIN_PERCENT_WEIGHT_TO_DIE;
     }
+
     private void tryToEat(String selectedFood, Cell cell) {
-        cell.getResidents().computeIfPresent(EntityFactory.getEntityClass(selectedFood),( food, entities) ->{
-            if(!entities.isEmpty()){
+        cell.getResidents().computeIfPresent(EntityFactory.getEntityClass(selectedFood), (food, entities) -> {
+            if (!entities.isEmpty()) {
                 Entity entity = entities.get(0);
                 double saturation = (entity instanceof Animal ? ((Animal) entity).getWeight() : weightSaturation);
                 weight += saturation;

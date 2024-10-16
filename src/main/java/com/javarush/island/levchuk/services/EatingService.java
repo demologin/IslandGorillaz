@@ -14,7 +14,7 @@ public class EatingService {
     public void eatAllInCell(Cell cell) {
         Map<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> entities = cell.getResidents();
         for (Map.Entry<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> entitiesList : entities.entrySet()) {
-            List <Entity> animals = entitiesList.getValue()
+            List<Entity> animals = entitiesList.getValue()
                     .stream().filter(Eating.class::isInstance)
                     .collect(Collectors.toList());
             ListIterator<Entity> iterator = animals.listIterator();
