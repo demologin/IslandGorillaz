@@ -4,7 +4,7 @@ import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.plants.Plant;
 import lombok.Getter;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Cell {
 
@@ -15,8 +15,8 @@ public class Cell {
     @Getter
     private final int y;
     private final boolean isWater;
-    private final CopyOnWriteArrayList<Animal> animals = new CopyOnWriteArrayList<>();
-    private final CopyOnWriteArrayList<Plant> plants = new CopyOnWriteArrayList<>();
+    private final Queue<Animal> animals = new ConcurrentLinkedQueue <>();
+    private final Queue<Plant> plants = new ConcurrentLinkedQueue<>();
 
     public Cell(int x, int y, boolean isWater, Island island) {
         this.x = x;
@@ -26,7 +26,7 @@ public class Cell {
     }
 
     public List<Animal> getAnimals() {
-        return Collections.unmodifiableList(animals);
+        return List.copyOf(animals);
     }
 
     public void addAnimal(Animal animal) {
@@ -38,7 +38,7 @@ public class Cell {
     }
 
     public List<Plant> getPlants() {
-        return Collections.unmodifiableList(plants);
+        return List.copyOf(plants);
     }
 
     public void addPlant(Plant plant) {
@@ -52,21 +52,5 @@ public class Cell {
     public boolean isWater() {
         return isWater;
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        Cell cell = (Cell) o;
-//
-//        if (x != cell.x) return false;
-//        return y == cell.y;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(x, y);
-//    }
 
 }
