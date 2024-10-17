@@ -26,7 +26,8 @@ public class PlantGrowthService {
         for (Cell cell : adjacentCells) {
             if (!cell.isWater() && cell.getPlants().size() < plant.getSettings().getMaxCountPerCell()) {
                 try {
-                    Plant newPlant = plant.getClass().getConstructor(plant.getSettings().getClass()).newInstance(plant.getSettings());
+                    Plant newPlant = plant.getClass()
+                            .getConstructor(plant.getSettings().getClass()).newInstance(plant.getSettings());
                     newPlant.setCurrentCell(cell);
                     cell.addPlant(newPlant);
                     break;

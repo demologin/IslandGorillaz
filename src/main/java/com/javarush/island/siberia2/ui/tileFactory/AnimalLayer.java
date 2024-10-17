@@ -33,7 +33,8 @@ public class AnimalLayer {
         settings.getAnimalsSettings().forEach((animalName, animalSettings) -> {
             BufferedImage animalImage = null;
             try {
-                animalImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(animalSettings.getImgPath())));
+                animalImage = ImageIO.read(Objects.requireNonNull(getClass()
+                        .getResourceAsStream(animalSettings.getImgPath())));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -60,7 +61,11 @@ public class AnimalLayer {
                         int drawY = y * scaledTileSize + (animalIndex / 2) * (tileSize);
 
                         if (drawX < width && drawY < height) {
-                            g.drawImage(animalImage, drawX, drawY, tileSize * 2, tileSize * 2, null);
+                            g.drawImage(animalImage,
+                                    drawX, drawY,
+                                    tileSize * 2,
+                                    tileSize * 2,
+                                    null);
                         }
                         animalIndex++;
                     }

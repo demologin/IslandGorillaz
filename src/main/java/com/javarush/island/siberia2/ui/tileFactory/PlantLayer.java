@@ -34,7 +34,8 @@ public class PlantLayer {
         settings.getPlantsSettings().forEach((name, plantSettings) -> {
             BufferedImage plantImage = null;
             try {
-                plantImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(plantSettings.getImgPath())));
+                plantImage = ImageIO.read(Objects.requireNonNull(getClass()
+                        .getResourceAsStream(plantSettings.getImgPath())));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -51,7 +52,6 @@ public class PlantLayer {
                 List<Plant> plants = cell.getPlants();
 
                 int maxPlantsToDraw = Math.min(plants.size(), 1);
-                int plantIndex = 0;
 
                 for (Plant plant : plants.subList(0, maxPlantsToDraw)) {
                     BufferedImage plantImage = plantImages.get(plant.getSettings().getName());
@@ -61,7 +61,6 @@ public class PlantLayer {
                         int drawY = (y + 1) * scaledTileSize - (tileSize / 2) - 8;
 
                         g.drawImage(plantImage, drawX, drawY, tileSize, tileSize, null);
-                        plantIndex++;
                     }
                 }
             }

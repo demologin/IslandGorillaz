@@ -30,7 +30,12 @@ public class TileFiller {
                 BufferedImage tile = tileManager.getTileByTerrainType(tileType);
 
                 if (tile != null) {
-                    g.drawImage(tile, col * scaledTileSize, row * scaledTileSize, scaledTileSize, scaledTileSize, null);
+                    g.drawImage(tile,
+                            col * scaledTileSize,
+                            row * scaledTileSize,
+                            scaledTileSize,
+                            scaledTileSize,
+                            null);
                 }
             }
         }
