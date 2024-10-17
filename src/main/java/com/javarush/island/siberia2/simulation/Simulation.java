@@ -43,13 +43,27 @@ public class Simulation implements Runnable {
     public void run() {
         scheduler.scheduleAtFixedRate(() -> {
             simulateStep();
-            populateOrganisms.populate(island, windowFrame.getSettings());
+            addSingleOrganism();
             statisticsService.printStatistics(bornCount.get(), eatenCount.get(), starvedCount.get());
             bornCount.set(0);
             eatenCount.set(0);
             starvedCount.set(0);
             SwingUtilities.invokeLater(() -> windowFrame.getTilePanel().repaint());
         }, 0, simulationStepDuration, TimeUnit.MILLISECONDS);
+    }
+
+    private void addSingleOrganism() {
+        int x = ThreadLocalRandom.current().nextInt(island.getWidth());
+        int y = ThreadLocalRandom.current().nextInt(island.getHeight());
+        Cell cell = island.getCell(x, y);
+
+        if (cell.getAnimals().size() < windowFrame.getSettings().getAnimalsSettings().size()) {
+            populateOrganisms.addSingleAnimal(cell, windowFrame.getSettings());
+        }
+
+        if (cell.getPlants().size() < windowFrame.getSettings().getPlantsSettings().size()) {
+            populateOrganisms.addSinglePlant(cell, windowFrame.getSettings());
+        }
     }
 
     private void simulateStep() {
