@@ -4,7 +4,6 @@ import com.javarush.island.siberia2.config.Settings;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.map.Cell;
 import com.javarush.island.siberia2.entity.map.Island;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -56,8 +55,8 @@ public class AnimalLayer {
                     BufferedImage animalImage = animalImages.get(animal.getSettings().getName());
 
                     if (animalImage != null) {
-                        int drawX = x * scaledTileSize + (animalIndex % 2) * (tileSize / 2);
-                        int drawY = y * scaledTileSize + (animalIndex / 2) * (tileSize / 2);
+                        int drawX = x * scaledTileSize + (animalIndex % 2 * (tileSize));
+                        int drawY = y * scaledTileSize + (animalIndex / 2) * (tileSize);
 
                         if (drawX < width && drawY < height) {
                             g.drawImage(animalImage, drawX, drawY, tileSize, tileSize, null);
