@@ -1,7 +1,5 @@
 package com.javarush.island.kozlov;
 
-import com.javarush.island.kozlov.actions.AnimalsEat;
-import com.javarush.island.kozlov.actions.Movable;
 import com.javarush.island.kozlov.entities.animals.Animal;
 import com.javarush.island.kozlov.exception.MoveException;
 import com.javarush.island.kozlov.exception.ReproductionException;

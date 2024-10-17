@@ -104,4 +104,28 @@ public abstract class Animal implements AnimalsEat, Movable, Reproduce {
             System.out.println(animal.getClass().getSimpleName() + " is still hungry");
         }
     }
+
+    private boolean bornRecently = false;
+    private boolean eatenRecently = false;
+
+    public void markAsBorn() {
+        bornRecently = true;
+    }
+
+    public boolean isBornRecently() {
+        return bornRecently;
+    }
+
+    public void markAsEaten() {
+        eatenRecently = true;
+    }
+
+    public boolean isEatenRecently() {
+        return eatenRecently;
+    }
+
+    public void resetFlags() {
+        bornRecently = false;
+        eatenRecently = false;
+    }
 }

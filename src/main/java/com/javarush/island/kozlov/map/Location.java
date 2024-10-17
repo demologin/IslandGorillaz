@@ -14,6 +14,8 @@ public class Location {
     private final List<Animal> animals = new CopyOnWriteArrayList<>();
     private final List<Vegetation> vegetations = new CopyOnWriteArrayList<>();
     private static final  int MAX_PLANTS = 200;
+    private int vegetationsGrown = 0;
+    private int vegetationsEaten = 0;
 
     public synchronized void addAnimal(Animal animal) {
         animals.add(animal);
@@ -33,9 +35,25 @@ public class Location {
 
     public synchronized void growVegetations() {
         if (vegetations.size() < MAX_PLANTS) {
-            vegetations.add(new Vegetation(5.0));
-            System.out.println("A new vegetation has grown");
+                vegetations.add(new Vegetation(5.0));
+                vegetationsGrown++;
+                System.out.println("A new vegetation has grown");
         }
+    }
+
+    public void eatPlant() {
+        if (!vegetations.isEmpty()) {
+            vegetations.remove(0);
+            vegetationsEaten++;
+        }
+    }
+
+    public int getVegetationsGrown() {
+        return vegetationsGrown;
+    }
+
+    public int getVegetationsEaten() {
+        return vegetationsEaten;
     }
 
     public void reproduceAnimals() throws ReproductionException {
