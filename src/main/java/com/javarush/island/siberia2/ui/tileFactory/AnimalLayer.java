@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AnimalLayer {
@@ -32,7 +33,7 @@ public class AnimalLayer {
         settings.getAnimalsSettings().forEach((animalName, animalSettings) -> {
             BufferedImage animalImage = null;
             try {
-                animalImage = ImageIO.read(getClass().getResourceAsStream(animalSettings.getImgPath()));
+                animalImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(animalSettings.getImgPath())));
             } catch (IOException e) {
                 e.printStackTrace();
             }

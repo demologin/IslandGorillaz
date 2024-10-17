@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlantLayer {
@@ -33,7 +34,7 @@ public class PlantLayer {
         settings.getPlantsSettings().forEach((name, plantSettings) -> {
             BufferedImage plantImage = null;
             try {
-                plantImage = ImageIO.read(getClass().getResourceAsStream(plantSettings.getImgPath()));
+                plantImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(plantSettings.getImgPath())));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

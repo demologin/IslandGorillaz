@@ -26,7 +26,6 @@ public class Simulation implements Runnable {
     private final ScheduledExecutorService scheduler;
     private final WindowFrame windowFrame;
     private final SimulationStepHandler simulationStepHandler;
-    private final OrganismPopulation organismPopulation;
 
     public Simulation(Island island, Settings settings, WindowFrame windowFrame) {
         this.island = island;
@@ -36,7 +35,7 @@ public class Simulation implements Runnable {
         this.scheduler = Executors.newScheduledThreadPool(1);
         this.statisticsService = new StatisticsService(island);
         this.simulationStepHandler = new SimulationStepHandler(bornCount, eatenCount, starvedCount);
-        this.organismPopulation = new OrganismPopulation(new PopulateOrganisms());
+        OrganismPopulation organismPopulation = new OrganismPopulation(new PopulateOrganisms());
 
         organismPopulation.populateIslandAtStart(island, settings);
     }

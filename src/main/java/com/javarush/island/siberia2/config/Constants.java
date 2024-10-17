@@ -34,6 +34,5 @@ public class Constants {
     public static final String ERROR_LOAD_SETTING = "Error loading settings";
     public static final String ISLAND_OUT_IF_ISLAND = "Coordinates out of island bounds";
     public static final String FACTORY_UNKNOWN_ORGANISM = "Unknown organism: ";
-    public static final String ERROR_LOAD_IMG = "Unable to load image: ";
 
 }
