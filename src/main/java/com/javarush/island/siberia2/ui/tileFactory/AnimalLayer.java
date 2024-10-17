@@ -59,7 +59,7 @@ public class AnimalLayer {
                         int drawY = y * scaledTileSize + (animalIndex / 2) * (tileSize);
 
                         if (drawX < width && drawY < height) {
-                            g.drawImage(animalImage, drawX, drawY, tileSize, tileSize, null);
+                            g.drawImage(animalImage, drawX, drawY, tileSize * 2, tileSize * 2, null);
                         }
                         animalIndex++;
                     }
