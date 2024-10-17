@@ -27,6 +27,7 @@ public class Simulation implements Runnable {
     private final ExecutorService executorService;
     private final ScheduledExecutorService scheduler;
     private final WindowFrame windowFrame;
+    private final PopulateOrganisms populateOrganisms;
 
     public Simulation(Island island, Settings settings, WindowFrame windowFrame) {
         this.island = island;
@@ -35,14 +36,14 @@ public class Simulation implements Runnable {
         this.executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         this.scheduler = Executors.newScheduledThreadPool(1);
         this.statisticsService = new StatisticsService(island);
-        PopulateOrganisms populateOrganisms = new PopulateOrganisms();
-        populateOrganisms.populate(island, settings);
+        this.populateOrganisms = new PopulateOrganisms();
     }
 
     @Override
     public void run() {
         scheduler.scheduleAtFixedRate(() -> {
             simulateStep();
+            populateOrganisms.populate(island, windowFrame.getSettings());
             statisticsService.printStatistics(bornCount.get(), eatenCount.get(), starvedCount.get());
             bornCount.set(0);
             eatenCount.set(0);

@@ -12,6 +12,7 @@ import javax.swing.*;
 
 public class WindowFrame extends JFrame implements Runnable {
 
+    @Getter
     Settings settings = ConfigLoader.loadSettings();
     int islandWidth = settings.getIslandSettings().getWidth();
     int islandHeight = settings.getIslandSettings().getHeight();
