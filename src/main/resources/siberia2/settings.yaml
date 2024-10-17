@@ -199,11 +199,11 @@ plantsSettings:
     imgPath: "/siberia2/x16/plants/Grass.png"
     weight: 1
     maxCountPerCell: 200
-    growthRate: 0.5
+    growthRate: 1.5
   Tree:
     name: "Tree"
     icon: "\uD83C\uDF33"
     imgPath: "/siberia2/x16/plants/Tree.png"
     weight: 10
     maxCountPerCell: 1
-    growthRate: 0.1
+    growthRate: 0.5

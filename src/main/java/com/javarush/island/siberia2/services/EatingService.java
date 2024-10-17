@@ -1,8 +1,10 @@
 package com.javarush.island.siberia2.services;
 
+import com.javarush.island.siberia2.entity.plants.Plant;
 import com.javarush.island.siberia2.util.RandomUtils;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.map.Cell;
+
 import java.util.List;
 
 public class EatingService {
@@ -18,6 +20,7 @@ public class EatingService {
         try {
             Cell currentCell = animal.getCurrentCell();
             List<Animal> animalsInCell = currentCell.getAnimals();
+            List<Plant> plantsInCell = currentCell.getPlants();
 
             for (Animal prey : animalsInCell) {
                 if (animal == prey) continue;
@@ -36,10 +39,28 @@ public class EatingService {
             }
 
             if (!hasEaten) {
+                for (Plant plant : plantsInCell) {
+                    double plantWeight = plant.getWeight();
+                    double foodNeeded = animal.getSettings().getMaxFood() - animal.getCurrentFoodLevel();
+                    double foodConsumed = Math.min(plantWeight, foodNeeded);
+
+                    animal.setCurrentFoodLevel(animal.getCurrentFoodLevel() + foodConsumed);
+                    plant.setWeight(plantWeight - foodConsumed);
+
+                    if (plant.getWeight() <= 0) {
+                        plant.die();
+                    }
+                    hasEaten = true;
+                    break;
+                }
+            }
+
+            if (!hasEaten) {
                 animal.decreaseFoodLevel();
             }
         } finally {
             animal.getLock().unlock();
         }
     }
+
 }
