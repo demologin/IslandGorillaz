@@ -4,7 +4,6 @@ import com.javarush.island.siberia2.entity.plants.Plant;
 import com.javarush.island.siberia2.util.RandomUtils;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.map.Cell;
-
 import java.util.List;
 
 public class EatingService {
@@ -32,7 +31,7 @@ public class EatingService {
                     double foodConsumed = Math.min(preyWeight, foodNeeded);
 
                     animal.setCurrentFoodLevel(animal.getCurrentFoodLevel() + foodConsumed);
-                    prey.die(); //die from overEating =D
+                    prey.die();
                     hasEaten = true;
                     break;
                 }

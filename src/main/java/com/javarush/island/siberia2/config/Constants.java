@@ -9,6 +9,8 @@ public class Constants {
     public static final double EVERY_STEP_DECREASE_HUNGER = 0.01; //use 0.1 to 10% per turn, 0.01 is for long living
     public static final int STARTING_CELLS_WITH_FOOD = 300;
     public static final int MAX_ANIMAL_TO_START = 30;
+    public static final int PLANT_SPREAD_PROBABILITY = 8; //default 10 for 10%
+
 
     //TILES
     public static final String GRASS_PATH_X16 = "/siberia2/x16/ground/Grass.png";

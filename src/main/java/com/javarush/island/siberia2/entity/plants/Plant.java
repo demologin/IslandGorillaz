@@ -2,6 +2,7 @@ package com.javarush.island.siberia2.entity.plants;
 
 import com.javarush.island.siberia2.config.PlantSettings;
 import com.javarush.island.siberia2.entity.Organism;
+import com.javarush.island.siberia2.services.PlantGrowthService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public abstract class Plant extends Organism {
     protected PlantSettings settings;
     protected final ReentrantLock lock = new ReentrantLock();
+    private final PlantGrowthService growthService = new PlantGrowthService();
 
     public Plant(PlantSettings settings) {
         this.settings = settings;
@@ -31,6 +33,13 @@ public abstract class Plant extends Organism {
         }
     }
 
-    public abstract void grow();
+    public void grow() {
+        lock.lock();
+        try {
+        growthService.grow(this);
+        } finally {
+            lock.unlock();
+        }
+    }
 
 }

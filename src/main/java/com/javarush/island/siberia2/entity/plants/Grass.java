@@ -8,16 +8,4 @@ public class Grass extends Plant {
         super(settings);
     }
 
-    @Override
-    public void grow() {
-        lock.lock();
-        try {
-            weight += settings.getGrowthRate();
-            if (weight > settings.getWeight()) {
-                weight = settings.getWeight();
-            }
-        } finally {
-            lock.unlock();
-        }
-    }
 }
