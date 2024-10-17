@@ -36,10 +36,6 @@ public class EatingService {
                 }
             }
 
-//        if (!hasEaten) {
-//            //возможно отделить логику для растений, если добавлю ещё разновидностей. но это не точно.
-//        }
-
             if (!hasEaten) {
                 animal.decreaseFoodLevel();
             }

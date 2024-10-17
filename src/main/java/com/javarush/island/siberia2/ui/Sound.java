@@ -38,7 +38,7 @@ public class Sound {
         new Thread(() -> {
             try {
                 while (clip.isRunning()) {
-                    Thread.sleep(Constants.SLEEP_TIME_CHECK_THREAD); // Проверяем каждые 100 мс
+                    Thread.sleep(Constants.SLEEP_TIME_CHECK_THREAD);
                 }
                 clip.close();
             } catch (InterruptedException e) {

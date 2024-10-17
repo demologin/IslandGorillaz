@@ -15,7 +15,6 @@ public class PopulateOrganisms {
                 Animal animal = AnimalFactory.createAnimal(name, animalSettings);
                 animal.setCurrentCell(cell);
                 cell.addAnimal(animal);
-                return;
             }
         });
     }
@@ -26,7 +25,6 @@ public class PopulateOrganisms {
                 Plant plant = PlantFactory.createPlant(name, plantSettings);
                 plant.setCurrentCell(cell);
                 cell.addPlant(plant);
-                return;
             }
         });
     }

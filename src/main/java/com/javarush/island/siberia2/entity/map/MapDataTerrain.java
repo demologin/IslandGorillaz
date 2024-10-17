@@ -115,9 +115,4 @@ public class MapDataTerrain {
         return terrainMap[y][x];
     }
 
-    public boolean isWater(int x, int y) {
-        int tileIndex = terrainMap[y][x];
-        return tileIndex == WATER_TILE;
-    }
-
 }

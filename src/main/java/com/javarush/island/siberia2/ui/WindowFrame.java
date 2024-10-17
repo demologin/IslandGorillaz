@@ -41,10 +41,10 @@ public class WindowFrame extends JFrame implements Runnable {
         tilePanel = getTilePanel(mapData, island);
         add(tilePanel);
 
-//        Sound sound = new Sound();
-//        sound.setFile(0);
-//        sound.play();
-//        sound.loop();
+        Sound sound = new Sound();
+        sound.setFile(0);
+        sound.play();
+        sound.loop();
 
         simulation = new Simulation(island, settings, this);
     }

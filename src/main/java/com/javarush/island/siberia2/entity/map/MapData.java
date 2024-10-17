@@ -26,16 +26,4 @@ public class MapData {
         return objectData.getObjectMap();
     }
 
-    public int getTile(int x, int y) {
-        return terrainData.getTile(x, y);
-    }
-
-    public int getObject(int x, int y) {
-        return objectData.getObject(x, y);
-    }
-
-    public boolean isWater(int x, int y) {
-        return terrainData.isWater(x, y);
-    }
-
 }

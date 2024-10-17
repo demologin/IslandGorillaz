@@ -125,8 +125,4 @@ public class MapDataObject {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
-    public int getObject(int x, int y) {
-        return objectMap[y][x];
-    }
-
 }
