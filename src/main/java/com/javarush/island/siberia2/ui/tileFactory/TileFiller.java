@@ -1,6 +1,7 @@
 package com.javarush.island.siberia2.ui.tileFactory;
 
 import com.javarush.island.siberia2.entity.map.MapData;
+import com.javarush.island.siberia2.entity.map.generators.TerrainType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -18,17 +19,19 @@ public class TileFiller {
     }
 
     public void renderWorld(Graphics g, int width, int height) {
-        int[][] terrainMap = mapData.getTerrainMap();
+        TerrainType[][] terrainMap = mapData.getTerrainMap();
         int scaledTileSize = tileSize * scale;
         int cols = Math.min(terrainMap[0].length, width / scaledTileSize);
         int rows = Math.min(terrainMap.length, height / scaledTileSize);
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                int tileIndex = terrainMap[row][col];
-                BufferedImage tile = tileManager.getTileByIndex(tileIndex);
+                TerrainType tileType = terrainMap[row][col];
+                BufferedImage tile = tileManager.getTileByTerrainType(tileType);
 
-                g.drawImage(tile, col * scaledTileSize, row * scaledTileSize, scaledTileSize, scaledTileSize, null);
+                if (tile != null) {
+                    g.drawImage(tile, col * scaledTileSize, row * scaledTileSize, scaledTileSize, scaledTileSize, null);
+                }
             }
         }
     }

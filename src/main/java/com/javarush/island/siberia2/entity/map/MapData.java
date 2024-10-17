@@ -1,15 +1,16 @@
 package com.javarush.island.siberia2.entity.map;
 
+import com.javarush.island.siberia2.entity.map.generators.ObjectType;
+import com.javarush.island.siberia2.entity.map.generators.TerrainType;
 import lombok.Getter;
 
 public class MapData {
-
-    private final MapDataTerrain terrainData;
-    private final MapDataObject objectData;
     @Getter
     private final int width;
     @Getter
     private final int height;
+    private final MapDataTerrain terrainData;
+    private final MapDataObject objectData;
 
     public MapData(int width, int height) {
         this.width = width;
@@ -18,11 +19,11 @@ public class MapData {
         objectData = new MapDataObject(width, height, terrainData);
     }
 
-    public int[][] getTerrainMap() {
+    public TerrainType[][] getTerrainMap() {
         return terrainData.getTerrainMap();
     }
 
-    public int[][] getObjectMap() {
+    public ObjectType[][] getObjectMap() {
         return objectData.getObjectMap();
     }
 

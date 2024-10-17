@@ -1,38 +1,32 @@
 package com.javarush.island.siberia2.entity.map;
 
-import static com.javarush.island.siberia2.entity.map.MapDataTerrain.*;
 import com.javarush.island.siberia2.config.Constants;
+import com.javarush.island.siberia2.entity.map.generators.ObjectType;
+import com.javarush.island.siberia2.entity.map.generators.TerrainType;
 import lombok.Getter;
 import java.util.Random;
 
 public class MapDataObject {
 
     @Getter
-    private final int[][] objectMap;
+    private final ObjectType[][] objectMap;
     private final int width;
     private final int height;
     private final Random random = new Random();
-
-    //for easy terrain index
-    public static final int NO_OBJECT = -1;
-    public static final int ROCK_OBJECT = 0;
-    public static final int TREE_OBJECT = 100;
-    public static final int WHEAT_OBJECT = 200;
-
     private final MapDataTerrain terrainData;
 
     public MapDataObject(int width, int height, MapDataTerrain terrainData) {
         this.width = width;
         this.height = height;
         this.terrainData = terrainData;
-        objectMap = new int[height][width];
+        objectMap = new ObjectType[height][width];
         generateObjectMap();
     }
 
     private void generateObjectMap() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                objectMap[y][x] = NO_OBJECT;
+                objectMap[y][x] = ObjectType.NO_OBJECT;
             }
         }
         placeRocks();
@@ -46,7 +40,7 @@ public class MapDataObject {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
             if (isValidPlacement(x, y)) {
-                objectMap[y][x] = ROCK_OBJECT;
+                objectMap[y][x] = ObjectType.ROCK;
             }
         }
     }
@@ -61,9 +55,9 @@ public class MapDataObject {
 
             for (int y = centerY - fieldSize; y <= centerY + fieldSize; y++) {
                 for (int x = centerX - fieldSize; x <= centerX + fieldSize; x++) {
-                    if (isValidPlacement(x, y) && !isAdjacentToObject(x, y, TREE_OBJECT)) {
+                    if (isValidPlacement(x, y) && !isAdjacentToObject(x, y, ObjectType.TREE)) {
                         if (random.nextInt(100) < 80) {
-                            objectMap[y][x] = WHEAT_OBJECT;
+                            objectMap[y][x] = ObjectType.WHEAT;
                         }
                     }
                 }
@@ -81,9 +75,9 @@ public class MapDataObject {
 
             for (int y = centerY - forestSize; y <= centerY + forestSize; y++) {
                 for (int x = centerX - forestSize; x <= centerX + forestSize; x++) {
-                    if (isValidPlacement(x, y) && !isAdjacentToObject(x, y, WHEAT_OBJECT)) {
+                    if (isValidPlacement(x, y) && !isAdjacentToObject(x, y, ObjectType.WHEAT)) {
                         if (random.nextInt(100) < 70) {
-                            objectMap[y][x] = TREE_OBJECT;
+                            objectMap[y][x] = ObjectType.TREE;
                         }
                     }
                 }
@@ -96,16 +90,16 @@ public class MapDataObject {
             return false;
         }
 
-        int tile = terrainData.getTile(x, y);
-        int object = objectMap[y][x];
+        TerrainType tile = terrainData.getTile(x, y);
+        ObjectType object = objectMap[y][x];
 
-        return tile != WATER_TILE
-                && tile != PATH_TILE
-                && tile != BRIDGE_TILE
-                && object == NO_OBJECT;
+        return tile != TerrainType.WATER
+                && tile != TerrainType.PATH
+                && tile != TerrainType.BRIDGE
+                && object == ObjectType.NO_OBJECT;
     }
 
-    private boolean isAdjacentToObject(int x, int y, int objectType) {
+    private boolean isAdjacentToObject(int x, int y, ObjectType objectType) {
         for (int dy = -1; dy <= 1; dy++) {
             for (int dx = -1; dx <= 1; dx++) {
                 if (dx == 0 && dy == 0) continue;

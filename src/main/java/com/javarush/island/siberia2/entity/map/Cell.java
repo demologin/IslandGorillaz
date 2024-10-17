@@ -3,12 +3,10 @@ package com.javarush.island.siberia2.entity.map;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.plants.Plant;
 import lombok.Getter;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Cell {
-
     @Getter
     private final Island island;
     @Getter

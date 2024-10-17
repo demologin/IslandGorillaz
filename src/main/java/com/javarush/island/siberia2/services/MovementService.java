@@ -3,7 +3,6 @@ package com.javarush.island.siberia2.services;
 import com.javarush.island.siberia2.util.RandomUtils;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.map.Cell;
-
 import java.util.List;
 
 public class MovementService {

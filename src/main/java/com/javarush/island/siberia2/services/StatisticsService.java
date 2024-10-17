@@ -3,7 +3,6 @@ package com.javarush.island.siberia2.services;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.map.Cell;
 import com.javarush.island.siberia2.entity.map.Island;
-
 import java.util.HashMap;
 import java.util.Map;
 

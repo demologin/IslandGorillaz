@@ -1,6 +1,7 @@
 package com.javarush.island.siberia2.entity.map;
 
 import com.javarush.island.siberia2.config.Constants;
+import com.javarush.island.siberia2.entity.map.generators.TerrainType;
 import lombok.Getter;
 
 @Getter
@@ -19,11 +20,11 @@ public class Island {
     }
 
     private void initializeCells() {
-        int[][] terrainMap = mapData.getTerrainMap();
+        TerrainType[][] terrainMap = mapData.getTerrainMap();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int tileIndex = terrainMap[y][x];
-                boolean isWater = (tileIndex == MapDataTerrain.WATER_TILE);
+                TerrainType tileType = terrainMap[y][x];
+                boolean isWater = (tileType == TerrainType.WATER);
                 cells[y][x] = new Cell(x, y, isWater, this);
             }
         }
