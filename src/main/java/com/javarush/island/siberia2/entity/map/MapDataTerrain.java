@@ -77,9 +77,8 @@ public class MapDataTerrain {
         for (int i = 0; i < roadCount; i++) {
             int x = 0;
             int y = random.nextInt(height);
-            int pathLength = width;
             int pathWidth = random.nextInt(2) + 1;
-            for (int j = 0; j < pathLength; j++) {
+            for (int j = 0; j < width; j++) {
                 for (int w = -pathWidth / 2; w <= pathWidth / 2; w++) {
                     int dy = y + w;
                     if (isInBounds(x, dy)) {

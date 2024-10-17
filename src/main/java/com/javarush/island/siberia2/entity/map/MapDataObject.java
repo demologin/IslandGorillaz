@@ -55,7 +55,7 @@ public class MapDataObject {
 
             for (int y = centerY - fieldSize; y <= centerY + fieldSize; y++) {
                 for (int x = centerX - fieldSize; x <= centerX + fieldSize; x++) {
-                    if (isValidPlacement(x, y) && !isAdjacentToObject(x, y, ObjectType.TREE)) {
+                    if (isValidPlacement(x, y) && isAdjacentToObject(x, y, ObjectType.TREE)) {
                         if (random.nextInt(100) < 80) {
                             objectMap[y][x] = ObjectType.WHEAT;
                         }
@@ -75,7 +75,7 @@ public class MapDataObject {
 
             for (int y = centerY - forestSize; y <= centerY + forestSize; y++) {
                 for (int x = centerX - forestSize; x <= centerX + forestSize; x++) {
-                    if (isValidPlacement(x, y) && !isAdjacentToObject(x, y, ObjectType.WHEAT)) {
+                    if (isValidPlacement(x, y) && isAdjacentToObject(x, y, ObjectType.WHEAT)) {
                         if (random.nextInt(100) < 70) {
                             objectMap[y][x] = ObjectType.TREE;
                         }
@@ -107,12 +107,12 @@ public class MapDataObject {
                 int ny = y + dy;
                 if (isInBounds(nx, ny)) {
                     if (objectMap[ny][nx] == objectType) {
-                        return true;
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     private boolean isInBounds(int x, int y) {
