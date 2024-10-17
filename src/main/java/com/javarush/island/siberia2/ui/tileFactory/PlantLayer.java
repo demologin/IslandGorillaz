@@ -4,7 +4,6 @@ import com.javarush.island.siberia2.config.Settings;
 import com.javarush.island.siberia2.entity.map.Cell;
 import com.javarush.island.siberia2.entity.map.Island;
 import com.javarush.island.siberia2.entity.plants.Plant;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

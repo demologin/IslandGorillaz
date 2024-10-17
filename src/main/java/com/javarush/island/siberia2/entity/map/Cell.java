@@ -3,6 +3,7 @@ package com.javarush.island.siberia2.entity.map;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.plants.Plant;
 import lombok.Getter;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -15,7 +16,7 @@ public class Cell {
     @Getter
     private final int y;
     private final boolean isWater;
-    private final Queue<Animal> animals = new ConcurrentLinkedQueue <>();
+    private final Queue<Animal> animals = new ConcurrentLinkedQueue<>();
     private final Queue<Plant> plants = new ConcurrentLinkedQueue<>();
 
     public Cell(int x, int y, boolean isWater, Island island) {
@@ -30,7 +31,9 @@ public class Cell {
     }
 
     public void addAnimal(Animal animal) {
-        animals.add(animal);
+        if (!isWater) {
+            animals.add(animal);
+        }
     }
 
     public void removeAnimal(Animal animal) {
@@ -42,7 +45,9 @@ public class Cell {
     }
 
     public void addPlant(Plant plant) {
-        plants.add(plant);
+        if (!isWater) {
+            plants.add(plant);
+        }
     }
 
     public void removePlant(Plant plant) {
