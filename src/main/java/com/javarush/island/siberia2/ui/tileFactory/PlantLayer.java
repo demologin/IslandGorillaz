@@ -57,8 +57,8 @@ public class PlantLayer {
                     BufferedImage plantImage = plantImages.get(plant.getSettings().getName());
 
                     if (plantImage != null) {
-                        int drawX = x * scaledTileSize + (plantIndex % 2) * (tileSize / 2);
-                        int drawY = y * scaledTileSize + (plantIndex / 2) * (tileSize / 2);
+                        int drawX = x * scaledTileSize;
+                        int drawY = (y + 1) * scaledTileSize - (tileSize / 2) - 8;
 
                         g.drawImage(plantImage, drawX, drawY, tileSize, tileSize, null);
                         plantIndex++;

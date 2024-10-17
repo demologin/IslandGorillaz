@@ -85,7 +85,7 @@ public abstract class Animal extends Organism implements Eatable, Reproducible, 
     }
 
     public void decreaseFoodLevel() {
-        double percentToDecrease = Constants.EVERYSTEP_DECREASE_HUNGER;
+        double percentToDecrease = Constants.EVERY_STEP_DECREASE_HUNGER;
         currentFoodLevel -= settings.getMaxFood() * percentToDecrease;
         if (currentFoodLevel <= 0) {
             die();
