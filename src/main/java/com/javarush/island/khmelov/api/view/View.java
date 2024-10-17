@@ -4,9 +4,9 @@ public interface View {
 
     void show();
 
-    String showStatistics();
+    void showStatistics();
 
-    String showScale();
+    void showScale();
 
-    String showMap();
+    void showMap();
 }
