@@ -4,6 +4,11 @@ public class Constants {
     //SETTINGS
     public static final String YAML_PATH = "siberia2/settings.yaml";
 
+    //START PARAMETERS
+    public static final double EVERYSTEP_DECREASE_HUNGER = 0.01; //use 0.1 to 10% per turn, 0.01 is for long living
+    public static final int STARTING_CELLS_WITH_FOOD = 300;
+    public static final int MAX_ANIMAL_TO_START = 30;
+
     //TILES
     public static final String GRASS_PATH_X16 = "/siberia2/x16/ground/Grass.png";
     public static final String ROCKS_PATH_X16 = "/siberia2/x16/plants/Rocks.png";

@@ -4,6 +4,7 @@ import com.javarush.island.siberia2.api.Eatable;
 import com.javarush.island.siberia2.api.Movable;
 import com.javarush.island.siberia2.api.Reproducible;
 import com.javarush.island.siberia2.config.AnimalSettings;
+import com.javarush.island.siberia2.config.Constants;
 import com.javarush.island.siberia2.entity.Organism;
 import com.javarush.island.siberia2.services.EatingService;
 import com.javarush.island.siberia2.services.MovementService;
@@ -38,9 +39,9 @@ public abstract class Animal extends Organism implements Eatable, Reproducible, 
 
     @Override
     public void liveCycle() {
-        move();
         eat();
         reproduce();
+        move();
         decreaseFoodLevel();
     }
 
@@ -84,7 +85,7 @@ public abstract class Animal extends Organism implements Eatable, Reproducible, 
     }
 
     public void decreaseFoodLevel() {
-        double percentToDecrease = 0.1; // default 0.1 = decrease to 10%
+        double percentToDecrease = Constants.EVERYSTEP_DECREASE_HUNGER;
         currentFoodLevel -= settings.getMaxFood() * percentToDecrease;
         if (currentFoodLevel <= 0) {
             die();
