@@ -3,6 +3,8 @@ package com.javarush.island.siberia2.simulation;
 import com.javarush.island.siberia2.entity.Organism;
 import com.javarush.island.siberia2.entity.animals.Animal;
 import com.javarush.island.siberia2.entity.map.Cell;
+import com.javarush.island.siberia2.entity.plants.Plant;
+
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class SimulationStepHandler {
                 if (animal.getCurrentFoodLevel() > previousFoodLevel) {
                     eatenCount.incrementAndGet();
                 }
-            } else if (organism instanceof com.javarush.island.siberia2.entity.plants.Plant plant) {
+            } else if (organism instanceof Plant plant) {
                 plant.liveCycle();
             }
         }
