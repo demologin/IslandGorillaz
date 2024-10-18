@@ -1,0 +1,213 @@
+island:
+  width: 65 # default 100
+  height: 10 # default 20
+  simulationStepDuration: 1000
+  hungerIncreaseRate: 0.1
+
+animals:
+  Wolf:
+    weight: 50
+    maxCountPerCell: 30
+    speed: 3
+    maxFood: 8
+    initialCount: 10
+    maxOffspring: 3
+    reproductionSatietyThreshold: 0.5
+    icon: "\uD83D\uDC3A"
+  Boa:
+    weight: 15
+    maxCountPerCell: 30
+    speed: 1
+    maxFood: 3
+    initialCount: 15
+    maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc0d"
+  Fox:
+    weight: 8
+    maxCountPerCell: 30
+    speed: 2
+    maxFood: 2
+    initialCount: 20
+    maxOffspring: 4
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83e\udd8a"
+  Bear:
+    weight: 500
+    maxCountPerCell: 5
+    speed: 2
+    maxFood: 80
+    initialCount: 5
+    maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc3b"
+  Eagle:
+    weight: 6
+    maxCountPerCell: 20
+    speed: 3
+    maxFood: 1
+    initialCount: 20
+    maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83e\udd85"
+  Horse:
+    weight: 400
+    maxCountPerCell: 20
+    speed: 4
+    maxFood: 60
+    initialCount: 15
+    maxOffspring: 1
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc0e"
+  Deer:
+    weight: 300
+    maxCountPerCell: 20
+    speed: 4
+    maxFood: 50
+    initialCount: 20
+    maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83e\udd8c"
+  Rabbit:
+    weight: 2
+    maxCountPerCell: 150
+    speed: 2
+    maxFood: 0.45
+    initialCount: 50
+    maxOffspring: 5
+    reproductionSatietyThreshold: 0.5
+    icon: "\uD83D\uDC07"
+  Mouse:
+    weight: 0.05
+    maxCountPerCell: 500
+    speed: 1
+    maxFood: 0.01
+    initialCount: 120
+    maxOffspring: 10
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc01"
+  Goat:
+    weight: 60
+    maxCountPerCell: 140
+    speed: 3
+    maxFood: 10
+    initialCount: 30
+    maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc10"
+  Sheep:
+    weight: 70
+    maxCountPerCell: 140
+    speed: 3
+    maxFood: 15
+    initialCount: 30
+    maxOffspring: 2
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc11"
+  Boar:
+    weight: 400
+    maxCountPerCell: 50
+    speed: 2
+    maxFood: 50
+    initialCount: 20
+    maxOffspring: 3
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc17"
+  Buffalo:
+    weight: 700
+    maxCountPerCell: 10
+    speed: 3
+    maxFood: 100
+    initialCount: 10
+    maxOffspring: 1
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83d\udc03"
+  Duck:
+    weight: 1
+    maxCountPerCell: 200
+    speed: 4
+    maxFood: 0.15
+    initialCount: 50
+    maxOffspring: 5
+    reproductionSatietyThreshold: 0.5
+    icon: "\ud83e\udd86"
+  Caterpillar:
+    weight: 0.01
+    maxCountPerCell: 1000
+    speed: 0
+    maxFood: 0.005
+    initialCount: 500
+    maxOffspring: 0 # was 20
+    reproductionSatietyThreshold: 0.7
+    icon: "\ud83d\udc1b"
+
+plants:
+  Plant:
+    weight: 1
+    maxCountPerCell: 200
+    initialCount: 600
+    maxOffspring: 50
+    growthRate: 1 # was 0.1
+    icon: "\uD83C\uDF3F"
+
+probabilities:
+  Wolf:
+    Horse: 10
+    Deer: 15
+    Rabbit: 60
+    Mouse: 80
+    Goat: 60
+    Sheep: 70
+    Boar: 15
+    Buffalo: 10
+    Duck: 40
+  Boa:
+    Fox: 15
+    Rabbit: 20
+    Mouse: 40
+    Duck: 10
+  Fox:
+    Rabbit: 70
+    Mouse: 90
+    Duck: 10
+    Caterpillar: 40
+  Bear:
+    Boa: 80
+    Horse: 40
+    Deer: 80
+    Rabbit: 80
+    Mouse: 90
+    Goat: 70
+    Sheep: 70
+    Boar: 50
+    Buffalo: 20
+    Duck: 10
+  Eagle:
+    Fox: 10
+    Rabbit: 90
+    Mouse: 90
+    Duck: 80
+  Horse:
+    Plant: 100
+  Deer:
+    Plant: 100
+  Rabbit:
+    Plant: 100
+  Mouse:
+    Caterpillar: 90
+    Plant: 100
+  Goat:
+    Plant: 100
+  Sheep:
+    Plant: 100
+  Boar:
+    Mouse: 50
+    Caterpillar: 90
+    Plant: 100
+  Buffalo:
+    Plant: 100
+  Duck:
+    Caterpillar: 90
+    Plant: 100
+  Caterpillar:
+    Plant: 100

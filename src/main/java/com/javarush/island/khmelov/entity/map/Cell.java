@@ -18,7 +18,7 @@ public class Cell {
     @Getter
     private final Lock lock = new ReentrantLock(true);
     @Getter
-    private final ResidentMap residents = new ResidentMap();
+    private final Residents residents = new Residents();
 
     public void updateNextCell(GameMap map, int row, int col) {
         Cell[][] cells = map.getCells();
