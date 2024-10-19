@@ -3,11 +3,11 @@ package com.javarush.island.khmelov.entity.organizm.animals.predators;
 import com.javarush.island.khmelov.api.annotation.TypeData;
 import com.javarush.island.khmelov.entity.organizm.Limit;
 
-@TypeData(name = "Медведь", icon = "\uD83D\uDC3B", maxWeight = 500, maxCountInCell = 5,
-        maxSpeed = 2, maxFood = 80)
-public class Bear extends Predator {
+@TypeData(name = "Удав", icon = "\uD83D\uDC0D", maxWeight = 15, maxCountInCell = 30,
+        flockSize = 6, maxSpeed = 1, maxFood = 3)
+public class Boa extends Predator {
 
-    public Bear(String name, String icon, Limit limit) {
+    public Boa(String name, String icon, Limit limit) {
         super(name, icon, limit);
     }
 
