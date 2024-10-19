@@ -4,5 +4,5 @@ import com.javarush.island.kozlov.exception.ReproductionException;
 import com.javarush.island.kozlov.map.Location;
 
 public interface Reproduce {
-    void reproduce(Location location) throws ReproductionException;
+    void reproduce(Location currentLocation) throws ReproductionException;
 }
