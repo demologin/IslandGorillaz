@@ -12,29 +12,19 @@ public abstract class Plant extends Organism implements Cloneable {
 
     public static int reproduceCounter = 0;
     public static int deadCounter = 0;
-    private String name;
-    private String icon;
-    private double weight;
-    private int maxCountInCell;
-    private int maxSpeed;
-    private double maxFood;
-    private Cell currentCell;
-    private Cell targetCell;
 
     @SneakyThrows
     @Override
-    public synchronized boolean reproduce(Cell currentCell) {
-        currentCell = this.getCurrentCell();
-        targetCell = appointmentTargetCell(currentCell);
+    public synchronized boolean reproduce() {
         int countPlantTargetCell = 0;
-        for (Organism organism : targetCell.getOrganisms()) {
+        for (Organism organism : getTargetCell().getOrganisms()) {
             if (organism.getClass().equals(this.getClass())) {
                 countPlantTargetCell++;
             }
         }
         if (countPlantTargetCell < this.getMaxCountInCell() && this.getWeight() > 1) {
             Organism organism = (Organism) this.clone();
-            targetCell.getOrganisms().add(organism);
+            getTargetCell().getOrganisms().add(organism);
             reproduceCounter++;
             return true;
         }

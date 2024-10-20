@@ -24,5 +24,4 @@ public class GameMap {
     public int getCols() {
         return cells[0].length;
     }
-
 }

@@ -1,5 +1,7 @@
 package com.javarush.island.gerasimov.entity.creatures;
 
+import com.javarush.island.gerasimov.entity.creatures.herbivores.Herbivore;
+import com.javarush.island.gerasimov.entity.creatures.predators.Predator;
 import com.javarush.island.gerasimov.entity.map.Cell;
 import com.javarush.island.gerasimov.intefaces.EatAble;
 import com.javarush.island.gerasimov.intefaces.MoveAble;
@@ -8,35 +10,27 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Setter
 public abstract class Animal extends Organism implements MoveAble, EatAble, Cloneable {
 
-    static public int moveCounter = 0;
-    static public int reproduceCounter = 0;
-    private String name;
-    private String icon;
-    private double weight;
-    private int maxCountInCell;
-    private int maxSpeed;
-    private double maxFood;
-    private Cell currentCell;
-    private Cell targetCell;
+    static volatile public int moveCounter = 0;
+    static volatile public int reproduceCounter = 0;
 
     @Override
-    public synchronized boolean move(Cell targetCell) {
-        targetCell = appointmentTargetCell(getCurrentCell());
+    public synchronized boolean move() {
         int countOrganism = 0;
-        for (Organism organism : targetCell.getOrganisms()) {
+        for (Organism organism : getTargetCell().getOrganisms()) { //!!!
             if (organism.getClass().equals(this.getClass())) {
                 countOrganism++;
             }
         }
         if (countOrganism < this.getMaxCountInCell()) {
-                targetCell.getOrganisms().add(this);
-                currentCell.getOrganisms().remove(this);
+                getTargetCell().getOrganisms().add(this); // !!!
+                this.getCurrentCell().getOrganisms().remove(this);
             moveCounter++;
                 return true;
         }
@@ -45,13 +39,12 @@ public abstract class Animal extends Organism implements MoveAble, EatAble, Clon
 
     @SneakyThrows
     @Override
-    public synchronized boolean reproduce(Cell targetCell) {
+    public synchronized boolean reproduce() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         ArrayList<Organism> organismsForReproduce = new ArrayList<>();
-        targetCell = appointmentTargetCell(getCurrentCell());
         int probabilityReproduce = random.nextInt(100);
         int counter = 0;
-        for (Organism organism : targetCell.getOrganisms()) {
+        for (Organism organism : getTargetCell().getOrganisms()) {
             if (organism.getClass().equals(this.getClass())) {
                 organismsForReproduce.add(organism);
                 counter++;
@@ -59,11 +52,11 @@ public abstract class Animal extends Organism implements MoveAble, EatAble, Clon
         }
         int chooseAnimal = random.nextInt(organismsForReproduce.size());
         if ((!organismsForReproduce.get(chooseAnimal).equals(this)) &&
-                probabilityReproduce < 30 &&
+                probabilityReproduce < 50 &&
                 counter < this.getMaxCountInCell()) {
             Organism newAnimal = (Organism) this.clone();
             newAnimal.setWeight(this.getWeight() / 3);
-            targetCell.getOrganisms().add(newAnimal);
+            getTargetCell().getOrganisms().add(newAnimal);
             reproduceCounter++;
             return true;
         }

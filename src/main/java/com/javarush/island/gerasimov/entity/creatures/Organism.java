@@ -3,12 +3,12 @@ package com.javarush.island.gerasimov.entity.creatures;
 import com.javarush.island.gerasimov.entity.map.Cell;
 import com.javarush.island.gerasimov.entity.map.GameMap;
 import com.javarush.island.gerasimov.intefaces.ReproductionAble;
-import com.javarush.island.gerasimov.service.EntityCreator;
+import com.javarush.island.gerasimov.repository.EntityCreator;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Setter
@@ -17,11 +17,14 @@ public abstract class Organism implements ReproductionAble {
     private String name;
     private String icon;
     private double weight;
+    private double criticalWeight;
+    private double maxWeight;
     private int maxCountInCell;
     private int maxSpeed;
     private double maxFood;
     private volatile Cell currentCell;
     private volatile Cell targetCell;
+    private HashMap<String, Integer> likelyFood = new HashMap<>();
 
     /*
     Returns a cell with a possible direction of movement
