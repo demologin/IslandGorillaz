@@ -7,14 +7,8 @@ import com.javarush.island.kozlov.map.Location;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StatisticTask implements Runnable{
-
+public class StatisticTask implements Runnable {
     private final Island island;
-    private int vegetationsGrown = 0;
-    private int vegetationsEaten = 0;
-    private final Map<String, Integer> totalAnimals = new HashMap<>();
-    private final Map<String, Integer> eatenAnimals = new HashMap<>();
-    private final Map<String, Integer> bornAnimals = new HashMap<>();
 
     public StatisticTask(Island island) {
         this.island = island;
@@ -22,61 +16,38 @@ public class StatisticTask implements Runnable{
 
     @Override
     public void run() {
-        collectStatistics();
-        printStatistics();
-    }
-
-    private void collectStatistics() {
-        totalAnimals.clear();
-        eatenAnimals.clear();
-        bornAnimals.clear();
-        vegetationsEaten = 0;
-        vegetationsGrown = 0;
+        int totalPlantsGrown = 0;
+        int totalPlantsEaten = 0;
+        Map<String, Integer> totalAnimals = new HashMap<>();
+        Map<String, Integer> eatenAnimals = new HashMap<>();
+        Map<String, Integer> bornAnimals = new HashMap<>();
 
         for (Location[] row : island.getLocations()) {
             for (Location loc : row) {
-                vegetationsGrown += loc.getVegetationsGrown();
-                vegetationsEaten += loc.getVegetationsEaten();
+                totalPlantsGrown += loc.getPlantsGrown();
+                totalPlantsEaten += loc.getPlantsEaten();
 
                 for (Animal animal : loc.getAnimals()) {
-                    String animalName = animal.getClass().getSimpleName();
-                    totalAnimals.put(animalName, totalAnimals.getOrDefault(animalName, 0) + 1);
+                    String name = animal.getClass().getSimpleName();
+                    totalAnimals.put(name, totalAnimals.getOrDefault(name, 0) + 1);
 
                     if (animal.isBornRecently()) {
-                        bornAnimals.put(animalName, bornAnimals.getOrDefault(animalName, 0) + 1);
+                        bornAnimals.put(name, bornAnimals.getOrDefault(name, 0) + 1);
                     }
 
                     if (animal.isEatenRecently()) {
-                        eatenAnimals.put(animalName, eatenAnimals.getOrDefault(animalName, 0) + 1);
+                        eatenAnimals.put(name, eatenAnimals.getOrDefault(name, 0) + 1);
                     }
                 }
             }
         }
-    }
 
-    private void printStatistics() {
-        System.out.println("=== Island Statistics ===");
+        // Вывод статистики
+        System.out.println("Plants grown: " + totalPlantsGrown);
+        System.out.println("Plants eaten: " + totalPlantsEaten);
+        System.out.println("Animals: " + totalAnimals);
+        System.out.println("Eaten animals: " + eatenAnimals);
+        System.out.println("Born animals: " + bornAnimals);
 
-
-        System.out.println("Plants grown: " + vegetationsGrown);
-        System.out.println("Plants eaten: " + vegetationsEaten);
-
-
-        System.out.println("Total Animals on the Island:");
-        totalAnimals.forEach((animal, count) ->
-                System.out.println(animal + ": " + count)
-        );
-
-        System.out.println("Animals eaten:");
-        eatenAnimals.forEach((animal, count) ->
-                System.out.println(animal + ": " + count)
-        );
-
-        System.out.println("Animals born:");
-        bornAnimals.forEach((animal, count) ->
-                System.out.println(animal + ": " + count)
-        );
-
-        System.out.println("=========================");
     }
 }

@@ -16,9 +16,7 @@ public class PlantGrowthTask implements Runnable {
     public void run() {
         for (Location[] row : island.getLocations()) {
             for (Location loc : row) {
-                synchronized (loc) {
-                    loc.growVegetations();
-                }
+                loc.growPlants();  // Логика роста растений
             }
         }
     }

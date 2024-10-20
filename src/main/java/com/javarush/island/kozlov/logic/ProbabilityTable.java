@@ -1,8 +1,8 @@
 package com.javarush.island.kozlov.logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.javarush.island.kozlov.entities.animals.Animal;
-import com.fasterxml.jackson.dataformat.yaml.*;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -10,70 +10,57 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProbabilityTable {
-
     private static final Map<Class<? extends Animal>, Map<Class<? extends Animal>, Integer>> table = new ConcurrentHashMap<>();
-    private static final Map<Class<? extends Animal>, Integer> maxOnCellTable = new ConcurrentHashMap<>();
 
+    // Загрузка данных о вероятностях из YAML
     static {
-        loadPredationData();
+        loadProbabilities();
     }
 
-    private static void loadPredationData() {
+    private static void loadProbabilities() {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try (InputStream inputStream = ProbabilityTable.class.getClassLoader().getResourceAsStream("percentages.yaml")) {
             if (inputStream == null) {
-                throw new RuntimeException("Не удается найти .yaml файл");
+                throw new RuntimeException("Cannot find percentages.yaml");
             }
 
             ProbabilityData data = mapper.readValue(inputStream, ProbabilityData.class);
-
-            for (Map.Entry<String, AnimalData> animalEntry : data.getAnimals().entrySet()) {
-                String animalName = animalEntry.getKey();
-                AnimalData animalData = animalEntry.getValue();
-
-                Class<? extends Animal> predatorClass = getAnimalClass(animalName);
-                if (predatorClass == null) {
-                    continue;
-                }
-
-                Map<Class<? extends Animal>, Integer> preyMap = new ConcurrentHashMap<>();
-                for (Map.Entry<String, Integer> preyEntry : animalData.getPrey().entrySet()) {
-                    String preyName = preyEntry.getKey();
-                    Integer chance = preyEntry.getValue();
-                    Class<? extends Animal> preyClass = getAnimalClass(preyName);
-                    if (preyClass != null) {
-                        preyMap.put(preyClass, chance);
+            for (Map.Entry<String, Map<String, Integer>> entry : data.getPercentages().entrySet()) {
+                Class<? extends Animal> predator = getClassByName(entry.getKey());
+                if (predator != null) {
+                    Map<Class<? extends Animal>, Integer> preyMap = new ConcurrentHashMap<>();
+                    for (Map.Entry<String, Integer> preyEntry : entry.getValue().entrySet()) {
+                        Class<? extends Animal> prey = getClassByName(preyEntry.getKey());
+                        if (prey != null) {
+                            preyMap.put(prey, preyEntry.getValue());
+                        }
                     }
+                    table.put(predator, preyMap);
                 }
-
-                table.put(predatorClass, preyMap);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static Class<? extends Animal> getAnimalClass(String className) {
+    private static Class<? extends Animal> getClassByName(String className) {
         try {
-            return (Class<? extends Animal>) Class.forName("animals." + className);
+            return (Class<? extends Animal>) Class.forName("your.package." + className);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static int getAnimalsChance(Class<? extends Animal> predator, Class<? extends Animal> prey) {
+    // Метод для получения шанса поедания
+    public static int getProbability(Class<? extends Animal> predator, Class<? extends Animal> prey) {
         return table.getOrDefault(predator, new ConcurrentHashMap<>()).getOrDefault(prey, 0);
     }
 
+    // Проверка, съест ли хищник добычу
     public static boolean tryToEat(Class<? extends Animal> predator, Class<? extends Animal> prey) {
-        int chance = getAnimalsChance(predator, prey);
-
+        int chance = getProbability(predator, prey);
         int randomValue = ThreadLocalRandom.current().nextInt(100);
-        return randomValue < chance;
-    }
-
-    public static int getMaxOnCell(Class<? extends Animal> animalClass) {
-        return maxOnCellTable.getOrDefault(animalClass, 0);
+        return randomValue < chance;  // Вернёт true, если шанс сработал
     }
 }

@@ -1,25 +1,26 @@
 package com.javarush.island.kozlov.entities.plants;
 
 public class Vegetation {
-
-    private static final double MAX_GROWTH_RATE = 0.2;
     private double size;
-    private final double nutritionalValue;
+    private static final double MAX_SIZE = 10.0;
 
-    public double getNutritionalValue() {
-        return nutritionalValue;
+    public Vegetation(double initialSize) {
+        this.size = initialSize;
     }
 
-    public Vegetation(double nutritionalValue) {
-        this.nutritionalValue = nutritionalValue;
+    // Метод для роста растений
+    public void grow() {
+        if (size < MAX_SIZE) {
+            size += size * 0.2;
+            System.out.println("A new vegetation has grown. Size: " + size);
+        }
     }
 
     public double getSize() {
         return size;
     }
 
-    public void grow() {
-        this.size += this.size * MAX_GROWTH_RATE;
-        System.out.println("Plants grows. New size: " + this.size);
+    public double getNutritionalValue() {
+        return size / 2;
     }
 }
