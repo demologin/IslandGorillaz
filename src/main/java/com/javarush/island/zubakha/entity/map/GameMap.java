@@ -30,15 +30,6 @@ public class GameMap {
     }
 
 
-    public void createMap(int row, int col) {
-        cells = new Cell[row][col];
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j] = new Cell(i, j);
-            }
-        }
-    }
-
     public void createMap() {
         cells = new Cell[row][col];
         for (int i = 0; i < cells.length; i++) {
