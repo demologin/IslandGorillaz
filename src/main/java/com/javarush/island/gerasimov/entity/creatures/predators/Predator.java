@@ -48,7 +48,6 @@ public abstract class Predator extends Animal {
      */
 
     private synchronized boolean eatSacrifice(Organism sacrifice, int probabilityEatenAnyone) {
-
         ThreadLocalRandom random = ThreadLocalRandom.current();
         int probabilityEaten = random.nextInt(100);
         if (probabilityEaten <= probabilityEatenAnyone) {

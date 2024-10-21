@@ -17,7 +17,7 @@ public class PlantsControlWeightService extends Thread {
         controlWeight();
     }
 
-    public synchronized void controlWeight() {
+    public void controlWeight() {
         for (Cell[] row : EntityCreator.gameMap.getCells()) {
             for (Cell cell : row) {
                 for (Organism organism : cell.getOrganisms()) {

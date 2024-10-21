@@ -15,7 +15,7 @@ public class PredatorsDecrementWeightService extends Thread {
         decrementWeight();
     }
 
-    public synchronized void decrementWeight() {
+    public void decrementWeight() {
         for (Cell[] row : EntityCreator.gameMap.getCells()) {
             for (Cell cell : row) {
                 for (Organism organism : cell.getOrganisms()) {

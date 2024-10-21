@@ -18,14 +18,26 @@ public abstract class Herbivore extends Animal {
 
     public volatile static int eatCounter = 0;
 
+    /*
+    Randomly selects a sacrifice from the list and eats it
+     */
+
     @Override
     public synchronized boolean eat() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        List<Organism> foodForHerbivores = getFoodForHerbivores();
-        int ran = random.nextInt(foodForHerbivores.size());
-        Organism sacrifice;
-        if (!foodForHerbivores.isEmpty()) {
-            sacrifice = foodForHerbivores.get(ran);
+        List<Organism> foodForHerbivores = getTargetCell().getOrganisms();
+        Organism sacrifice = foodForHerbivores.get(random.nextInt(foodForHerbivores.size()));
+        return eatPlant(sacrifice, getLikelyFood().get(sacrifice.getName()));
+    }
+
+    /*
+    Checks whether the predator can eat the sacrifice and eats it
+     */
+
+    private synchronized boolean eatPlant(Organism sacrifice, int probabilityEatenAnyone) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        int probabilityEaten = random.nextInt(100);
+        if (probabilityEaten <= probabilityEatenAnyone) {
             if (sacrifice.getWeight() > this.getMaxFood()) {
                 this.setWeight(this.getWeight() + this.getMaxFood());
                 sacrifice.setWeight(sacrifice.getWeight() - this.getMaxFood());
@@ -42,15 +54,5 @@ public abstract class Herbivore extends Animal {
             }
         }
         return false;
-    }
-
-    public synchronized List<Organism> getFoodForHerbivores() {
-        List<Organism> foodForHerbivores = new ArrayList<>();
-        for (Organism organism : getTargetCell().getOrganisms()) {
-            if (Plant.class.isAssignableFrom(organism.getClass())) {
-                foodForHerbivores.add(organism);
-            }
-        }
-        return foodForHerbivores;
     }
 }
