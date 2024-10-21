@@ -1,0 +1,13 @@
+{"name":"Grass",
+  "icon":"🌿",
+  "weight":1.0,
+  "criticalWeight": 0.1,
+  "maxWeight": 1.1,
+  "maxCountInCell":200,
+  "maxSpeed":2,
+  "maxFood":0.0,
+  "currentCell":null,
+  "targetCell":null,
+  "likelyFood":{
+  }
+}

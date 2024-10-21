@@ -33,6 +33,5 @@ public class Runner {
         threadPool.scheduleAtFixedRate(predatorsDecrementWeightService, 1, 1, TimeUnit.MICROSECONDS);
         threadPool.scheduleAtFixedRate(herbivoresDecrementWeightService, 1, 1, TimeUnit.MICROSECONDS);
         threadPool.scheduleAtFixedRate(plantsControlWeightService, 1, 1, TimeUnit.MILLISECONDS);
-
     }
 }
