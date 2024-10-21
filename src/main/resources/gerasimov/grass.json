@@ -1,4 +1,5 @@
-{"name":"Grass",
+{
+  "name":"Grass",
   "icon":"🌿",
   "weight":1.0,
   "criticalWeight": 0.1,
