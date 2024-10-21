@@ -10,8 +10,7 @@ import lombok.SneakyThrows;
 @Setter
 public abstract class Plant extends Organism implements Cloneable {
 
-    public static int reproduceCounter = 0;
-    public static int deadCounter = 0;
+    public volatile static int reproduceCounter = 0;
 
     @SneakyThrows
     @Override
