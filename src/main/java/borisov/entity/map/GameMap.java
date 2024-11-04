@@ -25,7 +25,7 @@ public class GameMap {
     @Override
     public String toString() {
         Cell[] a;
-        Cell[] b;
+
         StringBuilder s = new StringBuilder();
         s.append("GameMap{\n");
         for (Cell[] row : map) {

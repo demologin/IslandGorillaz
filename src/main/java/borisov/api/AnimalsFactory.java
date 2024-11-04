@@ -10,7 +10,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 public class AnimalsFactory {
     @Getter
@@ -18,7 +18,7 @@ public class AnimalsFactory {
     @Getter
     List<Rabbit> rabbits = new ArrayList<>();
     GameMap map;
-    Animals animal;
+
     public AnimalsFactory(GameMap map) {
         this.map = map;
     }

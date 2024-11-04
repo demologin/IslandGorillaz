@@ -7,7 +7,7 @@ public enum AnimalsList {
     WOLF (3),
     RABBIT (5),;
 
-    private int count;
+    private final int count;
     AnimalsList(int count) {
        this.count = count;
     }

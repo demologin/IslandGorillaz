@@ -3,7 +3,7 @@ package borisov.services;
 import borisov.api.AnimalsFactory;
 import borisov.config.MyConfig;
 import borisov.entity.map.GameMap;
-import borisov.entity.predatoranimal.Wolf;
+
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class GameService extends Thread{
     public static final int CORE_POOL_SIZE = 4;
     private final int PERIOD = MyConfig.PERIOD;
-    private AnimalsFactory animalFactory;
+    private final AnimalsFactory animalFactory;
 
     public GameService(GameMap map, AnimalsFactory animalFactory) {
         this.map = map;

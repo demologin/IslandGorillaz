@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Init {
 
-    Cell cell;
+
     public GameMap map ;
     private final AnimalsFactory animalsFactory;
 
@@ -32,23 +32,7 @@ public class Init {
         GameService gameService = new GameService(map,animalsFactory);
         gameService.start();
 
-//        AnimalsService animalsService = new AnimalsService(map,animalsFactory.getWolfs());
-//        try (ScheduledExecutorService executor = Executors.newScheduledThreadPool(4)) {
-//            executor.scheduleAtFixedRate(animalsService, 0, 1, TimeUnit.SECONDS);
-//
-//            executor.awaitTermination(1, TimeUnit.DAYS);
-//
-//
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//        System.out.println(map.toString() + "\nafter delay");
-//        try {
-//            //Thread.sleep(2000);
-//
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+
 
 
 
