@@ -69,7 +69,7 @@ public class MapInitializer {
                 }
                 throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_SIZE);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException(ConsoleMessages.NOT_A_NUMBER);
+                throw new IllegalArgumentException(ConsoleMessages.NOT_A_NUMBER, e);
             }
         }
         throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_DATA);

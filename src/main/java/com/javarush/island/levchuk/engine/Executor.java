@@ -16,46 +16,43 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Executor {
-    ConsoleProvider console = new ConsoleProvider();
-    MapInitializer mapInitializer = new MapInitializer(console);
 
-    EntityFactory entityFactory = new EntityFactory();
-    PrototypesCreator prototypesCreator = new PrototypesCreator();
-    TaskManager taskManager = new TaskManager();
-    EatingService eatingService = new EatingService();
-    MoveService moveService = new MoveService();
-    ReproduceService reproduceService = new ReproduceService();
-    ExecutorService executorService = Executors.newWorkStealingPool();
-    StatisticProvider statisticProvider = new StatisticProvider();
+    private static ConsoleProvider consoleProvider;
+
+    public Executor(ConsoleProvider consoleProvider) {
+        this.consoleProvider = consoleProvider;
+    }
 
     public void startGame() {
-        console.println(ConsoleMessages.INIT_GAME);
+        consoleProvider.println(ConsoleMessages.INIT_GAME);
         int numberGameDays = getNumberSimulationDays();
+        MapInitializer mapInitializer = new MapInitializer(consoleProvider);
         IslandMap islandMap = new IslandMap(mapInitializer);
-        mapInitializer.fillMapEntities(islandMap.getIslandMap(), entityFactory, prototypesCreator);
-        statisticProvider.printByCell(islandMap, console);
+        mapInitializer.fillMapEntities(islandMap.getIslandMap(), new EntityFactory(), new PrototypesCreator());
+        StatisticProvider statisticProvider = new StatisticProvider();
+        statisticProvider.printByCell(islandMap, consoleProvider);
+        TaskManager taskManager = new TaskManager(new EatingService(),new ReproduceService(),new MoveService());
+        ExecutorService executorService = Executors.newWorkStealingPool();
         long start = System.currentTimeMillis();
         try {
             for (int i = 1; i <= numberGameDays; i++) {
-                console.printfMessage(ConsoleMessages.DAY_NUMBER, String.valueOf(i));
-                taskManager.reproduceAllInIsland(islandMap, reproduceService, executorService);
-                taskManager.moveAllInIsland(islandMap, moveService, executorService);
-                taskManager.eatAllInIsland(islandMap, eatingService, executorService);
-                statisticProvider.printTextStatistic(islandMap, console);
+                consoleProvider.printfMessage(ConsoleMessages.DAY_NUMBER, String.valueOf(i));
+                taskManager.runLifeCycle(islandMap, executorService);
+                statisticProvider.printTextStatistic(islandMap, consoleProvider);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         long end = System.currentTimeMillis();
-        console.println(ConsoleMessages.TOTAL_TIME + (end - start) * 1.0 / 1000 + " s");
-        statisticProvider.printByCell(islandMap, console);
+        consoleProvider.println(ConsoleMessages.TOTAL_TIME + (end - start) * 1.0 / 1000 + " s");
+        statisticProvider.printByCell(islandMap, consoleProvider);
         executorService.shutdown();
 
     }
 
     private int getNumberSimulationDays() {
-        console.printfMessage(ConsoleMessages.ENTER_SIMULATION_DAYS, String.valueOf(Constants.MAX_NUMBER_SIMULATION_DAYS));
-        String inputLine = console.read();
+        consoleProvider.printfMessage(ConsoleMessages.ENTER_SIMULATION_DAYS, String.valueOf(Constants.MAX_NUMBER_SIMULATION_DAYS));
+        String inputLine = consoleProvider.read();
         if (inputLine != null) {
             try {
                 int size = Integer.parseInt(inputLine);
@@ -64,7 +61,7 @@ public class Executor {
                 }
                 throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_SIZE);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException(ConsoleMessages.NOT_A_NUMBER);
+                throw new IllegalArgumentException(ConsoleMessages.NOT_A_NUMBER, e);
             }
         }
         throw new IllegalArgumentException(ConsoleMessages.INVALID_INPUT_DATA);

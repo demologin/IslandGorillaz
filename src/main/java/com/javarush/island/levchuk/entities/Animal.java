@@ -25,16 +25,10 @@ public class Animal extends Entity implements Eating, Movable {
 
     @Override
     public void move(Cell cell) {
-/*        Cell nextCell;
-        for (int i = 0; i < this.getSpeedMax(); i++) {
-             nextCell = cell.getNeighbors().stream().filter(n ->  n.checkFreeSpace(this)).findFirst().get();
-            if (nextCell!=cell && cell!=null) {
-                nextCell.addEntity(this);
-                cell.removeEntity(this);
-
-            }
-        }*/
-        cell.getNeighbors().stream().filter(n -> n.checkFreeSpace(this)).findFirst().ifPresent(n -> {
+        cell.getNeighbors().stream()
+                .filter(n -> n.checkFreeSpace(this))
+                .findFirst()
+                .ifPresent(n -> {
             n.addEntity(this);
             cell.removeEntity(this);
         });
@@ -66,7 +60,9 @@ public class Animal extends Entity implements Eating, Movable {
     }
 
     private boolean minimumPossibleWeightThresholdHasBeenExceed() {
-        return weight / ((Animal) EntityFactory.getEntity(getClass())).getWeightDefault() < Constants.MIN_PERCENT_WEIGHT_TO_DIE;
+        return weight / ((Animal) EntityFactory
+                .getEntity(getClass()))
+                .getWeightDefault() < Constants.MIN_PERCENT_WEIGHT_TO_DIE;
     }
 
     private void tryToEat(String selectedFood, Cell cell) {

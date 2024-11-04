@@ -1,6 +1,7 @@
 package com.javarush.island.levchuk.utils;
 
 import com.javarush.island.levchuk.entities.Entity;
+import com.javarush.island.levchuk.view.ConsoleProvider;
 import lombok.Getter;
 
 import java.lang.reflect.Field;

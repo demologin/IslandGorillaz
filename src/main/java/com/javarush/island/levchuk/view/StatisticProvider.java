@@ -36,22 +36,22 @@ public class StatisticProvider {
     }
 
     public void printByCell(IslandMap islandMap, ConsoleProvider console) {
-        Map<String, StringBuilder> mapSb = new TreeMap<>();
+        Map<String, StringBuilder> stringStringBuilderMap = new TreeMap<>();
         Map<Class<? extends Entity>, Entity> map = EntityFactory.getEntities();
-        mapSb.put("!loc", new StringBuilder());
+        stringStringBuilderMap.put("!loc", new StringBuilder());
         for (Map.Entry<Class<? extends Entity>, Entity> item : map.entrySet()) {
-            mapSb.put(item.getValue().getIcon(), new StringBuilder());
+            stringStringBuilderMap.put(item.getValue().getIcon(), new StringBuilder());
         }
         Cell[][] locations = islandMap.getIslandMap();
         for (int j = 0; j < locations[0].length; j++) {
             for (int i = 0; i < locations.length; i++) {
                 Map<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> organisms = locations[i][j].getResidents();
-                if (!mapSb.containsKey("!loc")) {
-                    mapSb.put("!loc", new StringBuilder("|- " + i + "," + j + " -|"));
+                if (!stringStringBuilderMap.containsKey("!loc")) {
+                    stringStringBuilderMap.put("!loc", new StringBuilder("|- " + i + "," + j + " -|"));
                 } else {
-                    mapSb.put("!loc", mapSb.get("!loc").append(" ").append("|- ").append(i).append(",").append(j).append(" -|"));
+                    stringStringBuilderMap.put("!loc", stringStringBuilderMap.get("!loc").append(" ").append("|- ").append(i).append(",").append(j).append(" -|"));
                 }
-                int length = mapSb.get("!loc").length();
+                int length = stringStringBuilderMap.get("!loc").length();
                 for (Map.Entry<Class<? extends Entity>, CopyOnWriteArrayList<Entity>> organism : organisms.entrySet()) {
                     String key;
                     if (!organism.getValue().isEmpty()) {
@@ -61,17 +61,17 @@ public class StatisticProvider {
                             throw new RuntimeException(e);
                         }
                         int value = organism.getValue().size();
-                        mapSb.put(key, mapSb.get(key).append(" ").append(key).append(" ").append(value));
+                        stringStringBuilderMap.put(key, stringStringBuilderMap.get(key).append(" ").append(key).append(" ").append(value));
                     }
                 }
-                for (Map.Entry<String, StringBuilder> map2 : mapSb.entrySet()) {
+                for (Map.Entry<String, StringBuilder> map2 : stringStringBuilderMap.entrySet()) {
                     while (map2.getValue().length() < length) {
                         map2.getValue().append(" ");
                     }
                 }
             }
-            mapSb.forEach((k, v) -> console.println(v));
-            for (Map.Entry<String, StringBuilder> map2 : mapSb.entrySet()) {
+            stringStringBuilderMap.forEach((k, v) -> console.println(v));
+            for (Map.Entry<String, StringBuilder> map2 : stringStringBuilderMap.entrySet()) {
                 map2.getValue().setLength(0);
             }
         }

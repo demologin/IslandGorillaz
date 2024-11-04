@@ -12,17 +12,34 @@ import java.util.concurrent.ExecutorService;
 
 
 public class TaskManager {
-    public void eatAllInIsland(IslandMap islandMap, EatingService eatingService, ExecutorService executorService) throws InterruptedException {
+    private static EatingService eatingService;
+    private static MoveService moveService;
+    private static ReproduceService reproduceService;
+
+    public TaskManager(EatingService eatingService, ReproduceService reproduceService, MoveService moveService) {
+        this.reproduceService = reproduceService;
+        this.moveService = moveService;
+        this.eatingService = eatingService;
+    }
+
+    public void runLifeCycle(IslandMap islandMap, ExecutorService executorService) throws InterruptedException {
+        eatAllInIsland(islandMap, executorService);
+        moveAllInIsland(islandMap, executorService);
+        reproduceAllInIsland(islandMap, executorService);
+    }
+
+    private void eatAllInIsland(IslandMap islandMap, ExecutorService executorService) throws InterruptedException {
 
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
-                .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
+                .flatMap(Arrays::stream)
+                .map(cell -> (Callable<Void>) () -> {
                     eatingService.eatAllInCell(cell);
                     return null;
                 }).toList();
         executorService.invokeAll(tasks);
     }
 
-    public void moveAllInIsland(IslandMap islandMap, MoveService moveService, ExecutorService executorService) throws InterruptedException {
+    private void moveAllInIsland(IslandMap islandMap, ExecutorService executorService) throws InterruptedException {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
                 .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
                     moveService.moveAllInCall(cell);
@@ -31,9 +48,10 @@ public class TaskManager {
         executorService.invokeAll(tasks);
     }
 
-    public void reproduceAllInIsland(IslandMap islandMap, ReproduceService reproduceService, ExecutorService executorService) throws InterruptedException {
+    private void reproduceAllInIsland(IslandMap islandMap, ExecutorService executorService) throws InterruptedException {
         List<Callable<Void>> tasks = Arrays.stream(islandMap.getIslandMap())
-                .flatMap(Arrays::stream).map(cell -> (Callable<Void>) () -> {
+                .flatMap(Arrays::stream)
+                .map(cell -> (Callable<Void>) () -> {
                     reproduceService.reproduceAllInCall(cell);
                     return null;
                 }).toList();
