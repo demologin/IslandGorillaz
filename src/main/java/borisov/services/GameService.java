@@ -34,7 +34,7 @@ public class GameService extends Thread{
                 mainPool.scheduleAtFixedRate(rabbitService, PERIOD, PERIOD, TimeUnit.MILLISECONDS);
 
                 while(true){
-                    Thread.sleep(PERIOD);
+                    Thread.sleep(PERIOD+100);
                     System.out.println(map.toString());
 
                 }
