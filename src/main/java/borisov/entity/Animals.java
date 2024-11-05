@@ -9,6 +9,6 @@ public interface Animals extends Reproductable{
 
     void move();
 
-
+    char getSimpleName();
 
 }

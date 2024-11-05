@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum AnimalsList {
-    WOLF (3),
-    RABBIT (5),;
+    WOLF (1),
+    RABBIT (0),;
 
     private final int count;
     AnimalsList(int count) {

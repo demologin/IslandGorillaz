@@ -32,7 +32,8 @@ public class AnimalsFactory {
             }case RABBIT -> {
                 for (int i = 0; i < count; i++) {
                     Rabbit rabbit = new Rabbit(map);
-                    rabbits.add(rabbit);}
+                    rabbits.add(rabbit);
+                }
             }
 
         }

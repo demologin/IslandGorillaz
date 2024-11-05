@@ -13,7 +13,7 @@ public class GameMap {
         this.map = new Cell[height][width];
         for (int i = 0; i < height; i++) {
            for (int j = 0; j < width; j++) {
-               map[i][j] = new Cell();
+               map[i][j] = new Cell(j,i);
            }
         }
 

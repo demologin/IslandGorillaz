@@ -22,6 +22,7 @@ public class WolfService implements Runnable{
 
         for (Animals animal : animals) {
             Wolf animal1 = (Wolf) animal;
+
             animal1.move();
         }
 
