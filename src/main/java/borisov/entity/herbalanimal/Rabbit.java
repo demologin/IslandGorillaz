@@ -19,7 +19,7 @@ public class Rabbit implements Animals {
         int rndHeight = ThreadLocalRandom.current().nextInt(0, map.getHeight());
         int rndWidth = ThreadLocalRandom.current().nextInt(0, map.getWidth());
         position = map.getCell(rndWidth,rndHeight );
-        position.setCell(this, 1);
+        position.setAnimalInCell(this, 1);
     }
     @Override
     public void eat() {
@@ -32,7 +32,7 @@ public class Rabbit implements Animals {
         int rndWidth = ThreadLocalRandom.current().nextInt(0, map.getWidth());
         position.removeFromCell(this);
         position = map.getCell(rndWidth,rndHeight );
-        position.setCell(this, 1);
+        position.setAnimalInCell(this, 1);
     }
 
     @Override
@@ -47,6 +47,6 @@ public class Rabbit implements Animals {
 
     @Override
     public String toString() {
-        return "Rabb";
+        return String.valueOf(simpleName);
     }
 }

@@ -8,47 +8,51 @@ import lombok.Getter;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Cell {
-    public List<Animals> cell;
+    public Map<Class<? extends Animals>, Set<Animals>> animalsInCell;
     private final int cellPositionX;
     private final int cellPositionY;
+    private final int allAnimalsCountOnMap;
+    private final String emptyCellPrint;
     @Getter
     private final Lock lock = new ReentrantLock();
 
     @Getter
     private final Map<Integer, List<Integer>> canMoveXY = new HashMap<>();
-    private final int allAnimals;
-
 
 
     public Cell(int x, int y) {
         this.cellPositionX = x;
         this.cellPositionY = y;
-        this.cell = new CopyOnWriteArrayList<>();
-        allAnimals = AnimalsList.values().length;
+        this.animalsInCell = new ConcurrentHashMap<>();
+        allAnimalsCountOnMap = AnimalsList.values().length;
+        emptyCellPrint = getCellPrint();
         setCanMoveXY();
-        System.out.println(canMoveXY.toString());
+
     }
 
-    public void setCell(Animals animal, Integer count) {
-        cell.add(animal);
+    public void setAnimalInCell(Animals animal, Integer count) {
+        animalsInCell.computeIfAbsent(animal.getClass(), k -> new HashSet<>()).add(animal);
 
 
     }
 
     public void removeFromCell(Animals animal) {
-        cell.remove(animal);
+        Set<Animals> tempAnimals = animalsInCell.get(animal.getClass());
+        tempAnimals.remove(animal);
+        if (tempAnimals.isEmpty()) {
+            animalsInCell.remove(animal.getClass());
+        }
     }
 
     private void setCanMoveXY() {
         int row = MyConfig.MAP_WIDTH;
         int col = MyConfig.MAP_HEIGHT;
+        //possible steps
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
 
@@ -66,35 +70,33 @@ public class Cell {
     }
 
 
-@Override
-public String toString() {
-    if (!cell.isEmpty()) {
-        Map<Character, Integer> repeat = new HashMap<>();
+    private String getCellPrint() {
+        final String emptyCellPrint;
+        emptyCellPrint = "{" + " ".repeat(allAnimalsCountOnMap * 3) + "}";
+        return emptyCellPrint;
+    }
 
-        for (Animals animal : cell) {
-            if (!repeat.containsKey(animal.getSimpleName())) {
-                repeat.put(animal.getSimpleName(), 1);
+    @Override
+    public String toString() {
+        if (!animalsInCell.isEmpty()) {
+            StringBuilder s = new StringBuilder();
+            s.append("{");
+
+            animalsInCell.forEach((key, value) -> s.append(key.getSimpleName().charAt(0)).append("=").append(value.size()));
+
+
+            if (animalsInCell.size() < allAnimalsCountOnMap) {
+
+                s.append(" ".repeat(3));
+                s.append("}");
+
             } else {
-                repeat.put(animal.getSimpleName(), repeat.get(animal.getSimpleName()) + 1);
+
+                s.append("}");
             }
 
-        }
-        StringBuilder s = new StringBuilder();
-        s.append("{");
-        repeat.forEach((key, value) -> s.append(key + "=" + value));
 
-        int cellAnimals = repeat.size();
-
-
-        if (cellAnimals < allAnimals) {
-            s.append(" ".repeat(3));
-            s.append("}");
-
-        } else {
-            s.append("}");
-        }
-
-        return s.toString();
-    } else return "{" + " ".repeat(allAnimals * 3) + "}";
-}
+            return s.toString();
+        } else return emptyCellPrint;
+    }
 }

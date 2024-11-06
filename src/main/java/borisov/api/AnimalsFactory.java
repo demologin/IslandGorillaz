@@ -9,10 +9,13 @@ import borisov.entity.predatoranimal.Wolf;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class AnimalsFactory {
+    Map<Class<? extends Animals>,List<Animals>> allAnimalsMap = new HashMap<>();
     @Getter
     List<Wolf> wolfs = new ArrayList<>();
     @Getter
@@ -28,6 +31,7 @@ public class AnimalsFactory {
                 for (int i = 0; i < count; i++) {
                     Wolf wolf = new Wolf(map);
                     wolfs.add(wolf);
+
                 }
             }case RABBIT -> {
                 for (int i = 0; i < count; i++) {

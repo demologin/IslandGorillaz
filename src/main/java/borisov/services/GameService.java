@@ -25,7 +25,7 @@ public class GameService extends Thread{
     @Override
     public void run() {
         System.out.println(animalFactory.getWolfs());
-        WolfService wolfService = new WolfService(map,animalFactory.getWolfs()) ;
+        WolfService wolfService = new WolfService(map,animalFactory);
         RabbitService rabbitService = new RabbitService(map,animalFactory.getRabbits()) ;
 
         try (ScheduledExecutorService mainPool = Executors.newScheduledThreadPool(CORE_POOL_SIZE)) {
