@@ -11,4 +11,6 @@ public interface Animals extends Reproductable{
 
     char getSimpleName();
 
+    int getWeight();
+
 }

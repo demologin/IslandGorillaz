@@ -1,0 +1,11 @@
+- type: Wolf
+  fullName: "Wolf"
+  simpleName: "W"
+  weight: 30
+  moveSpeed: 4
+
+- type: Rabbit
+  fullName: "Rabbit"
+  simpleName: "R"
+  weight: 10
+  moveSpeed: 3

@@ -19,6 +19,15 @@ public abstract class Predators implements Animals {
     protected GameMap map;
     protected char simpleName;
 
+    public Predators() {
+        this.id = UUID.randomUUID();
+        simpleName = this.getClass().getSimpleName().charAt(0);
+    }
+
+    protected abstract int getMoveSpeed();
+    public abstract int getWeight();
+    protected abstract void setWeight(int height);
+
 
     public Predators(GameMap map) {
         this.id = UUID.randomUUID();
@@ -29,8 +38,6 @@ public abstract class Predators implements Animals {
         position = map.getCell(rndWidth, rndHeight);
         position.setAnimalInCell(this, 1);
     }
-
-    protected abstract int getMoveSpeed();
 
     @Override
     public boolean equals(Object o) {
@@ -65,14 +72,15 @@ public abstract class Predators implements Animals {
         } finally {
             lock.unlock();
         }
+        setWeight(getWeight() - 1);
+        System.out.println(this +"="+ getWeight());
 
     }
-
+//TODO recursion
     protected Cell newPosition(Cell position) {
         Map<Integer, List<Integer>> canMoveXY = position.getCanMoveXY();
         int chooseStep = MyRandomUtil.random(0, canMoveXY.size());
         List<Integer> integers = canMoveXY.get(chooseStep);
-        System.out.println("step = " + integers.get(0) + " " + integers.get(1));
         Cell cell = map.getCell(integers.get(0), integers.get(1));
         return cell;
     }

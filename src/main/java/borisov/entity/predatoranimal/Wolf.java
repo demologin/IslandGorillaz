@@ -2,30 +2,34 @@ package borisov.entity.predatoranimal;
 
 
 import borisov.entity.map.GameMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
+import lombok.Setter;
 
-
-
-
-
+@JsonPropertyOrder({"fullName","simpleName", "weight", "moveSpeed"})
 public class Wolf extends Predators {
 
+    public final String fullName = "Wolf";
+    @Getter
+    private final int moveSpeed = 4;
 
-    @Override
-    public char getSimpleName() {
-        return simpleName;
-    }
+    @Getter@Setter
+    private int weight = 30;
 
-
-    protected final int moveSpeed = 4;
-
-    @Override
-    protected int getMoveSpeed() {
-        return this.moveSpeed;
+    public Wolf(){
+        super();
     }
 
     public Wolf(GameMap map) {
         super(map);
 
+    }
+
+
+
+    @Override
+    public char getSimpleName() {
+        return simpleName;
     }
 
 

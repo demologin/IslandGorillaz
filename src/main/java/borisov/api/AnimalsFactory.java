@@ -26,6 +26,7 @@ public class AnimalsFactory {
         this.map = map;
     }
     public void startProduce(AnimalsList animal, int count){
+
         switch (animal){
             case WOLF -> {
                 for (int i = 0; i < count; i++) {

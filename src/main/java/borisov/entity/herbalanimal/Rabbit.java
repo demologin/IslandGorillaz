@@ -3,12 +3,14 @@ package borisov.entity.herbalanimal;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
+import lombok.Getter;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Rabbit implements Animals {
     private char simpleName ;
     Cell position;
+    @Getter
     public int weight = 10;
     GameMap map;
     private int moveSpeed = 3;
