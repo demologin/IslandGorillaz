@@ -1,6 +1,7 @@
 
 package borisov.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import borisov.config.AnimalsList;
 import borisov.entity.Animals;
 import borisov.entity.herbalanimal.Rabbit;
@@ -8,45 +9,47 @@ import borisov.entity.map.GameMap;
 import borisov.entity.predatoranimal.Wolf;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class AnimalsFactory {
-    Map<Class<? extends Animals>,List<Animals>> allAnimalsMap = new HashMap<>();
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final Map<String, Class<? extends Animals>> animalsClasses = new HashMap<>();
+    List animalsList = new ArrayList();
     @Getter
-    List<Wolf> wolfs = new ArrayList<>();
+    public Map<Class<? extends Animals>, List<Animals>> allAnimalsMap = new HashMap<>();
     @Getter
-    List<Rabbit> rabbits = new ArrayList<>();
+    List<Wolf> Wolfs = new ArrayList<>();
+    @Getter
+    List<Rabbit> Rabbits = new ArrayList<>();
     GameMap map;
 
     public AnimalsFactory(GameMap map) {
+//        animalsClasses.put("Rabbit", Rabbit.class);
+//        animalsClasses.put("Wolf", Wolf.class);
         this.map = map;
     }
-    public void startProduce(AnimalsList animal, int count){
 
-        switch (animal){
-            case WOLF -> {
-                for (int i = 0; i < count; i++) {
-                    Wolf wolf = new Wolf(map);
-                    wolfs.add(wolf);
+    public void startProduce() {
+        List<Map<String, Object>> yamlConfig = ConfigReader.getYamlConfig();
 
-                }
-            }case RABBIT -> {
-                for (int i = 0; i < count; i++) {
-                    Rabbit rabbit = new Rabbit(map);
-                    rabbits.add(rabbit);
-                }
+        for (Map<String, Object> stringObjectMap : yamlConfig) {
+            //pull out the class name from the config (вытаскиваем из конфига название класса)
+            String type = (String) stringObjectMap.get("fullName");
+            //look for the extracted class in enum (ищем в enum вытащенный класс)
+            Class<? extends Animals> animalClazz =  AnimalsList.valueOf(type.toUpperCase()).getAnimalClass();
+
+            int countAnimals = (int) stringObjectMap.get("defaultCount");
+
+            for (int i = 0; i < countAnimals; i++) {
+               Animals animal =  mapper.convertValue(stringObjectMap, animalClazz);
+                allAnimalsMap.computeIfAbsent(animal.getClass(), k -> new ArrayList<>()).add(animal);
             }
-
         }
-
-
     }
-
-
 }
+
+
+
 
 

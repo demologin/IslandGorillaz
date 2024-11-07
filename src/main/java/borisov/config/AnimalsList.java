@@ -1,22 +1,28 @@
 package borisov.config;
 
-import java.util.HashMap;
-import java.util.Map;
+import borisov.entity.Animals;
+import borisov.entity.herbalanimal.Rabbit;
+import borisov.entity.predatoranimal.Wolf;
+import lombok.Getter;
 
 public enum AnimalsList {
-    WOLF (1),
-    RABBIT (0),;
 
-    private final int count;
-    AnimalsList(int count) {
-       this.count = count;
+    WOLF (Wolf.class),
+
+    RABBIT (Rabbit.class),;
+
+
+    @Getter
+    private final Class<? extends Animals> animalClass;
+
+
+    AnimalsList(Class<? extends Animals> animalClass) {
+
+
+        this.animalClass = animalClass;
     }
 
-    public static Map<AnimalsList, Integer> getAll() {
-        Map<AnimalsList , Integer> mapOfAnimals = new HashMap<>();
-        for (AnimalsList value : AnimalsList.values()) {
-            mapOfAnimals.put(value, value.count);
-        }
-        return mapOfAnimals;
-    }
+
+
+
 }

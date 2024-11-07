@@ -4,6 +4,7 @@ import borisov.api.MyRandomUtil;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Predators implements Animals {
     private final UUID id;
     protected Cell position;

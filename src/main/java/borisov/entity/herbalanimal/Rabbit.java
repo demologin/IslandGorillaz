@@ -3,18 +3,23 @@ package borisov.entity.herbalanimal;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
 import java.util.concurrent.ThreadLocalRandom;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Rabbit implements Animals {
+    public final String fullName = "Rabbit";
     private char simpleName ;
     Cell position;
     @Getter
     public int weight = 10;
     GameMap map;
-    private int moveSpeed = 3;
+    public int moveSpeed = 3;
 
+    public Rabbit(){
+
+    }
     public Rabbit(GameMap map) {
         this.map = map;
         simpleName = this.getClass().getSimpleName().charAt(0);

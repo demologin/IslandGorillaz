@@ -1,11 +1,13 @@
-- type: Wolf
-  fullName: "Wolf"
+
+- fullName: "Wolf"
   simpleName: "W"
   weight: 30
   moveSpeed: 4
+  defaultCount: 10
 
-- type: Rabbit
-  fullName: "Rabbit"
+
+- fullName: "Rabbit"
   simpleName: "R"
   weight: 10
   moveSpeed: 3
+  defaultCount: 3

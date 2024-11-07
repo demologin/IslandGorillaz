@@ -6,6 +6,7 @@ import borisov.entity.map.GameMap;
 
 import borisov.services.GameService;
 
+import java.util.Arrays;
 import java.util.Map;
 
 
@@ -14,7 +15,7 @@ public class Init {
 
     public GameMap map ;
     private final AnimalsFactory animalsFactory;
-    public ConfigReader configReader;
+
 
 
     public Init() {
@@ -24,10 +25,7 @@ public class Init {
 
     public void initialize(){
         ConfigReader.getInstance();
-        Map<AnimalsList,Integer> animalsCount = AnimalsList.getAll();
-        for (Map.Entry<AnimalsList,Integer> animal : animalsCount.entrySet()){
-            animalsFactory.startProduce(animal.getKey(),animal.getValue());
-        }
+        animalsFactory.startProduce();
 
 
 

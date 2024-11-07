@@ -17,7 +17,7 @@ import java.util.Map;
 public class ConfigReader {
     private static ConfigReader instance;
     @Getter
-    private static List<Map<String, Class<? extends Animals>>> yamlConfig;
+    private static List<Map<String, Object>> yamlConfig;
     private final ObjectMapper mapper = new YAMLMapper(new YAMLFactory());
 
     private ConfigReader() {
