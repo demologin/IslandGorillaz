@@ -5,6 +5,7 @@ import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.concurrent.locks.Lock;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Predators implements Animals {
     private final UUID id;
+    @Setter
     protected Cell position;
     protected final int moveSpeed = 1;
     protected GameMap map;
@@ -34,10 +36,10 @@ public abstract class Predators implements Animals {
         this.id = UUID.randomUUID();
         this.map = map;
         simpleName = this.getClass().getSimpleName().charAt(0);
-        int rndHeight = MyRandomUtil.random(0, map.getHeight());
-        int rndWidth = MyRandomUtil.random(0, map.getWidth());
-        position = map.getCell(rndWidth, rndHeight);
-        position.setAnimalInCell(this, 1);
+//        int rndHeight = MyRandomUtil.random(0, map.getHeight());
+//        int rndWidth = MyRandomUtil.random(0, map.getWidth());
+//        position = map.getCell(rndWidth, rndHeight);
+//        position.setAnimalInCell(this);
     }
 
     @Override
@@ -69,7 +71,7 @@ public abstract class Predators implements Animals {
         try {
             position.removeFromCell(this);
             position = tempPosition;
-            position.setAnimalInCell(this, 1);
+            position.setAnimalInCell(this);
         } finally {
             lock.unlock();
         }

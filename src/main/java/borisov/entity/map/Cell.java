@@ -35,7 +35,7 @@ public class Cell {
 
     }
 
-    public void setAnimalInCell(Animals animal, Integer count) {
+    public void setAnimalInCell(Animals animal) {
         animalsInCell.computeIfAbsent(animal.getClass(), k -> new HashSet<>()).add(animal);
 
 

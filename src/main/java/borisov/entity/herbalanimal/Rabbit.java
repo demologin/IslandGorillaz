@@ -5,12 +5,14 @@ import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.concurrent.ThreadLocalRandom;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Rabbit implements Animals {
     public final String fullName = "Rabbit";
     private char simpleName ;
+    @Setter
     Cell position;
     @Getter
     public int weight = 10;
@@ -26,7 +28,7 @@ public class Rabbit implements Animals {
         int rndHeight = ThreadLocalRandom.current().nextInt(0, map.getHeight());
         int rndWidth = ThreadLocalRandom.current().nextInt(0, map.getWidth());
         position = map.getCell(rndWidth,rndHeight );
-        position.setAnimalInCell(this, 1);
+        position.setAnimalInCell(this);
     }
     @Override
     public void eat() {
@@ -39,7 +41,7 @@ public class Rabbit implements Animals {
         int rndWidth = ThreadLocalRandom.current().nextInt(0, map.getWidth());
         position.removeFromCell(this);
         position = map.getCell(rndWidth,rndHeight );
-        position.setAnimalInCell(this, 1);
+        position.setAnimalInCell(this);
     }
 
     @Override

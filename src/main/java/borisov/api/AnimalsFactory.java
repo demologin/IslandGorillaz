@@ -9,15 +9,17 @@ import borisov.entity.map.GameMap;
 import borisov.entity.predatoranimal.Wolf;
 import lombok.Getter;
 
+
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class AnimalsFactory {
     private final ObjectMapper mapper = new ObjectMapper();
     private final Map<String, Class<? extends Animals>> animalsClasses = new HashMap<>();
-    List animalsList = new ArrayList();
+    List<Animals> animalsList = new ArrayList<>();
     @Getter
-    public Map<Class<? extends Animals>, List<Animals>> allAnimalsMap = new HashMap<>();
+    public Map<Class<? extends Animals>, Set<Animals>> allAnimalsMap = new ConcurrentHashMap<>();
     @Getter
     List<Wolf> Wolfs = new ArrayList<>();
     @Getter
@@ -43,7 +45,7 @@ public class AnimalsFactory {
 
             for (int i = 0; i < countAnimals; i++) {
                Animals animal =  mapper.convertValue(stringObjectMap, animalClazz);
-                allAnimalsMap.computeIfAbsent(animal.getClass(), k -> new ArrayList<>()).add(animal);
+                allAnimalsMap.computeIfAbsent(animal.getClass(), k -> new HashSet<>()).add(animal);
             }
         }
     }

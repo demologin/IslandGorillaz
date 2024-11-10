@@ -5,12 +5,15 @@ import borisov.entity.Animals;
 import borisov.entity.map.GameMap;
 import borisov.entity.predatoranimal.Wolf;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class WolfService implements Runnable {
     private GameMap map;
 
-    private List<? extends Animals> animals;
+    private Set<? extends Animals> animals;
     private final AnimalsFactory animalsFactory;
 
     public WolfService(GameMap map, AnimalsFactory animalsFactory) {
@@ -20,11 +23,11 @@ public class WolfService implements Runnable {
 
     @Override
     public void run() {
-      animals = animalsFactory.getWolfs();
-
+      animals = animalsFactory.getAllAnimalsMap().get(Wolf.class);
+        System.out.println(animals);
         for (Animals animal : animals) {
             Wolf animal1 = (Wolf) animal;
-
+            System.out.println(animal);
             animal1.move();
         }
 

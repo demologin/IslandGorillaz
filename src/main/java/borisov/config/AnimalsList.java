@@ -5,6 +5,7 @@ import borisov.entity.herbalanimal.Rabbit;
 import borisov.entity.predatoranimal.Wolf;
 import lombok.Getter;
 
+@Getter
 public enum AnimalsList {
 
     WOLF (Wolf.class),
@@ -12,7 +13,6 @@ public enum AnimalsList {
     RABBIT (Rabbit.class),;
 
 
-    @Getter
     private final Class<? extends Animals> animalClass;
 
 

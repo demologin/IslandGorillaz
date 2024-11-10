@@ -3,11 +3,11 @@
   simpleName: "W"
   weight: 30
   moveSpeed: 4
-  defaultCount: 10
+  defaultCount: 2
 
 
 - fullName: "Rabbit"
   simpleName: "R"
   weight: 10
   moveSpeed: 3
-  defaultCount: 3
+  defaultCount: 1
