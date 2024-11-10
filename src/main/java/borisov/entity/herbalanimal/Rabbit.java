@@ -1,5 +1,6 @@
 package borisov.entity.herbalanimal;
 
+import borisov.config.Action;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
@@ -10,56 +11,15 @@ import lombok.Setter;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Rabbit implements Animals {
-    @Getter@Setter
-    public boolean isAlive;
+public class Rabbit extends Herbals{
+
     public final String fullName = "Rabbit";
-    private char simpleName ;
-    @Setter
-    Cell position;
-    @Getter
-    public int weight = 10;
-    @Setter
-    GameMap map;
-    @Getter
-    public int moveSpeed = 3;
-    @Setter@Getter
-    private Map<String,Integer> chances;
 
     public Rabbit(){
-
-    }
-    public Rabbit(GameMap map) {
-        this.map = map;
-        simpleName = this.getClass().getSimpleName().charAt(0);
-        int rndHeight = ThreadLocalRandom.current().nextInt(0, map.getHeight());
-        int rndWidth = ThreadLocalRandom.current().nextInt(0, map.getWidth());
-        position = map.getCell(rndWidth,rndHeight );
-        position.setAnimalInCell(this);
-    }
-    @Override
-    public void eat() {
-
+        super();
     }
 
-    @Override
-    public void move() {
-        int rndHeight = ThreadLocalRandom.current().nextInt(0, map.getHeight());
-        int rndWidth = ThreadLocalRandom.current().nextInt(0, map.getWidth());
-        position.removeFromCell(this);
-        position = map.getCell(rndWidth,rndHeight );
-        position.setAnimalInCell(this);
-    }
 
-    @Override
-    public char getSimpleName() {
-        return simpleName;
-    }
-
-    @Override
-    public void reproduce() {
-
-    }
 
     @Override
     public String toString() {

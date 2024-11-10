@@ -47,6 +47,9 @@ public class Cell {
     }
 
     public void removeFromCell(Animals animal) {
+        try {
+
+
         lock.lock();
         try {
 
@@ -58,6 +61,9 @@ public class Cell {
         }
         }finally {
             lock.unlock();
+        }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

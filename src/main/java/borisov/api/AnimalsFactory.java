@@ -19,11 +19,14 @@ public class AnimalsFactory {
 
     @Getter
     public Map<Class<? extends Animals>, Set<Animals>> allAnimalsMap = new ConcurrentHashMap<>();
-    private final Map<String,Integer> chances = new HashMap<>();
+
     GameMap map;
 
     public AnimalsFactory(GameMap map) {
         this.map = map;
+    }
+    public synchronized void removeFromMap(Animals animal) {
+        allAnimalsMap.remove(animal.getClass()).remove(animal);
     }
 
     public void startProduce() {
@@ -35,7 +38,7 @@ public class AnimalsFactory {
             //look for the extracted class in enum (ищем в enum вытащенный класс)
             Class<? extends Animals> animalClazz =  AnimalsList.valueOf(type.toUpperCase()).getAnimalClass();
 
-
+             Map<String,Integer> chances = new HashMap<>();
              // take chances (вытаскиваем шансы объекта)
             if (stringObjectMap.get("chancesPercent") instanceof Map<?, ?> chancesMap){
                 for (Map.Entry<?, ?> entry : chancesMap.entrySet()) {
@@ -52,6 +55,7 @@ public class AnimalsFactory {
                 allAnimalsMap.computeIfAbsent(animal.getClass(), k -> new HashSet<>()).add(animal);
                 animal.setMap(map);
                 animal.setChances(chances);
+                animal.setAlive(true);
             }
         }
     }

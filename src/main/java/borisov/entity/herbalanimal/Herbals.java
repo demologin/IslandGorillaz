@@ -1,24 +1,24 @@
-package borisov.entity.predatoranimal;
+package borisov.entity.herbalanimal;
 
 import borisov.api.MyRandomUtil;
 import borisov.config.Action;
 import borisov.entity.Animals;
-import borisov.entity.herbalanimal.Herbals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import borisov.entity.predatoranimal.Predators;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class Predators implements Animals {
+public abstract class Herbals implements Animals {
     @Getter
-    private Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
     private final UUID id;
     @Setter@Getter
     protected Cell position;
@@ -26,23 +26,24 @@ public abstract class Predators implements Animals {
     protected GameMap map;
     @Getter
     @Setter
-    public boolean isAlive;
+    public boolean isAlive ;
     @Getter
     protected char simpleName;
-    @Getter
-    @Setter
+    @Getter@Setter
     private int weight;
-    @Setter
-    @Getter
-    private Map<String, Integer> chances;
+    @Setter@Getter
+    private Map<String,Integer> chances;
     @Getter
     private int moveSpeed;
 
 
-    public Predators() {
+
+    public Herbals() {
         this.id = UUID.randomUUID();
         simpleName = this.getClass().getSimpleName().charAt(0);
     }
+
+
 
 
     protected Cell newPosition(Cell position) {
@@ -62,9 +63,7 @@ public abstract class Predators implements Animals {
             case EAT -> eat();
         }
     }
-
     public void move() {
-
         Cell nowPosition = position;
         Cell tempPosition = position;
         for (int i = 0; i < this.getMoveSpeed(); i++) {
@@ -72,7 +71,7 @@ public abstract class Predators implements Animals {
             nowPosition = tempPosition;
         }
 
-        lock = tempPosition.getLock();
+        Lock lock = tempPosition.getLock();
         lock.lock();
         try {
             position.removeFromCell(this);
@@ -85,45 +84,10 @@ public abstract class Predators implements Animals {
 
 
     }
-
     @Override
     public void eat() {
-        try {
 
-        lock = position.getLock();
-        lock.lock();
-        try {
-            Map<Class<? extends Animals>, Set<Animals>> animalsInCell = new HashMap<>(position.getAnimalsInCell());
-            Animals target =
-                    animalsInCell.entrySet().stream()
-                            .filter(k -> Herbals.class.isAssignableFrom(k.getKey()))
-                            .filter(k -> MyRandomUtil.randomPercent(this.chances.get(k.getKey().getSimpleName())))
-                            .map(k -> k.getValue()
-                                    .stream()
-                                    .findFirst().orElse(null))
-                            .filter(Objects::nonNull)
-                            .findFirst().orElse(null);
-            if (target != null) {
-
-
-
-                if (this.chances.get("toEatUp") >= target.getWeight()) {
-                    this.setWeight(this.getWeight() + target.getWeight());
-                    target.setWeight(0);
-
-                } else {
-                    target.setWeight(target.getWeight() - this.chances.get("toEatUp"));
-
-                    this.setWeight(this.chances.get("fullWeight"));
-                }
-
-            }
-        }finally {
-            lock.unlock();
-        }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.setWeight(this.getWeight() +10);
 
     }
 
@@ -137,10 +101,8 @@ public abstract class Predators implements Animals {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Predators predators = (Predators) o;
-        return
-                Objects.equals(id, predators.id) &&
-                        Objects.equals(position, predators.position);
+        Herbals herbals = (Herbals) o;
+        return Objects.equals(id, herbals.id) && Objects.equals(position, herbals.position) ;
     }
 
     @Override

@@ -8,8 +8,10 @@ import borisov.entity.predatoranimal.Wolf;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
 
 public class RabbitService implements Runnable {
+    Lock lock;
     private GameMap map;
     private final AnimalsFactory animalsFactory;
     private Set<? extends Animals> animals;
@@ -27,8 +29,14 @@ public class RabbitService implements Runnable {
             animals = animalsFactory.getAllAnimalsMap().get(Rabbit.class);
 
             for (Animals animal : animals) {
+                lock = animal.getLock();
+                lock.lock();
+                try {
 
-                animal.move();
+                    animal.move();
+                }finally {
+                    lock.unlock();
+                }
             }
 
         }
