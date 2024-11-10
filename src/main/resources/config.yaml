@@ -2,12 +2,19 @@
 - fullName: "Wolf"
   simpleName: "W"
   weight: 30
-  moveSpeed: 4
-  defaultCount: 2
+  moveSpeed: 5
+  defaultCount: 1
+  chancesPercent:
+    "eatAfterWeightBellowPercent": 60
+    "move": 50
+    "attackRabbit": 60
 
 
 - fullName: "Rabbit"
   simpleName: "R"
   weight: 10
   moveSpeed: 3
-  defaultCount: 1
+  defaultCount: 0
+  chancesPercent:
+    "move": 50
+    "attackRabbit": 60

@@ -27,6 +27,7 @@ public class Init {
     public void initialize(){
         ConfigReader.getInstance();
         animalsFactory.startProduce();
+        System.out.println(animalsFactory.getAllAnimalsMap());
         Map<Class<? extends Animals>, Set<Animals>> allAnimalsMap = animalsFactory.getAllAnimalsMap();
         for(Map.Entry<Class<? extends Animals>, Set<Animals>> entry : allAnimalsMap.entrySet()){
             Set<Animals> animals = entry.getValue();

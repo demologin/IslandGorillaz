@@ -6,25 +6,26 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @JsonPropertyOrder({"fullName","simpleName", "weight", "moveSpeed"})
 public class Wolf extends Predators {
-
-    public final String fullName = "Wolf";
     @Getter
-    private final int moveSpeed = 4;
-
+    private int moveSpeed;
+    public final String fullName = "Wolf";
     @Getter@Setter
-    private int weight = 30;
+    private int weight;
+    @Setter@Getter
+    private Map<String,Integer> chances;
+    @Getter@Setter
+    public boolean isAlive ;
+
+
+
 
     public Wolf(){
         super();
     }
-
-    public Wolf(GameMap map) {
-        super(map);
-
-    }
-
 
 
     @Override
@@ -32,14 +33,10 @@ public class Wolf extends Predators {
         return simpleName;
     }
 
-
     @Override
     public void eat() {
 
     }
-
-
-
 
     @Override
     public void reproduce() {

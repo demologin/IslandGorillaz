@@ -10,17 +10,17 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
+
 
 public class Cell {
     public Map<Class<? extends Animals>, Set<Animals>> animalsInCell;
+
     private final int cellPositionX;
     private final int cellPositionY;
     private final int allAnimalsCountOnMap;
     private final String emptyCellPrint;
     @Getter
     private final Lock lock = new ReentrantLock();
-
     @Getter
     private final Map<Integer, List<Integer>> canMoveXY = new HashMap<>();
 
@@ -36,16 +36,37 @@ public class Cell {
     }
 
     public void setAnimalInCell(Animals animal) {
-        animalsInCell.computeIfAbsent(animal.getClass(), k -> new HashSet<>()).add(animal);
+        lock.lock();
+        try {
+            animalsInCell.computeIfAbsent(animal.getClass(), k -> new HashSet<>()).add(animal);
+        }finally {
+            lock.unlock();
+        }
 
 
     }
 
     public void removeFromCell(Animals animal) {
+        lock.lock();
+        try {
+
+
         Set<Animals> tempAnimals = animalsInCell.get(animal.getClass());
         tempAnimals.remove(animal);
         if (tempAnimals.isEmpty()) {
             animalsInCell.remove(animal.getClass());
+        }
+        }finally {
+            lock.unlock();
+        }
+    }
+
+    public Map<Class<? extends Animals>, Set<Animals>> getAnimalsInCell() {
+        lock.lock();
+        try {
+        return animalsInCell;
+        }finally {
+            lock.unlock();
         }
     }
 

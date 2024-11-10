@@ -7,17 +7,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Rabbit implements Animals {
+    @Getter@Setter
+    public boolean isAlive;
     public final String fullName = "Rabbit";
     private char simpleName ;
     @Setter
     Cell position;
     @Getter
     public int weight = 10;
+    @Setter
     GameMap map;
+    @Getter
     public int moveSpeed = 3;
+    @Setter@Getter
+    private Map<String,Integer> chances;
 
     public Rabbit(){
 

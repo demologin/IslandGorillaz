@@ -24,14 +24,19 @@ public class GameService extends Thread{
 
     @Override
     public void run() {
-        System.out.println(animalFactory.getWolfs());
+
         WolfService wolfService = new WolfService(map,animalFactory);
-        RabbitService rabbitService = new RabbitService(map,animalFactory.getRabbits()) ;
+        RabbitService rabbitService = new RabbitService(map,animalFactory) ;
 
         try (ScheduledExecutorService mainPool = Executors.newScheduledThreadPool(CORE_POOL_SIZE)) {
+                try {
+
 
                 mainPool.scheduleAtFixedRate(wolfService, PERIOD, PERIOD, TimeUnit.MILLISECONDS);
                 mainPool.scheduleAtFixedRate(rabbitService, PERIOD, PERIOD, TimeUnit.MILLISECONDS);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 while(true){
                     Thread.sleep(PERIOD+100);
@@ -39,10 +44,10 @@ public class GameService extends Thread{
 
                 }
 
-
         }catch (Exception e) {
             e.printStackTrace();
         }
+
 
     }
 }

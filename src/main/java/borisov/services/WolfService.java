@@ -23,12 +23,14 @@ public class WolfService implements Runnable {
 
     @Override
     public void run() {
-      animals = animalsFactory.getAllAnimalsMap().get(Wolf.class);
-        System.out.println(animals);
-        for (Animals animal : animals) {
-            Wolf animal1 = (Wolf) animal;
-            System.out.println(animal);
-            animal1.move();
+        try {
+            animals = animalsFactory.getAllAnimalsMap().get(Wolf.class);
+
+            for (Animals animal : animals) {
+                animal.move();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

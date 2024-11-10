@@ -16,19 +16,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AnimalsFactory {
     private final ObjectMapper mapper = new ObjectMapper();
-    private final Map<String, Class<? extends Animals>> animalsClasses = new HashMap<>();
-    List<Animals> animalsList = new ArrayList<>();
+
     @Getter
     public Map<Class<? extends Animals>, Set<Animals>> allAnimalsMap = new ConcurrentHashMap<>();
-    @Getter
-    List<Wolf> Wolfs = new ArrayList<>();
-    @Getter
-    List<Rabbit> Rabbits = new ArrayList<>();
+    private final Map<String,Integer> chances = new HashMap<>();
     GameMap map;
 
     public AnimalsFactory(GameMap map) {
-//        animalsClasses.put("Rabbit", Rabbit.class);
-//        animalsClasses.put("Wolf", Wolf.class);
         this.map = map;
     }
 
@@ -41,11 +35,23 @@ public class AnimalsFactory {
             //look for the extracted class in enum (ищем в enum вытащенный класс)
             Class<? extends Animals> animalClazz =  AnimalsList.valueOf(type.toUpperCase()).getAnimalClass();
 
+
+             // take chances (вытаскиваем шансы объекта)
+            if (stringObjectMap.get("chancesPercent") instanceof Map<?, ?> chancesMap){
+                for (Map.Entry<?, ?> entry : chancesMap.entrySet()) {
+                    chances.put((String) entry.getKey(),(Integer) entry.getValue());
+                }
+            }
+
+
             int countAnimals = (int) stringObjectMap.get("defaultCount");
+
 
             for (int i = 0; i < countAnimals; i++) {
                Animals animal =  mapper.convertValue(stringObjectMap, animalClazz);
                 allAnimalsMap.computeIfAbsent(animal.getClass(), k -> new HashSet<>()).add(animal);
+                animal.setMap(map);
+                animal.setChances(chances);
             }
         }
     }
