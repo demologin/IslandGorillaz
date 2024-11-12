@@ -62,6 +62,7 @@ public abstract class Predators implements Animals {
         this.animalsFactory = original.getAnimalsFactory();
         this.animalsFactory.addToMap(this);
         this.position.setAnimalInCell(this);
+        this.lock = new ReentrantLock();
 
 
     }
@@ -71,8 +72,7 @@ public abstract class Predators implements Animals {
         Map<Integer, List<Integer>> canMoveXY = position.getCanMoveXY();
         int chooseStep = MyRandomUtil.random(0, canMoveXY.size());
         List<Integer> integers = canMoveXY.get(chooseStep);
-        Cell cell = map.getCell(integers.get(0), integers.get(1));
-        return cell;
+        return map.getCell(integers.get(0), integers.get(1));
     }
 
 
@@ -143,7 +143,7 @@ public abstract class Predators implements Animals {
                 lock.unlock();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }

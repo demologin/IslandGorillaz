@@ -7,14 +7,11 @@ import borisov.config.MyConfig;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
-import borisov.entity.predatoranimal.Wolf;
-
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 
 public class WolfService <T extends Animals> implements Runnable {
-    private GameMap map;
-
+    private final GameMap map;
     private Set<? extends Animals> animals;
     private final AnimalsFactory animalsFactory;
     private Lock lock;
@@ -54,7 +51,7 @@ public class WolfService <T extends Animals> implements Runnable {
                                     animal.doAction(action);
 
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                  throw new RuntimeException(e);
                                 }
                             }
                             animal.setWeight(animal.getWeight() - MyConfig.LOOSE_WEIGHT_PER_ROUND);
@@ -68,13 +65,13 @@ public class WolfService <T extends Animals> implements Runnable {
                             animalsToReproduce.get(i).doAction(Action.REPRODUCE);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
                 }
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }

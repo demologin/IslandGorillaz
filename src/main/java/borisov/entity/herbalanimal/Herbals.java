@@ -7,7 +7,6 @@ import borisov.config.MyConfig;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
-import borisov.entity.predatoranimal.Predators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,8 +47,6 @@ public abstract class Herbals implements Animals {
     }
 
     protected Herbals(Herbals original) {
-        Set<Animals> animals = animalsFactory.getAllAnimalsMap().get(original.getClass());
-
         this.id = UUID.randomUUID();
         this.position = original.position;
         this.map = original.map;
@@ -70,8 +67,7 @@ public abstract class Herbals implements Animals {
         Map<Integer, List<Integer>> canMoveXY = position.getCanMoveXY();
         int chooseStep = MyRandomUtil.random(0, canMoveXY.size());
         List<Integer> integers = canMoveXY.get(chooseStep);
-        Cell cell = map.getCell(integers.get(0), integers.get(1));
-        return cell;
+        return map.getCell(integers.get(0), integers.get(1));
     }
 
 
