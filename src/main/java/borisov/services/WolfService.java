@@ -3,6 +3,7 @@ package borisov.services;
 import borisov.api.AnimalsFactory;
 import borisov.api.ChooseActionUtil;
 import borisov.config.Action;
+import borisov.config.MyConfig;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
@@ -11,14 +12,16 @@ import borisov.entity.predatoranimal.Wolf;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 
-public class WolfService implements Runnable {
+public class WolfService <T extends Animals> implements Runnable {
     private GameMap map;
 
     private Set<? extends Animals> animals;
     private final AnimalsFactory animalsFactory;
     private Lock lock;
+    private final Class<T> animalClass;
 
-    public WolfService(GameMap map, AnimalsFactory animalsFactory) {
+    public WolfService(GameMap map, AnimalsFactory animalsFactory, Class<T> animalClass) {
+        this.animalClass = animalClass;
         this.map = map;
         this.animalsFactory = animalsFactory;
     }
@@ -27,29 +30,48 @@ public class WolfService implements Runnable {
     public void run() {
         try {
 
-            animals = animalsFactory.getAllAnimalsMap().get(Wolf.class);
-            if (!(animals == null) && !animals.isEmpty()) {
-                for (Iterator<? extends Animals> iterator = animals.iterator(); iterator.hasNext(); ) {
-                    Animals animal = iterator.next();
+            Set<Animals> animals = animalsFactory.getAllAnimalsMap().get(animalClass);
 
-                    Action action = ChooseActionUtil.action(animal);
-                    System.out.println(action);
-                    if (action == Action.DIE_YOU_SON_OF_THE_ANIMAL) {
-                        Cell position = animal.getPosition();
-                        position.removeFromCell(animal);
+                List<Animals> animalsToDie = new ArrayList<>();
+                List<Animals> animalsToReproduce = new ArrayList<>();
+                if (animals != null && !animals.isEmpty()) {
+                    try {
+                        for (Animals animal : animals) {
+                            Action action = ChooseActionUtil.action(animal);
+                            System.out.println(animal + " " + action);
+                            if (action == Action.DIE_YOU_SON_OF_THE_ANIMAL) {
 
-                        iterator.remove();
+                                Cell position = animal.getPosition();
+                                position.removeFromCell(animal);
 
+                                animalsToDie.add(animal);
 
-                    } else {
+                            }else if(action == Action.REPRODUCE){
+                                animalsToReproduce.add(animal);
 
-                        animal.doAction(action);
-                        animal.setWeight(animal.getWeight() - 1);
+                            } else {
+                                try {
+                                    animal.doAction(action);
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            animal.setWeight(animal.getWeight() - MyConfig.LOOSE_WEIGHT_PER_ROUND);
+
+                        }
+                        for (int i = 0; i < animalsToDie.size(); i++) {
+                           animalsFactory.removeFromMap(animalsToDie.get(i));
+
+                        }
+                        for (int i = 0; i < animalsToReproduce.size(); i++) {
+                            animalsToReproduce.get(i).doAction(Action.REPRODUCE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-
                 }
-            }
+
 
         } catch (Exception e) {
             e.printStackTrace();

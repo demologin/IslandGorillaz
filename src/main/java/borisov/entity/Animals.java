@@ -1,6 +1,7 @@
 package borisov.entity;
 
 
+import borisov.api.AnimalsFactory;
 import borisov.config.Action;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
@@ -38,6 +39,8 @@ public interface Animals extends Reproductable{
     void setAlive(boolean alive);
 
     void doAction(Action action);
+
+    void setAnimalsFactory(AnimalsFactory factory);
 
 
 

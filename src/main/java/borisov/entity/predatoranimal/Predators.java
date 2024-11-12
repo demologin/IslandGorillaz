@@ -1,7 +1,9 @@
 package borisov.entity.predatoranimal;
 
+import borisov.api.AnimalsFactory;
 import borisov.api.MyRandomUtil;
 import borisov.config.Action;
+import borisov.config.MyConfig;
 import borisov.entity.Animals;
 import borisov.entity.herbalanimal.Herbals;
 import borisov.entity.map.Cell;
@@ -9,7 +11,6 @@ import borisov.entity.map.GameMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
 
 import java.util.*;
 import java.util.concurrent.locks.Lock;
@@ -20,7 +21,8 @@ public abstract class Predators implements Animals {
     @Getter
     private Lock lock = new ReentrantLock();
     private final UUID id;
-    @Setter@Getter
+    @Setter
+    @Getter
     protected Cell position;
     @Setter
     protected GameMap map;
@@ -37,11 +39,31 @@ public abstract class Predators implements Animals {
     private Map<String, Integer> chances;
     @Getter
     private int moveSpeed;
+    @Setter
+    @Getter
+    private AnimalsFactory animalsFactory;
 
 
     public Predators() {
         this.id = UUID.randomUUID();
         simpleName = this.getClass().getSimpleName().charAt(0);
+    }
+
+    protected Predators(Predators original) {
+        this.id = UUID.randomUUID();
+        this.position = original.position;
+        this.map = original.map;
+        this.isAlive = original.isAlive;
+        this.simpleName = original.simpleName;
+        this.weight = original.weight / 2;
+        original.setWeight(original.getWeight() / 2);
+        this.chances = original.getChances();
+        this.moveSpeed = original.getMoveSpeed();
+        this.animalsFactory = original.getAnimalsFactory();
+        this.animalsFactory.addToMap(this);
+        this.position.setAnimalInCell(this);
+
+
     }
 
 
@@ -63,6 +85,7 @@ public abstract class Predators implements Animals {
         }
     }
 
+
     public void move() {
 
         Cell nowPosition = position;
@@ -83,55 +106,48 @@ public abstract class Predators implements Animals {
         }
 
 
-
     }
 
     @Override
     public void eat() {
         try {
+// планировалось брать лок на выбранном животном, но что-то пошло не так, отлаживать не стал, взял лок на ячейке
+            lock = position.getLock();
+            lock.lock();
+            try {
+                Map<Class<? extends Animals>, Set<Animals>> animalsInCell = position.getAnimalsInCell();
+                Animals target =
+                        animalsInCell.entrySet().stream()
+                                .filter(k -> Herbals.class.isAssignableFrom(k.getKey()))
+                                .filter(k -> MyRandomUtil.randomPercent(this.chances.get(k.getKey().getSimpleName())))
+                                .map(k -> k.getValue()
+                                        .stream()
+                                        .findFirst().orElse(null))
+                                .filter(Objects::nonNull)
+                                .findFirst().orElse(null);
+                if (target != null) {
 
-        lock = position.getLock();
-        lock.lock();
-        try {
-            Map<Class<? extends Animals>, Set<Animals>> animalsInCell = new HashMap<>(position.getAnimalsInCell());
-            Animals target =
-                    animalsInCell.entrySet().stream()
-                            .filter(k -> Herbals.class.isAssignableFrom(k.getKey()))
-                            .filter(k -> MyRandomUtil.randomPercent(this.chances.get(k.getKey().getSimpleName())))
-                            .map(k -> k.getValue()
-                                    .stream()
-                                    .findFirst().orElse(null))
-                            .filter(Objects::nonNull)
-                            .findFirst().orElse(null);
-            if (target != null) {
 
+                    if (this.chances.get("toEatUp") >= target.getWeight()) {
+                        this.setWeight(this.getWeight() + target.getWeight() + MyConfig.LOOSE_WEIGHT_PER_ROUND);
+                        target.setWeight(0);
 
+                    } else {
+                        target.setWeight(target.getWeight() - this.chances.get("toEatUp"));
 
-                if (this.chances.get("toEatUp") >= target.getWeight()) {
-                    this.setWeight(this.getWeight() + target.getWeight());
-                    target.setWeight(0);
+                        this.setWeight(this.chances.get("fullWeight") + MyConfig.LOOSE_WEIGHT_PER_ROUND);
+                    }
 
-                } else {
-                    target.setWeight(target.getWeight() - this.chances.get("toEatUp"));
-
-                    this.setWeight(this.chances.get("fullWeight"));
                 }
-
+            } finally {
+                lock.unlock();
             }
-        }finally {
-            lock.unlock();
-        }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    @Override
-    public void reproduce() {
-
-
-    }
 
     @Override
     public boolean equals(Object o) {

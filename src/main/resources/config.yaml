@@ -3,7 +3,7 @@
   simpleName: "W"
   weight: 15                     # start weight
   moveSpeed: 5
-  defaultCount: 1                 # count to produce
+  defaultCount: 3                # count to produce
   chancesPercent:
     "chanceToEat": 30             #percents
     "criticalWeight": 10          #minimal Weight to priority eat
@@ -11,16 +11,19 @@
     "chanceToReproduce": 80
     "fullWeight": 25
     "toEatUp": 6                  # how many need to get full weight
+    "maxCountOnMap": 20
 
 
 - fullName: "Rabbit"
   simpleName: "R"
   weight: 5
   moveSpeed: 3
-  defaultCount: 200
+  defaultCount: 3
   chancesPercent:
-    "criticalWeight": 60
-    "move": 50
-    "attackRabbit": 60
+    "chanceToEat": 50
+    "criticalWeight": 1
+    "Rabbit": 60
     "chanceToReproduce": 80
-    "fullWeight": 10
+    "fullWeight": 6
+    "toEatUp": 6                  # how many need to get full weight
+    "maxCountOnMap": 20

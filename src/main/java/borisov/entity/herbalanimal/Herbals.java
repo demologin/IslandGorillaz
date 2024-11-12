@@ -1,7 +1,9 @@
 package borisov.entity.herbalanimal;
 
+import borisov.api.AnimalsFactory;
 import borisov.api.MyRandomUtil;
 import borisov.config.Action;
+import borisov.config.MyConfig;
 import borisov.entity.Animals;
 import borisov.entity.map.Cell;
 import borisov.entity.map.GameMap;
@@ -9,10 +11,7 @@ import borisov.entity.predatoranimal.Predators;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -20,22 +19,27 @@ public abstract class Herbals implements Animals {
     @Getter
     private final Lock lock = new ReentrantLock();
     private final UUID id;
-    @Setter@Getter
+    @Setter
+    @Getter
     protected Cell position;
     @Setter
     protected GameMap map;
     @Getter
     @Setter
-    public boolean isAlive ;
+    public boolean isAlive;
     @Getter
     protected char simpleName;
-    @Getter@Setter
+    @Getter
+    @Setter
     private int weight;
-    @Setter@Getter
-    private Map<String,Integer> chances;
+    @Setter
+    @Getter
+    private Map<String, Integer> chances;
     @Getter
     private int moveSpeed;
-
+    @Setter
+    @Getter
+    private AnimalsFactory animalsFactory;
 
 
     public Herbals() {
@@ -43,7 +47,23 @@ public abstract class Herbals implements Animals {
         simpleName = this.getClass().getSimpleName().charAt(0);
     }
 
+    protected Herbals(Herbals original) {
+        Set<Animals> animals = animalsFactory.getAllAnimalsMap().get(original.getClass());
 
+        this.id = UUID.randomUUID();
+        this.position = original.position;
+        this.map = original.map;
+        this.isAlive = original.isAlive;
+        this.simpleName = original.simpleName;
+        this.weight = original.weight / 2;
+        original.setWeight(original.getWeight() / 2);
+        this.chances = original.getChances();
+        this.moveSpeed = original.getMoveSpeed();
+        this.animalsFactory = original.getAnimalsFactory();
+        this.animalsFactory.addToMap(this);
+        this.position.setAnimalInCell(this);
+
+    }
 
 
     protected Cell newPosition(Cell position) {
@@ -63,6 +83,7 @@ public abstract class Herbals implements Animals {
             case EAT -> eat();
         }
     }
+
     public void move() {
         Cell nowPosition = position;
         Cell tempPosition = position;
@@ -82,27 +103,22 @@ public abstract class Herbals implements Animals {
         }
 
 
-
     }
+
     @Override
     public void eat() {
-
-        this.setWeight(this.getWeight() +10);
-
-    }
-
-    @Override
-    public void reproduce() {
-
+// трава не реализована поэтому подразумеваем что она всегда есть и травоядные всегда наедаются
+        this.setWeight(this.chances.get("fullWeight") + MyConfig.LOOSE_WEIGHT_PER_ROUND);
 
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Herbals herbals = (Herbals) o;
-        return Objects.equals(id, herbals.id) && Objects.equals(position, herbals.position) ;
+        return Objects.equals(id, herbals.id) && Objects.equals(position, herbals.position);
     }
 
     @Override
