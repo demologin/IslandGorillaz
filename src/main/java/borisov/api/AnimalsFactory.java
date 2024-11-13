@@ -7,7 +7,6 @@ import borisov.entity.Animals;
 import borisov.entity.map.GameMap;
 
 
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
@@ -27,7 +26,6 @@ public class AnimalsFactory {
     }
 
     public void removeFromMap(Animals animal) {
-        System.out.println(allAnimalsMap);
         lock.lock();
         try {
             Set<Animals> animalsSet = allAnimalsMap.get(animal.getClass());

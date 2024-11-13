@@ -1,8 +1,6 @@
 package borisov.api;
 
 import borisov.config.MyConfig;
-import borisov.entity.Animals;
-import borisov.entity.predatoranimal.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
@@ -25,7 +23,7 @@ public class ConfigReader {
     }
 
     private void read() {
-        try (InputStream inputStream = Test.class.getClassLoader().getResourceAsStream(MyConfig.CONFIG_FILE_NAME);) {
+        try (InputStream inputStream = ConfigReader.class.getClassLoader().getResourceAsStream(MyConfig.CONFIG_FILE_NAME);) {
             if (inputStream == null) {
                 throw new FileNotFoundException("File not found: " + MyConfig.CONFIG_FILE_NAME);
             }
