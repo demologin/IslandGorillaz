@@ -1,6 +1,6 @@
 package com.javarush.island.khmelov.config;
 
-import com.javarush.island.khmelov.api.annotation.OrganismLimitData;
+import com.javarush.island.khmelov.api.annotation.TypeData;
 import com.javarush.island.khmelov.entity.organizm.Limit;
 import com.javarush.island.khmelov.entity.organizm.Organism;
 import com.javarush.island.khmelov.exception.GameException;
@@ -17,8 +17,8 @@ public class EntityScanner {
         Organism[] organisms = new Organism[TYPES.length];
         int index = 0;
         for (Class<?> type : TYPES) {
-            if (type.isAnnotationPresent(OrganismLimitData.class)) {
-                OrganismLimitData typeData = type.getAnnotation(OrganismLimitData.class);
+            if (type.isAnnotationPresent(TypeData.class)) {
+                TypeData typeData = type.getAnnotation(TypeData.class);
                 String name = typeData.name();
                 String icon = typeData.icon();
                 int flockSize = typeData.flockSize();
@@ -29,7 +29,6 @@ public class EntityScanner {
                         typeData.maxFood() * flockSize,
                         flockSize
                 );
-
                 organisms[index++] = generatePrototype(type, name, icon, limit);
             }
         }
