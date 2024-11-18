@@ -35,6 +35,12 @@
             <version>2.15.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+        </dependency>
+
         <!-- may be testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
