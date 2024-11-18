@@ -1,0 +1,29 @@
+{
+  "name":"Wolf",
+  "icon":"\uD83D\uDC3A",
+  "weight":50.0,
+  "criticalWeight": 15,
+  "maxCountInCell":30,
+  "maxSpeed":3,
+  "maxFood":8.0,
+  "currentCell":null,
+  "targetCell":null,
+  "likelyFood":{
+    "Horse":10,
+    "Buffalo":10,
+    "Boar":15,
+    "Duck":40,
+    "Sheep":70,
+    "Goat":60,
+    "Rabbit":60,
+    "Deer":10,
+    "Bear":0,
+    "Fox":0,
+    "Snake":0,
+    "Eagle":0,
+    "Mouse":80,
+    "Wolf":0,
+    "Caterpillar":0,
+    "Grass": 0
+    }
+  }

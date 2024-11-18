@@ -1,0 +1,29 @@
+{
+  "name": "Snake",
+  "icon": "🐍",
+  "weight": 15.0,
+  "criticalWeight": 3,
+  "maxCountInCell": 30,
+  "maxSpeed": 1,
+  "maxFood": 3.0,
+  "currentCell": null,
+  "targetCell": null,
+  "likelyFood": {
+    "Horse": 0,
+    "Buffalo": 0,
+    "Boar": 0,
+    "Duck": 10,
+    "Sheep": 0,
+    "Goat": 0,
+    "Rabbit": 20,
+    "Deer": 0,
+    "Bear": 0,
+    "Fox": 15,
+    "Snake": 0,
+    "Eagle": 0,
+    "Mouse": 40,
+    "Caterpillar": 0,
+    "Wolf": 0,
+    "Grass": 0
+  }
+}
