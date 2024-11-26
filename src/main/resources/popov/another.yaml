@@ -1,0 +1,370 @@
+- type: Buffalo
+  name: Buffalo
+  icon: 🐃
+  maxUnitWeight: 700
+  maxUnitsInCell: 10
+  maxUnitSpeedPerStep: 3
+  maxFoodForSaturation: 100
+  percentProbably : 10
+  menuForAnimals:
+   Wolf: 0
+   Anaconda: 80
+   Fox: 0
+   Bear: 0
+   Eagle: 0
+   Horse: 40
+   Deer: 0
+   Rabbit: 0
+   Mouse: 0
+   Goat: 0
+   Sheep: 0
+   Boar: 0
+   Buffalo: 0
+   Duck: 10
+   Caterpillar: 0
+   Grass: 100
+
+- type: Caterpillar
+  name: Caterpillar
+  icon: 🐛
+  maxUnitWeight: 0.01
+  maxUnitsInCell: 1000
+  maxUnitSpeedPerStep: 0
+  maxFoodForSaturation: 0
+  percentProbably : 20
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 0
+    Grass: 100
+
+- type: Deer
+  name: Deer
+  icon: 🦌
+  maxUnitWeight: 300
+  maxUnitsInCell: 20
+  maxUnitSpeedPerStep: 4
+  maxFoodForSaturation: 50
+  percentProbably : 23
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 0
+    Grass: 100
+
+- type: Duck
+  name: Duck
+  icon: 🦆
+  maxUnitWeight: 1
+  maxUnitsInCell: 200
+  maxUnitSpeedPerStep: 4
+  maxFoodForSaturation: 0.15
+  percentProbably : 27
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 90
+    Grass: 100
+
+- type: Goat
+  name: Goat
+  icon: 🐐
+  maxUnitWeight: 60
+  maxUnitsInCell: 140
+  maxUnitSpeedPerStep: 3
+  maxFoodForSaturation: 10
+  percentProbably : 19
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 0
+    Grass: 100
+
+- type:  Horse
+  name: Horse
+  icon: 🐎
+  maxUnitWeight: 400
+  maxUnitsInCell: 20
+  maxUnitSpeedPerStep: 4
+  maxFoodForSaturation: 60
+  percentProbably : 5
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 0
+    Grass: 100
+
+- type: Mouse
+  name: Mouse
+  icon: 🐁
+  maxUnitWeight: 0.05
+  maxUnitsInCell: 500
+  maxUnitSpeedPerStep: 1
+  maxFoodForSaturation: 00.1
+  percentProbably : 60
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 90
+    Grass: 100
+
+- type: Rabbit
+  name: Rabbit
+  icon: 🐇
+  maxUnitWeight: 2
+  maxUnitsInCell: 150
+  maxUnitSpeedPerStep: 2
+  maxFoodForSaturation: 45
+  percentProbably : 26
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 0
+    Grass: 100
+
+- type: Sheep
+  name: Sheep
+  icon: 🐑
+  maxUnitWeight: 70
+  maxUnitsInCell: 140
+  maxUnitSpeedPerStep: 3
+  maxFoodForSaturation: 15
+  percentProbably : 18
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 0
+    Mouse: 0
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 0
+    Caterpillar: 0
+    Grass: 100
+
+- type: Anaconda
+  name: Anaconda
+  icon: 🐍
+  maxUnitWeight: 15
+  maxUnitsInCell: 30
+  maxUnitSpeedPerStep: 1
+  maxFoodForSaturation: 3
+  percentProbably : 31
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 15
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 20
+    Mouse: 40
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 10
+    Caterpillar: 0
+    Grass: 0
+
+- type: Bear
+  name: Bear
+  icon: 🐻
+  maxUnitWeight: 500
+  maxUnitsInCell: 5
+  maxUnitSpeedPerStep: 2
+  maxFoodForSaturation: 80
+  percentProbably : 3
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 80
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 40
+    Deer: 80
+    Rabbit: 80
+    Mouse: 90
+    Goat: 70
+    Sheep: 70
+    Boar: 50
+    Buffalo: 20
+    Duck: 10
+    Caterpillar: 0
+    Grass: 0
+
+- type: Eagle
+  name: Eagle
+  icon: 🦅
+  maxUnitWeight: 6
+  maxUnitsInCell: 20
+  maxUnitSpeedPerStep: 3
+  maxFoodForSaturation: 1
+  percentProbably : 30
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 10
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 90
+    Mouse: 90
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 80
+    Caterpillar: 0
+    Grass: 0
+
+- type: Fox
+  name: Fox
+  icon: 🦊
+  maxUnitWeight: 8
+  maxUnitsInCell: 30
+  maxUnitSpeedPerStep: 2
+  maxFoodForSaturation: 2
+  percentProbably : 35
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 0
+    Deer: 0
+    Rabbit: 70
+    Mouse: 90
+    Goat: 0
+    Sheep: 0
+    Boar: 0
+    Buffalo: 0
+    Duck: 60
+    Caterpillar: 40
+    Grass: 0
+
+- type: Wolf
+  name: Wolf
+  icon: 🐺
+  maxUnitWeight: 50
+  maxUnitsInCell: 30
+  maxUnitSpeedPerStep: 3
+  maxFoodForSaturation: 8
+  percentProbably : 38
+  menuForAnimals:
+    Wolf: 0
+    Anaconda: 0
+    Fox: 0
+    Bear: 0
+    Eagle: 0
+    Horse: 10
+    Deer: 15
+    Rabbit: 60
+    Mouse: 80
+    Goat: 60
+    Sheep: 70
+    Boar: 15
+    Buffalo: 10
+    Duck: 40
+    Caterpillar: 0
+    Grass: 0
+
+- type: Grass
+  name: Grass
+  icon: 🌿
+  maxUnitWeight: 1
+  maxUnitsInCell: 200
+  percentProbably : 80

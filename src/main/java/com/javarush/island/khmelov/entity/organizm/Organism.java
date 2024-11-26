@@ -47,9 +47,24 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
     private double weight;
     private final Limit limit;
 
+//    @Override
+//    public String toString() {
+//        return icon;
+//    }
+
+
     @Override
     public String toString() {
-        return icon;
+        return "Organism{" +
+                "foodMap=" + foodMap +
+                ", id=" + id +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", icon='" + icon + '\'' +
+                ", letter='" + letter + '\'' +
+                ", weight=" + weight +
+                ", limit=" + limit +
+                '}';
     }
 
     @Override

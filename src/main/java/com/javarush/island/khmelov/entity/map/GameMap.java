@@ -29,7 +29,7 @@ public class GameMap {
     }
 
 
-    public void updateStatistics() {
+        public void updateStatistics() {
         Map<String, Double> rawStatistics = new HashMap<>();
         Cell[][] cells = getCells();
         for (Cell[] row : cells) {
