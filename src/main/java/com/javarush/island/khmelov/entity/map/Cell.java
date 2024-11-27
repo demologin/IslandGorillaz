@@ -49,9 +49,6 @@ public class Cell {
         return currentCell;
     }
 
-    public int getNextCellCount() {
-        return nextCell.size();
-    }
 
     @Override
     public String toString() {

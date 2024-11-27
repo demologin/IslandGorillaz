@@ -20,16 +20,21 @@ public abstract class Flora extends Unit implements Reproduceable {
     @Override
     public boolean reproduce(Cell cell) {
         cell.getLock().lock();
+        try{
         CopyOnWriteArrayList<Unit> unitsList = cell.getAllUnitsInCell().get(this.getType());
         if (cell.checkUnitInCell(this) && cell.haveEnoughtSpace(this)) {
-            int countClones = Randomizer.rnd(0,getMaxUnitsInCell() - unitsList.size());
+            int countClones = Randomizer.rnd((getMaxUnitsInCell() - unitsList.size())/2,getMaxUnitsInCell() - unitsList.size());
             for (int i = 0; i < countClones; i++){
                 Unit child = Unit.clone(this);
-                child.setWeight(this.getWeight());
+                child.setWeight(getMaxUnitWeight());
                 unitsList.add(child);
             }
             return true;
         }
         return false;
     }
+        finally {
+            cell.getLock().unlock();
+        }
+        }
 }

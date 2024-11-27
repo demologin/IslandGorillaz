@@ -1,13 +1,8 @@
 package com.javarush.island.popov.creators;
-
-import com.javarush.island.popov.map.AllUnitsInCell;
 import com.javarush.island.popov.map.Cell;
 import com.javarush.island.popov.repo.Constants;
 import com.javarush.island.popov.units.Unit;
 import com.javarush.island.popov.utilits.Randomizer;
-
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;

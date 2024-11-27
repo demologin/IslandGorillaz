@@ -1,8 +1,10 @@
 package com.javarush.island.popov.services;
 
+import com.javarush.island.popov.creators.StatisticsCreator;
 import com.javarush.island.popov.map.Cell;
 import com.javarush.island.popov.map.IslandMap;
 import com.javarush.island.popov.units.Unit;
+import com.javarush.island.popov.view.ConsoleView;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -16,6 +18,7 @@ public class EatingService implements Runnable {
     }
     @Override
     public void run(){
+
         Cell[][] cells = map.getCells();
         for (Cell[] rows : cells) {
             for (Cell cell : rows) {
@@ -29,5 +32,6 @@ public class EatingService implements Runnable {
                 }
             }
         }
+
     }
 }

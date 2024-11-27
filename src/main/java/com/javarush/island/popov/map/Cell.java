@@ -24,8 +24,6 @@ public class Cell {
     @Getter
     private final Lock lock = new ReentrantLock();
     @Getter
-   // private AllUnitsInCell unitsInCell;
-
     private final List<Cell> nextCell = new ArrayList<>();
 
     public void updateNextCell(IslandMap map, int y, int x) {
@@ -38,15 +36,16 @@ public class Cell {
 
     public Cell findNextCell(int numberSteps) {
         Cell currentCell = this;
-        Cell startCell = currentCell;
+        Set<Cell> visitedCells = new LinkedHashSet<>();
         while (numberSteps >0){
             var nextCells = currentCell.nextCell
                     .stream()
-                    .filter(cell -> !cell.equals(startCell))
+                    .filter(cell -> !visitedCells.contains(cell))
                     .toList();
             int numbersDirection = nextCells.size();
             if (numbersDirection >0){
                 int index = ThreadLocalRandom.current().nextInt(0, numbersDirection);
+                visitedCells.add(currentCell);
                 currentCell = nextCells.get(nextCells.size()-1-index);
                 numberSteps--;
             } else break;

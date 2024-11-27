@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class ConsoleInputOutput {
     private final Scanner scanner = new Scanner(System.in);
 
-
     public int read(){
        return scanner.nextInt();
     }
