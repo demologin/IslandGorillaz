@@ -16,11 +16,8 @@ public class Constants {
     public static final String HORIZONTAL_RANGE = "Please enter the horizontal map size";
     public static final String LIFE_DAY_NUMBERS = "Please enter the life days number";
     public static final String COMMON_STATISTIC ="Common Statistic in IslandMap:";
-    public static final String STATISTIC_BY_CELL = "Statistic by every Cell:";
-
-
-    public static final String SETTING_UNITS_YAML = "popov/another.yaml";
-
-   public static final Set<Unit> PROTOTYPES = PrototypeCreator.createPrototypes();
+    public static final String STATISTIC_BY_CELL = "Statistic by Cells:";
+    public static final String SETTING_UNITS_YAML = "popov/settings.yaml";
+    public static final Set<Unit> PROTOTYPES = PrototypeCreator.createPrototypes();
     public static final int CORE_POOL_SIZE = Runtime.getRuntime().availableProcessors();
 }

@@ -26,10 +26,9 @@ public class ConsoleView implements View {
         for (Cell[] rows : cells) {
             for (Cell cell : rows) {
                 countCell++;
-                boolean cellIsEmpty=true;
-                if (cellIsEmpty) {System.out.printf("\n%d cell:\n", countCell);
-                }else {
-                System.out.printf("%d cell: ", countCell);}
+                boolean cellIsEmpty = true;
+                System.out.printf("\n%d cell:\n", countCell);
+
                 for (Map.Entry<Class<? extends Unit>, CopyOnWriteArrayList<Unit>> entry :
                         cell.getAllUnitsInCell().entrySet()) {
                     if (!entry.getValue().isEmpty()){
