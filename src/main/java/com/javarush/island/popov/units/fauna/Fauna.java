@@ -12,10 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public abstract class Fauna extends Unit implements Eatable, Moveable, Reproduceable {
-
     public Fauna(String name, String icon, double maxUnitWeight, int maxUnitsInCell, int maxUnitSpeedPerStep, double maxFoodForSaturation, int percentProbably) {
         super(name, icon, maxUnitWeight, maxUnitsInCell, maxUnitSpeedPerStep, maxFoodForSaturation, percentProbably);
     }
@@ -25,8 +25,7 @@ public abstract class Fauna extends Unit implements Eatable, Moveable, Reproduce
     }
 
     @Override
-    public boolean eat(Cell cell) {
-        boolean breakfestHapped = false;
+    public void eat(Cell cell) {
         cell.getLock().lock();
         try {
             if (cell.checkUnitInCell(this)) {
@@ -49,13 +48,11 @@ public abstract class Fauna extends Unit implements Eatable, Moveable, Reproduce
                             double foodWeight = food.getWeight();
                             if (foodWeight <= needToEat) {
                                 setWeight(weightThis + foodWeight);
-                                breakfestHapped = true;
                                 listFood.remove(food);
                                 needToEat-=foodWeight;
                             } else {
                                 setWeight(weightThis + needToEat);
                                 food.setWeight(foodWeight-needToEat);
-                                breakfestHapped = true;
                                 needToEat=0;
                             }
                         }
@@ -63,13 +60,11 @@ public abstract class Fauna extends Unit implements Eatable, Moveable, Reproduce
                     } else {
                         changeWeightBecauseHungry(cell, weightThis);
                     }
-
                 }
             }
         }finally {
             cell.getLock().unlock();
         }
-        return breakfestHapped;
     }
 
     private void changeWeightBecauseHungry(Cell cell, double weightThis) {
@@ -117,7 +112,7 @@ public abstract class Fauna extends Unit implements Eatable, Moveable, Reproduce
     }
 
     @Override
-    public boolean reproduce(Cell cell) {
+    public void reproduce(Cell cell) {
         cell.getLock().lock();
         try {
             CopyOnWriteArrayList<Unit> unitsList = cell.getAllUnitsInCell().get(getType());
@@ -131,12 +126,10 @@ public abstract class Fauna extends Unit implements Eatable, Moveable, Reproduce
                     double weightParentAfterBirth = weightParent - child.getWeight();
                     this.setWeight(weightParentAfterBirth);
                 }
-                return true;
             }
         } finally {
             cell.getLock().unlock();
         }
-        return false;
     }
 
 }

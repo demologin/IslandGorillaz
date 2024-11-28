@@ -3,8 +3,6 @@ package com.javarush.island.popov.creators;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.javarush.island.popov.units.Unit;
-import com.javarush.island.popov.units.flora.Flora;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;

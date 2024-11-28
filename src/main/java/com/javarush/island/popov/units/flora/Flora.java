@@ -18,7 +18,7 @@ public abstract class Flora extends Unit implements Reproduceable {
     }
 
     @Override
-    public boolean reproduce(Cell cell) {
+    public void reproduce(Cell cell) {
         cell.getLock().lock();
         try{
         CopyOnWriteArrayList<Unit> unitsList = cell.getAllUnitsInCell().get(this.getType());
@@ -29,10 +29,8 @@ public abstract class Flora extends Unit implements Reproduceable {
                 child.setWeight(getMaxUnitWeight());
                 unitsList.add(child);
             }
-            return true;
         }
-        return false;
-    }
+        }
         finally {
             cell.getLock().unlock();
         }

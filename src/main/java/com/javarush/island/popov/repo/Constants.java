@@ -15,6 +15,9 @@ public class Constants {
     public static final String VERTICAL_RANGE = "Please enter the vertical map size";
     public static final String HORIZONTAL_RANGE = "Please enter the horizontal map size";
     public static final String LIFE_DAY_NUMBERS = "Please enter the life days number";
+    public static final String COMMON_STATISTIC ="Common Statistic in IslandMap:";
+    public static final String STATISTIC_BY_CELL = "Statistic by every Cell:";
+
 
     public static final String SETTING_UNITS_YAML = "popov/another.yaml";
 

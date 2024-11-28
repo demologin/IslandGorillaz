@@ -3,8 +3,6 @@ package com.javarush.island.popov.creators;
 import com.javarush.island.popov.map.Cell;
 import com.javarush.island.popov.map.IslandMap;
 import com.javarush.island.popov.units.Unit;
-import com.javarush.island.popov.units.fauna.herbivores.Herbivores;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -14,7 +12,6 @@ public class StatisticsCreator {
     public Map<String,Integer> getStatisticByUnits(IslandMap map){
         Map<String,Integer> statisticMap = new LinkedHashMap<>();
         Cell[][] cells = map.getCells();
-        int countHerbivores=0;
         for (Cell[] rows : cells) {
             for (Cell cell: rows) {
                 Map<Class<? extends Unit>, CopyOnWriteArrayList<Unit>> unitsInCell = cell.getAllUnitsInCell();

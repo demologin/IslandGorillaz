@@ -46,7 +46,7 @@ public class Cell {
             if (numbersDirection >0){
                 int index = ThreadLocalRandom.current().nextInt(0, numbersDirection);
                 visitedCells.add(currentCell);
-                currentCell = nextCells.get(nextCells.size()-1-index);
+                currentCell = nextCells.get(index);
                 numberSteps--;
             } else break;
         }
@@ -74,8 +74,11 @@ public class Cell {
         Class<? extends Unit> clazz = unit.getClass();
         if (allUnitsInCell.containsKey(clazz)){
             CopyOnWriteArrayList<Unit> units = allUnitsInCell.get(clazz);
-            return units.size()!=0 ? true:false;
-        }else return false;
+            if (units.contains(unit)){
+                return true;
+            }
+        }
+        return false;
     }
 public boolean haveEnoughtSpace(Unit unit){
         if (!allUnitsInCell.containsKey(unit.getClass())){

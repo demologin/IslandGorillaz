@@ -13,8 +13,7 @@ public class Grass extends Flora implements Reproduceable {
     }
 
     @Override
-    public boolean eat(Cell cell) {
-        return false;
+    public void eat(Cell cell) {
     }
 
     @Override
