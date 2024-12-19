@@ -20,12 +20,12 @@ public class AppRunner {
 
     public void start() {
         var bootService = new BootService();
-        var islandCreator = new IslandService();
+        var islandService = new IslandService();
         var ecoSystem = new EcoSystem();
         var island = new Island(DefaultSettings.ROWS, DefaultSettings.COLUMNS);
         var navigator = new Navigator();
 
-        var preparationService = new PreparationService(bootService, islandCreator, ecoSystem, island, navigator);
+        var preparationService = new PreparationService(bootService, islandService, ecoSystem, island, navigator);
         var ecoSystemService = new EcoSystemService(ecoSystem, view);
 
         preparationService.make();

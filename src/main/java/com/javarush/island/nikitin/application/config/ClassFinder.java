@@ -1,69 +1,81 @@
 package com.javarush.island.nikitin.application.config;
 
 import com.javarush.island.nikitin.application.exception.AppException;
-import com.javarush.island.nikitin.domain.api.GameUnit;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 
 //TODO класс сканирует директорию и находит конкретные классы живующие на острове
 // возвращает карту в которой тип класса в виде строки и значение как Class объект
-public class ClassFinder {
-    private static final Class<? extends Annotation> GAME_UNIT_CLASS = GameUnit.class;
-    private final Set<Class<?>> cashUnitClasses = new HashSet<>();
 
-    public void start(String[] pathToClassesUnits) {
-        if (cashUnitClasses.isEmpty()) {
-            Arrays.stream(pathToClassesUnits)
-                    .forEach(this::tryFindClass);
-        }
-    }
-    //метод получает путь до директории с классами которые ааннотированы
-    private void tryFindClass(String pathToClass) {
-        String normalizedPath = pathToClass.replace(".", File.separator);
-        Path directory = returnPathDirectoryToClass(normalizedPath);
-        if (Files.isDirectory(directory)) {
-            try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory)) {
-                for (Path pathClass : directoryStream) {
-                    String fullNameClass = makeFullNameClass(pathToClass, pathClass);
-                    Class<?> aClass = Class.forName(fullNameClass);
-                    if (aClass.isAnnotationPresent(GAME_UNIT_CLASS)) {
-                        cashUnitClasses.add(aClass);
-                    }
-                }
-            } catch (ClassNotFoundException | IOException e) {
-                throw new AppException(e);
-            }
-        } else {
-            throw new AppException("Неверный каталог");
-        }
-    }
+/**
+ * The class finds classes marked with an annotation @GameUnit,
+ * which is a marker for the game's unit classes.
+ */
+public class ClassFinder {
+    private final Set<Class<?>> cashUnitClasses = new HashSet<>();
 
     public Set<Class<?>> getCashUnitClasses() {
         return new HashSet<>(cashUnitClasses);
     }
 
-    private String makeFullNameClass(String pathToClass, Path pathClass) {
-        String classSimpleName = pathClass.getFileName().toString();
-        classSimpleName = classSimpleName.replace(".class", "");
+    /**
+     * The method tries to find classes marked with the @GameUnit annotation
+     *
+     * @param namePackage - this is the package name where to start
+     *                    searching for the game's unit classes.
+     *                    For example, "com.javarush.island.nikitin.domain.entity"
+     */
 
-        return pathToClass + "." + classSimpleName;
+    public void start(String namePackage) {
+        tryFindClass(namePackage);
     }
 
+    private void tryFindClass(String namePackage) {
+        String normalizedPath = namePackage.replace(".", File.separator);
+        Path directory = fullPathByNamePackage(normalizedPath);
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory)) {
+            for (Path pathToFile : directoryStream) {
+                String fullNameClass = makeFullNameClass(namePackage, pathToFile);
+                if (Files.isRegularFile(pathToFile)) {
+                    checkClassIsGameUnit(fullNameClass);
+                } else if (Files.isDirectory(pathToFile)) {
+                    tryFindClass(fullNameClass);
+                }
+            }
+        } catch (IOException e) {
+            throw new AppException(e);
+        }
+    }
 
-    private Path returnPathDirectoryToClass(String path) {
-        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    private void checkClassIsGameUnit(String fullNameClass) {
+        try {
+            Class<?> aClass = Class.forName(fullNameClass);
+            if (aClass.isAnnotationPresent(AnnotationGoal.GAME_UNIT.getValue())) {
+                cashUnitClasses.add(aClass);
+            }
+        } catch (ClassNotFoundException e) {
+            throw new AppException(e);
+        }
+    }
+
+    private String makeFullNameClass(String namePackage, Path pathToFile) {
+        String classSimpleName = pathToFile.getFileName().toString();
+        classSimpleName = classSimpleName.replace(".class", "");
+        return namePackage + "." + classSimpleName;
+    }
+
+    private Path fullPathByNamePackage(String path) {
+        ClassLoader contextClassLoader = ClassLoader.getSystemClassLoader();
         URI resourceURI = null;
         try {
             resourceURI = contextClassLoader.getResource(path).toURI();
@@ -72,6 +84,4 @@ public class ClassFinder {
         }
         return Paths.get(resourceURI);
     }
-
-
 }

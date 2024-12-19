@@ -3,7 +3,7 @@ package com.javarush.island.nikitin.domain.entity.map;
 
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
 import com.javarush.island.nikitin.domain.exception.DomainException;
-import com.javarush.island.nikitin.domain.exception.FaultMessage;
+import com.javarush.island.nikitin.domain.exception.FailMessagesDomain;
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -42,7 +42,7 @@ public class Location {
 
     public Set<Biota> getMaskPopulationByName(String nameCommunity) {
         if (!populations.containsKey(nameCommunity)) {
-            throw new DomainException(FaultMessage.LOCATION + nameCommunity);
+            throw new DomainException(FailMessagesDomain.LOCATION + nameCommunity);
         }
         return new HashSet<>(getPopulationByName(nameCommunity));
     }

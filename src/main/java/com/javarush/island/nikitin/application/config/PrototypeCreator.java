@@ -1,6 +1,6 @@
 package com.javarush.island.nikitin.application.config;
 
-import com.javarush.island.nikitin.application.constants.FaultMessage;
+import com.javarush.island.nikitin.application.constants.FailMessagesApp;
 import com.javarush.island.nikitin.application.exception.AppException;
 import com.javarush.island.nikitin.domain.api.InjectProps;
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
@@ -16,11 +16,6 @@ import java.util.Set;
 
 public class PrototypeCreator {
     private final Map<String, Biota> cashPrototypes = new HashMap<>();
-    private final Class<? extends Annotation> injectPropsClass;
-
-    public PrototypeCreator(Class<? extends Annotation> injectPropsClass) {
-        this.injectPropsClass = injectPropsClass;
-    }
 
     public void configure(Set<Class<?>> typeClasses) {
         typeClasses.forEach(this::createBiotaInstance);
@@ -47,10 +42,10 @@ public class PrototypeCreator {
     }
 
     private Props scanUseAnnotations(Class<?> clazz) {
-        if (!clazz.isAnnotationPresent(injectPropsClass)) {
+        if (!clazz.isAnnotationPresent(AnnotationGoal.INJECT_PROPS.getValue())) {
             return new Props.PropsBuilder().build();
         }
-        InjectProps annotation = (InjectProps) clazz.getAnnotation(injectPropsClass);
+        InjectProps annotation = (InjectProps) clazz.getAnnotation(AnnotationGoal.INJECT_PROPS.getValue());
         return new Props.PropsBuilder()
                 .setName(annotation.name())
                 .setIcon(annotation.icon())
@@ -63,7 +58,7 @@ public class PrototypeCreator {
 
     public void setNavigatorIntoProto(Navigator navigator) {
         if(cashPrototypes.isEmpty()){
-            throw new AppException(FaultMessage.CASH_PROTO_IS_EMPTY);
+            throw new AppException(FailMessagesApp.CASH_PROTO_IS_EMPTY);
         }
         cashPrototypes.values().forEach(el -> el.setNavigator(navigator));
     }

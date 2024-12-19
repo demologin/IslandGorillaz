@@ -10,6 +10,4 @@ public class Rabbit extends Herbivorous {
     public Rabbit(Props props) {
         super(props);
     }
-
-
 }

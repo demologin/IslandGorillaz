@@ -1,8 +1,6 @@
 package com.javarush.island.nikitin.domain.entity.map;
 
 
-import com.javarush.island.nikitin.domain.exception.DomainException;
-import com.javarush.island.nikitin.domain.exception.FaultMessage;
 import lombok.Getter;
 
 

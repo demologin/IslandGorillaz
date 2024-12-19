@@ -1,11 +1,10 @@
 package com.javarush.island.nikitin.application.services;
 
 import com.javarush.island.nikitin.application.config.ClassFinder;
+import com.javarush.island.nikitin.application.config.PrototypeCreator;
 import com.javarush.island.nikitin.application.constants.ClassPathRegistry;
-import com.javarush.island.nikitin.domain.api.InjectProps;
 import com.javarush.island.nikitin.domain.entity.map.navigation.Navigator;
 import com.javarush.island.nikitin.domain.repository.RegistryProto;
-import com.javarush.island.nikitin.application.config.PrototypeCreator;
 import lombok.Getter;
 
 public class BootService {
@@ -15,7 +14,7 @@ public class BootService {
     private RegistryProto repository;
 
     public BootService() {
-        this.prototypeCreator = new PrototypeCreator(InjectProps.class);
+        this.prototypeCreator = new PrototypeCreator();
         this.classFinder = new ClassFinder();
     }
 

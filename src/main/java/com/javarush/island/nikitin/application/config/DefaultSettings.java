@@ -1,6 +1,6 @@
 package com.javarush.island.nikitin.application.config;
 
-import com.javarush.island.nikitin.application.constants.FaultMessage;
+import com.javarush.island.nikitin.application.constants.FailMessagesApp;
 import com.javarush.island.nikitin.application.exception.AppException;
 import com.javarush.island.nikitin.domain.entity.biota.PreferenceMap;
 
@@ -50,7 +50,7 @@ public class DefaultSettings {
         if (PREFERENCE.containsKey(unitName))
             return PREFERENCE.get(unitName);
         else {
-            throw new AppException(FaultMessage.NO_FOOD_FOR_THIS_TYPE);
+            throw new AppException(FailMessagesApp.NO_FOOD_FOR_THIS_TYPE);
         }
     }
 
@@ -76,7 +76,7 @@ public class DefaultSettings {
 
     private static void verifyArraysDataConsistency() {
         if (ANIMAL_TYPE.length != PROBABILITY_OF_EATING.length) {
-            throw new AppException(FaultMessage.DIFFERENT_LENGTHS);
+            throw new AppException(FailMessagesApp.DIFFERENT_LENGTHS);
         }
     }
 }
