@@ -2,53 +2,62 @@ package com.javarush.island.nikitin.domain.entity.map;
 
 
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
-import com.javarush.island.nikitin.domain.exception.DomainException;
-import com.javarush.island.nikitin.domain.exception.FailMessagesDomain;
 import lombok.Getter;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
 public class Location {
-    @Getter
-    private final Map<String, Set<Biota>> populations;
+    public String localId;
+    private final Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> populations;
 
-    public Location(Map<String, Set<Biota>> population) {
+    public Location(Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> population, String localId) {
         this.populations = population;
+        this.localId = localId;
     }
 
-    public void removeUnitLocation(Biota unit) {
-
+    public boolean removeUnitLocation(Biota unit) {
         var population = getPopulationByName(unit.sayMyNameCommunity());
-        //захватить лок и удалить юнита
-        population.remove(unit);
+        return population.remove(unit);
     }
 
     //todo проверяет наличие свободного места в популяции, хватает лок и добавляется. Возвращает true or false
     public boolean addUnitLocation(Biota unit) {
-        String nameCommunity = unit.getClass().getSimpleName();
-        if (checkSpace(nameCommunity, unit.getProps().getMaxCountUnit())) {
-            var population = getPopulationByName(nameCommunity);
-            //захватить лок и добавить юнита
-            population.add(unit);
-
-
+        String nameCommunity = unit.sayMyNameCommunity();
+        ConcurrentHashMap.KeySetView<Biota, Boolean> populationByName = getPopulationByName(nameCommunity);
+        if (checkSpace(nameCommunity, unit.getLimitData().maxCountUnit())) {
+            populationByName.add(unit);
             return true;
         }
         return false;
     }
 
-
-    public Set<Biota> getMaskPopulationByName(String nameCommunity) {
-        if (!populations.containsKey(nameCommunity)) {
-            throw new DomainException(FailMessagesDomain.LOCATION + nameCommunity);
-        }
-        return new HashSet<>(getPopulationByName(nameCommunity));
+    public ConcurrentHashMap.KeySetView<Biota, Boolean> getPopulationByName(String nameCommunity) {
+        return populations.get(nameCommunity);
     }
 
-    public Set<Biota> getPopulationByName(String nameCommunity) {
-        return populations.get(nameCommunity);
+    public Optional<Biota> getRandomBiotaByNameCommunity(String nameCommunity) {
+        Optional<ConcurrentHashMap.KeySetView<Biota, Boolean>> populationByName = Optional.ofNullable(populations.get(nameCommunity));
+
+        return populationByName
+                .filter(set -> !set.isEmpty())
+                .flatMap(set -> {
+                    int sizeSet = set.size();
+                    if (sizeSet > 0) {
+                        int random = ThreadLocalRandom.current().nextInt(sizeSet);
+                        return set.stream()
+                                .skip(random)
+                                .findFirst();
+                    }
+                    return Optional.empty();
+                });
+    }
+
+    public boolean isPresentPopulation(String nameCommunity) {
+        return populations.containsKey(nameCommunity);
     }
 
     private boolean checkSpace(String nameCommunity, int maxCountUnit) {

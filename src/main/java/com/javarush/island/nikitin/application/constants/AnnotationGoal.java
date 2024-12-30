@@ -1,15 +1,15 @@
-package com.javarush.island.nikitin.application.config;
+package com.javarush.island.nikitin.application.constants;
 
 import com.javarush.island.nikitin.domain.api.GameUnit;
-import com.javarush.island.nikitin.domain.api.InjectProps;
+import com.javarush.island.nikitin.domain.api.InjectLimitData;
 import lombok.Getter;
 
 import java.lang.annotation.Annotation;
 
+@Getter
 public enum AnnotationGoal {
     GAME_UNIT(GameUnit.class),
-    INJECT_PROPS(InjectProps.class);
-    @Getter
+    INJECT_LIMIT_DATA(InjectLimitData.class);
     private final Class<? extends Annotation> value;
 
     AnnotationGoal(Class<? extends Annotation> value) {

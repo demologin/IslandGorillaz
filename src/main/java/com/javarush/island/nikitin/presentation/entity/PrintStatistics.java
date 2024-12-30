@@ -2,10 +2,12 @@ package com.javarush.island.nikitin.presentation.entity;
 
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
 import com.javarush.island.nikitin.domain.entity.map.Location;
+import com.javarush.island.nikitin.domain.usecase.EcoSystem;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 //todo рефакторинг!
 public class PrintStatistics {
@@ -14,10 +16,15 @@ public class PrintStatistics {
     static int sizeScale = 50;
     static int stepScale = 2;
     private static int FULL_SIZE_UNIT;
+    EcoSystem ecoSystem;
 
     private final Map<String, Integer> statistic = new HashMap<>();
 
-    public void printStatistic(Location[][] data) {
+    public void printStatistic(EcoSystem ecoSystem) {
+        this.ecoSystem = ecoSystem;
+        //todo удалить проверку корректности дня екосистемы и дня у огранизма
+        System.out.println("GeneralDay " + ecoSystem.getStartDate());
+        Location[][] data = ecoSystem.getLocationsForView();
         for (Location[] datum : data) {
             for (Location location : datum) {
                 var map = location.getPopulations();
@@ -27,10 +34,16 @@ public class PrintStatistics {
         showStatistic();
     }
 
-    private void dataExtract(Map<String, Set<Biota>> community) {
+    private void dataExtract(Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> community) {
         for (var entries : community.entrySet()) {
             String nameCommunity = entries.getKey();
             int sizeCommunity = entries.getValue().size();
+            //todo удалить проверку корректности дня екосистемы и дня у огранизма
+            entries.getValue().forEach(e -> {
+                        if (ecoSystem.getStartDate() != e.getCurrentDay())
+                            throw new RuntimeException("Day");
+                    }
+            );
 
             collectStatistics(sizeCommunity, nameCommunity);
         }
@@ -45,6 +58,9 @@ public class PrintStatistics {
     private void showStatistic() {
         System.out.println(statistic);
         System.out.println("Total pupulation in Island: " + FULL_SIZE_UNIT);
+        if(FULL_SIZE_UNIT == 0){
+            return;
+        }
         System.out.println("Statistics graph:");
 
         statistic.forEach(this::printStatistic);
@@ -70,6 +86,6 @@ public class PrintStatistics {
             }
             System.out.print(SYMBOL_INCREASE);
         }
-        System.out.printf(" %.2f%% \n", result);
+        System.out.printf(" %.2f%% (count: %d) \n", result, statistic.get(name));
     }
 }

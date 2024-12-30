@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="infoEcoSystemService" fileName="logs/infoEcoSystemService.log" append="true">
+            <PatternLayout pattern="%d{ABSOLUTE_NANOS} %-5level %c{1}: %msg%n"/>
+        </File>
+        <File name="debugBiota" fileName="logs/debugBiota.log" append="true">
+            <PatternLayout pattern="%d{ABSOLUTE_NANOS} %-5level %c{1}: %msg%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.javarush.island.nikitin.domain.entity.biota" level="OFF" additivity="false">
+            <AppenderRef ref="debugBiota"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="infoEcoSystemService"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

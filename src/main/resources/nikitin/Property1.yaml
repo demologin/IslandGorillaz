@@ -1,0 +1,66 @@
+---
+tempMap:
+  Boar:
+    name: "boar"
+    icon: "🐗"
+    weight: 400.0
+  Rabbit:
+    name: "rabbit"
+    icon: "🐇"
+    weight: 2.0
+  Caterpillar:
+    name: "caterpillar"
+    icon: "🐛"
+    weight: 0.01
+  Bear:
+    name: "bear"
+    icon: "🐻"
+    weight: 500.0
+  Grass:
+    name: "plant"
+    icon: "🌿"
+    weight: 1.0
+  Fox:
+    name: "fox"
+    icon: "🦊"
+    weight: 8.0
+  Deer:
+    name: "deer"
+    icon: "🦌"
+    weight: 300.0
+  Mouse:
+    name: "mouse"
+    icon: "🐁"
+    weight: 0.05
+  Boa:
+    name: "boa"
+    icon: "🐍"
+    weight: 15.0
+  Horse:
+    name: "horse"
+    icon: "🐎"
+    weight: 400.0
+  Sheep:
+    name: "sheep"
+    icon: "🐑"
+    weight: 70.0
+  Duck:
+    name: "duck"
+    icon: "🦆"
+    weight: 1.0
+  Goat:
+    name: "goat"
+    icon: "🐐"
+    weight: 60.0
+  Wolf:
+    name: "wolf"
+    icon: "🐺"
+    weight: 50.0
+  Eagle:
+    name: "eagle"
+    icon: "🦅"
+    weight: 6.0
+  Buffalo:
+    name: "buffalo"
+    icon: "🐃"
+    weight: 700.0

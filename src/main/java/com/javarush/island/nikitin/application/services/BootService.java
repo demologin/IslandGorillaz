@@ -1,33 +1,30 @@
 package com.javarush.island.nikitin.application.services;
 
-import com.javarush.island.nikitin.application.config.ClassFinder;
-import com.javarush.island.nikitin.application.config.PrototypeCreator;
 import com.javarush.island.nikitin.application.constants.ClassPathRegistry;
+import com.javarush.island.nikitin.application.util.ClassFinder;
 import com.javarush.island.nikitin.domain.entity.map.navigation.Navigator;
 import com.javarush.island.nikitin.domain.repository.RegistryProto;
-import lombok.Getter;
+
+import java.util.Set;
 
 public class BootService {
-    private final PrototypeCreator prototypeCreator;
-    private final ClassFinder classFinder;
-    @Getter
-    private RegistryProto repository;
+    private final PrototypeService prototypeService;
 
-    public BootService() {
-        this.prototypeCreator = new PrototypeCreator();
-        this.classFinder = new ClassFinder();
+    public BootService(PrototypeService prototypeService) {
+        this.prototypeService = prototypeService;
     }
 
-    public void load() {
-        classFinder.start(ClassPathRegistry.PATHS_TO_DIRECTORY_CLASSES_UNITS);
-        prototypeCreator.configure(classFinder.getCashUnitClasses());
+    public void loadComponents() {
+        ClassFinder.start(ClassPathRegistry.PATHS_TO_DIRECTORY_CLASSES_UNITS);
+        Set<Class<?>> cacheUnitClasses = ClassFinder.getCacheUnitClasses();
+        prototypeService.buildBiotaInstancesForEach(cacheUnitClasses);
     }
 
-    public void fillRepository() {
-        repository = new RegistryProto(prototypeCreator.flush());
+    public RegistryProto fillRepository() {
+        return new RegistryProto(prototypeService.flush());
     }
 
-    public void installNavigatorInProto(Navigator navigator) {
-        prototypeCreator.setNavigatorIntoProto(navigator);
+    public void setAttributesIntoProto(Navigator navigator, int startData) {
+        prototypeService.setAttributesIntoProto(navigator, startData);
     }
 }

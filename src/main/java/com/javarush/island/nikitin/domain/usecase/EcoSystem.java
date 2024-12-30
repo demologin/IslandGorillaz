@@ -4,16 +4,20 @@ import com.javarush.island.nikitin.domain.entity.biota.Biota;
 import com.javarush.island.nikitin.domain.entity.map.Island;
 import com.javarush.island.nikitin.domain.entity.map.Location;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
-@Setter
-@Getter
+
 public class EcoSystem {
-    private Island island;
-    private int generalDay;
+    private final Island island;
+    @Getter
+    private int startDate;
+
+    public EcoSystem(Island island, int startDate) {
+        this.island = island;
+        this.startDate = startDate;
+    }
 
     //TODO метод запускает перебор локаций на острове и для каждого животного запуск цепочки действия
     public void act() {
@@ -23,13 +27,20 @@ public class EcoSystem {
                 iteratePopulation(habitat.getPopulations(), habitat);
             }
         }
-        generalDay++;
+        startDate++;
     }
 
-    private void iteratePopulation(Map<String, Set<Biota>> population, Location habitat) {
-        for (var entry : population.entrySet()) {
-            habitat.getMaskPopulationByName(entry.getKey())
-                    .forEach(unit -> unit.survive(habitat, generalDay));
-        }
+    //todo раньше использовалась маска коллекции для обхода
+    private void iteratePopulation(Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> population, Location habitat) {
+        population.entrySet().forEach((entry) -> {
+
+            entry.getValue().forEach(unit -> {
+                unit.survive(habitat, startDate);
+            });
+        });
+    }
+
+    public Location[][] getLocationsForView() {
+        return island.getLocation();
     }
 }

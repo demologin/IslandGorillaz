@@ -1,0 +1,7 @@
+---
+tempMap:
+  POJO:
+    rows: 5
+    columns: 5
+    startData: 10
+    percentFillingLocation: 1.0

@@ -2,16 +2,19 @@ package com.javarush.island.nikitin.presentation.entity;
 
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
 import com.javarush.island.nikitin.domain.entity.map.Location;
+import com.javarush.island.nikitin.domain.usecase.EcoSystem;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 //todo рефакторинг!
 public class PrintCell {
     public static final int LIMIT_SHOW_UNIT = 6;
 
-    public void printCell(Location[][] data) {
+    public void printCell(EcoSystem ecoSystem) {
+        Location[][] data = ecoSystem.getLocationsForView();
         StringBuilder output = new StringBuilder();
 
         //output.append(printMiddleBorder(data[0].length, 25));
@@ -31,7 +34,7 @@ public class PrintCell {
         System.out.print(output.toString());
     }
 
-    private static String formatValues(Map<String, Set<Biota>> map) {
+    private static String formatValues(Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> map) {
         StringBuilder values = new StringBuilder();
 
         List<Set<Biota>> sets = List.copyOf(map.values());
@@ -46,7 +49,7 @@ public class PrintCell {
                 values.append("  ");
                 values.append(String.format("%-4s", ""));
             } else {
-                String icon = sets.get(i).stream().findFirst().get().getProps().getIcon();
+                String icon = sets.get(i).stream().findFirst().get().getProperty().getIcon();
                 values.append(icon);
                 values.append(String.format("%-4d", result));
             }

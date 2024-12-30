@@ -1,83 +1,143 @@
 package com.javarush.island.nikitin.domain.entity.biota.animals;
 
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
-import com.javarush.island.nikitin.domain.entity.biota.Props;
+import com.javarush.island.nikitin.domain.entity.biota.LimitData;
+import com.javarush.island.nikitin.domain.entity.biota.PreferenceMenu;
+import com.javarush.island.nikitin.domain.entity.biota.Property;
 import com.javarush.island.nikitin.domain.entity.map.Location;
 import com.javarush.island.nikitin.domain.entity.map.navigation.Direction;
-import com.javarush.island.nikitin.domain.entity.map.navigation.MoveStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends Biota {
-    public Animal(Props props) {
-        super(props);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Animal.class);
+
+    public Animal(LimitData limitData, Property property, PreferenceMenu preferenceMenu) {
+        super(limitData, property, preferenceMenu);
     }
 
     @Override
-    public boolean eat(Location habitat) {
-
-        Optional<Biota> target = findPrey(habitat, "");
-        if (target.isEmpty()) {
-            return false;
+    public boolean eat(Biota prey, Location habitat) {
+        var preyProperty = prey.getProperty();
+        var thisProperty = getProperty();
+        if(!prey.isAlive()){
+            throw new RuntimeException("eat not life " + this + " prey " + prey);
         }
-        Biota targetUnit = target.get();
 
-        double targetUnitWeight = targetUnit.getWeight();
-        double currentUnitWeight = this.getWeight();
+        double preyWeight = preyProperty.getWeight();
+        double thisWeight = thisProperty.getWeight();
 
-        double minUnitWeight = 0.05d;
-        double maxWeight = this.getProps().getMaxWeight();
+        double maxWeight = this.getLimitData().maxWeight();
+        double sizePiece = maxWeight - thisWeight;
+        if (sizePiece == 0) {
 
-        double sizePiece = maxWeight - currentUnitWeight;
+            //prey.getLockerBiota().unlock();
+            throw new RuntimeException("sizePiece == 0");
+            //return false;
+        }
+        if (preyWeight >= sizePiece) {
+            thisWeight += sizePiece;
+            preyWeight -= sizePiece;
+            thisProperty.setWeight(thisWeight);
+            if (prey.isCriticalWeight(preyWeight)) {
+                preyProperty.setWeight(preyWeight);
+                prey.death(habitat);
+               LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey isCriticalWeight dead - {} ",this, prey);
 
-        if (targetUnitWeight >= sizePiece) {
-            currentUnitWeight += sizePiece;
-            targetUnitWeight -= sizePiece;
-
-            setWeight(currentUnitWeight);
-            targetUnit.setWeight(targetUnitWeight);
+            } else {
+                preyProperty.setWeight(preyWeight);
+                LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey is live - {} ",this, prey);
+            }
         } else {
-            currentUnitWeight += targetUnitWeight;
-            setWeight(currentUnitWeight);
-
-            targetUnit.die(habitat);
+            thisWeight += preyWeight;
+            preyWeight = 0;
+            thisProperty.setWeight(thisWeight);
+            preyProperty.setWeight(preyWeight);
+            prey.death(habitat);
+            LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey is dead - {} ",this, prey);
         }
-        if ((maxWeight * minUnitWeight) > targetUnitWeight) {
-            this.die(habitat);
-        }
+        //prey.getLockerBiota().unlock();
 
         return true;
     }
+
     //todo метод для безопасного удаления из коллекции
 
+    @Override
+    public Optional<Biota> findPrey(Location habitat, PreferenceMenu preferenceMenu) {
+        Optional<Map.Entry<String, Integer>> anyItemMenu = preferenceMenu.getAnyItemMenu();
 
-    private Optional<Biota> findPrey(Location habitat, String listFavoriteFood) {
+        return anyItemMenu.flatMap(stringIntegerEntry -> {
+            String foodName = stringIntegerEntry.getKey();
+            Integer choice = stringIntegerEntry.getValue();
+            if (isChoiceSuccess(choice) && habitat.isPresentPopulation(foodName))  {
 
-        if (sayMyNameCommunity().equals("Mouse")) {
-            return habitat.getPopulationByName("Grass").stream().findFirst();
-        }
-        if (sayMyNameCommunity().equals("Wolf")) {
-            return habitat.getPopulationByName("Rabbit").stream().findFirst();
-        }
-        if (sayMyNameCommunity().equals("Rabbit")) {
-            return habitat.getPopulationByName("Grass").stream().findFirst();
-        }
+                Optional<Biota> assessPrey = findAssessPrey(habitat, foodName);
+                LOGGER.debug("\t2 IAM {}, - my findPrey {} ",this, assessPrey);
+                return assessPrey;
+            } else {
+                LOGGER.debug("\t2 IAM {}, - my findPrey NULLIBLE ",this );
+            }
+            return Optional.empty();
+
+        });
+    }
+
+    private Optional<Biota> findAssessPrey(Location habitat, String foodName) {
+        Optional<Biota> preyWrapper;
+
+            preyWrapper = habitat.getRandomBiotaByNameCommunity(foodName);
+
+            if (preyWrapper.isPresent()) {
+                /*Biota prey = preyWrapper.get();
+                if (!prey.getLockerBiota().isLocked()) {
+                    //System.out.println("2 " + this + " " + prey);
+                    prey.getLockerBiota().lock();
+                    if(!prey.isAlive()) {
+                        prey.getLockerBiota().unlock();
+                        return Optional.empty();
+                    }
+                    //System.out.println("3 " + this + " " + prey);
+                 */
+                    return preyWrapper;
+            }
         return Optional.empty();
     }
 
     @Override
     public void migrate(Location habitat) {
-        int maxStepBound = this.getProps().getMaxSpeed() + 1;
-        int stepRandom = ThreadLocalRandom.current().nextInt(maxStepBound);
+        LOGGER.debug("\t\t\t\t5 migrate I am: {} my current location: {}",
+                this,
+                habitat.localId);
 
-        Direction randomDirection = Direction.getRandomDirection();
-        Location newLocation = getNavigator().execute(randomDirection, habitat, stepRandom);
+        int countStep = makeCountStepRandom();
+        Direction direction = Direction.getRandomDirection();
+        Location newLocation = getNavigator().findNewLocation(direction, habitat, countStep);
+
         if (!(newLocation == habitat)) {
             boolean result = newLocation.addUnitLocation(this);
             if (result) {
+                LOGGER.debug("\t\t\tI am: {} my new location: {}",
+                        this,
+                        newLocation.localId);
                 habitat.removeUnitLocation(this);
             }
         }
+    }
+
+    private boolean isChoiceSuccess(int choice) {
+        int pctBound = 100;
+        return choice > ThreadLocalRandom.current().nextInt(pctBound);
+    }
+
+    private int makeCountStepRandom() {
+        int bound = 1;
+        int maxCountStepBound = this.getLimitData().maxSpeed() + bound;
+        return ThreadLocalRandom.current().nextInt(maxCountStepBound);
     }
 }

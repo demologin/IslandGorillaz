@@ -1,0 +1,244 @@
+---
+START_OCCUPANCY_RATE: 0.5
+rows: 5
+columns: 5
+preferenceMap:
+  Boar:
+    foodChoiceProbabilities:
+      Mouse: 50
+      Caterpillar: 90
+      Grass: 100
+  Rabbit:
+    foodChoiceProbabilities:
+      Grass: 100
+  Caterpillar:
+    foodChoiceProbabilities:
+      Grass: 100
+  Bear:
+    foodChoiceProbabilities:
+      Boar: 50
+      Mouse: 90
+      Boa: 80
+      Horse: 40
+      Rabbit: 80
+      Sheep: 70
+      Duck: 10
+      Goat: 70
+      Deer: 80
+      Buffalo: 20
+  Grass:
+    foodChoiceProbabilities: {}
+  Fox:
+    foodChoiceProbabilities:
+      Mouse: 90
+      Rabbit: 70
+      Duck: 60
+      Caterpillar: 40
+  Deer:
+    foodChoiceProbabilities:
+      Grass: 100
+  Mouse:
+    foodChoiceProbabilities:
+      Caterpillar: 90
+      Grass: 100
+  Boa:
+    foodChoiceProbabilities:
+      Mouse: 40
+      Rabbit: 20
+      Duck: 10
+      Fox: 15
+  Horse:
+    foodChoiceProbabilities:
+      Grass: 100
+  Sheep:
+    foodChoiceProbabilities:
+      Grass: 100
+  Duck:
+    foodChoiceProbabilities:
+      Caterpillar: 90
+      Grass: 100
+  Goat:
+    foodChoiceProbabilities:
+      Grass: 100
+  Wolf:
+    foodChoiceProbabilities:
+      Boar: 15
+      Mouse: 80
+      Horse: 10
+      Rabbit: 60
+      Sheep: 70
+      Duck: 40
+      Goat: 60
+      Deer: 15
+      Buffalo: 10
+  Eagle:
+    foodChoiceProbabilities:
+      Mouse: 90
+      Rabbit: 90
+      Duck: 80
+      Fox: 10
+  Buffalo:
+    foodChoiceProbabilities:
+      Grass: 100
+propsMap:
+  Boar:
+    name: "boar"
+    icon: "🐗"
+    weight: 0.0
+  Rabbit:
+    name: "rabbit"
+    icon: "🐇"
+    weight: 0.0
+  Caterpillar:
+    name: "caterpillar"
+    icon: "🐛"
+    weight: 0.0
+  Bear:
+    name: "bear"
+    icon: "🐻"
+    weight: 0.0
+  Grass:
+    name: "plant"
+    icon: "🌿"
+    weight: 0.0
+  Fox:
+    name: "fox"
+    icon: "🦊"
+    weight: 0.0
+  Deer:
+    name: "deer"
+    icon: "🦌"
+    weight: 0.0
+  Mouse:
+    name: "mouse"
+    icon: "🐁"
+    weight: 0.0
+  Boa:
+    name: "boa"
+    icon: "🐍"
+    weight: 0.0
+  Horse:
+    name: "horse"
+    icon: "🐎"
+    weight: 0.0
+  Sheep:
+    name: "sheep"
+    icon: "🐑"
+    weight: 0.0
+  Duck:
+    name: "duck"
+    icon: "🦆"
+    weight: 0.0
+  Goat:
+    name: "goat"
+    icon: "🐐"
+    weight: 0.0
+  Wolf:
+    name: "wolf"
+    icon: "🐺"
+    weight: 0.0
+  Eagle:
+    name: "eagle"
+    icon: "🦅"
+    weight: 0.0
+  Buffalo:
+    name: "buffalo"
+    icon: "🐃"
+    weight: 0.0
+limitDataMap:
+  Boar:
+    maxWeight: 400.0
+    maxSpeed: 2
+    maxFoodFeed: 50.0
+    maxCountUnit: 50
+    dailyWeightLossPct: 0.0
+  Rabbit:
+    maxWeight: 2.0
+    maxSpeed: 2
+    maxFoodFeed: 0.45
+    maxCountUnit: 150
+    dailyWeightLossPct: 0.0
+  Caterpillar:
+    maxWeight: 0.01
+    maxSpeed: 0
+    maxFoodFeed: 0.0
+    maxCountUnit: 1000
+    dailyWeightLossPct: 0.0
+  Bear:
+    maxWeight: 500.0
+    maxSpeed: 2
+    maxFoodFeed: 80.0
+    maxCountUnit: 5
+    dailyWeightLossPct: 0.0
+  Grass:
+    maxWeight: 1.0
+    maxSpeed: 0
+    maxFoodFeed: 0.0
+    maxCountUnit: 200
+    dailyWeightLossPct: 0.0
+  Fox:
+    maxWeight: 8.0
+    maxSpeed: 2
+    maxFoodFeed: 2.0
+    maxCountUnit: 30
+    dailyWeightLossPct: 0.0
+  Deer:
+    maxWeight: 300.0
+    maxSpeed: 4
+    maxFoodFeed: 50.0
+    maxCountUnit: 20
+    dailyWeightLossPct: 0.0
+  Mouse:
+    maxWeight: 0.05
+    maxSpeed: 1
+    maxFoodFeed: 0.01
+    maxCountUnit: 500
+    dailyWeightLossPct: 0.0
+  Boa:
+    maxWeight: 15.0
+    maxSpeed: 1
+    maxFoodFeed: 3.0
+    maxCountUnit: 30
+    dailyWeightLossPct: 0.0
+  Horse:
+    maxWeight: 400.0
+    maxSpeed: 4
+    maxFoodFeed: 60.0
+    maxCountUnit: 20
+    dailyWeightLossPct: 0.0
+  Sheep:
+    maxWeight: 70.0
+    maxSpeed: 3
+    maxFoodFeed: 15.0
+    maxCountUnit: 140
+    dailyWeightLossPct: 0.0
+  Duck:
+    maxWeight: 1.0
+    maxSpeed: 4
+    maxFoodFeed: 0.15
+    maxCountUnit: 200
+    dailyWeightLossPct: 0.0
+  Goat:
+    maxWeight: 60.0
+    maxSpeed: 3
+    maxFoodFeed: 10.0
+    maxCountUnit: 140
+    dailyWeightLossPct: 0.0
+  Wolf:
+    maxWeight: 50.0
+    maxSpeed: 3
+    maxFoodFeed: 8.0
+    maxCountUnit: 30
+    dailyWeightLossPct: 0.0
+  Eagle:
+    maxWeight: 6.0
+    maxSpeed: 3
+    maxFoodFeed: 1.0
+    maxCountUnit: 20
+    dailyWeightLossPct: 0.0
+  Buffalo:
+    maxWeight: 700.0
+    maxSpeed: 3
+    maxFoodFeed: 100.0
+    maxCountUnit: 10
+    dailyWeightLossPct: 0.0
