@@ -25,7 +25,7 @@ public abstract class Animal extends Biota {
     public boolean eat(Biota prey, Location habitat) {
         var preyProperty = prey.getProperty();
         var thisProperty = getProperty();
-        if(!prey.isAlive()){
+        if (!prey.getIsAlive().get()) {
             throw new RuntimeException("eat not life " + this + " prey " + prey);
         }
 
@@ -47,11 +47,11 @@ public abstract class Animal extends Biota {
             if (prey.isCriticalWeight(preyWeight)) {
                 preyProperty.setWeight(preyWeight);
                 prey.death(habitat);
-               LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey isCriticalWeight dead - {} ",this, prey);
+                LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey isCriticalWeight dead - {} ", this, prey);
 
             } else {
                 preyProperty.setWeight(preyWeight);
-                LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey is live - {} ",this, prey);
+                LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey is live - {} ", this, prey);
             }
         } else {
             thisWeight += preyWeight;
@@ -59,7 +59,7 @@ public abstract class Animal extends Biota {
             thisProperty.setWeight(thisWeight);
             preyProperty.setWeight(preyWeight);
             prey.death(habitat);
-            LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey is dead - {} ",this, prey);
+            LOGGER.debug("\t\t\t4 IAM {}, - iam poel and prey is dead - {} ", this, prey);
         }
         //prey.getLockerBiota().unlock();
 
@@ -75,38 +75,17 @@ public abstract class Animal extends Biota {
         return anyItemMenu.flatMap(stringIntegerEntry -> {
             String foodName = stringIntegerEntry.getKey();
             Integer choice = stringIntegerEntry.getValue();
-            if (isChoiceSuccess(choice) && habitat.isPresentPopulation(foodName))  {
+            if (isChoiceSuccess(choice) && habitat.isPresentPopulation(foodName)) {
 
-                Optional<Biota> assessPrey = findAssessPrey(habitat, foodName);
-                LOGGER.debug("\t2 IAM {}, - my findPrey {} ",this, assessPrey);
+                Optional<Biota> assessPrey = habitat.getRandomBiotaByNameCommunity(foodName);
+                LOGGER.debug("\t2 IAM {}, - my findPrey {} ", this, assessPrey);
                 return assessPrey;
             } else {
-                LOGGER.debug("\t2 IAM {}, - my findPrey NULLIBLE ",this );
+                LOGGER.debug("\t2 IAM {}, - my findPrey NULLIBLE ", this);
             }
             return Optional.empty();
 
         });
-    }
-
-    private Optional<Biota> findAssessPrey(Location habitat, String foodName) {
-        Optional<Biota> preyWrapper;
-
-            preyWrapper = habitat.getRandomBiotaByNameCommunity(foodName);
-
-            if (preyWrapper.isPresent()) {
-                /*Biota prey = preyWrapper.get();
-                if (!prey.getLockerBiota().isLocked()) {
-                    //System.out.println("2 " + this + " " + prey);
-                    prey.getLockerBiota().lock();
-                    if(!prey.isAlive()) {
-                        prey.getLockerBiota().unlock();
-                        return Optional.empty();
-                    }
-                    //System.out.println("3 " + this + " " + prey);
-                 */
-                    return preyWrapper;
-            }
-        return Optional.empty();
     }
 
     @Override
@@ -116,10 +95,9 @@ public abstract class Animal extends Biota {
                 habitat.localId);
 
         int countStep = makeCountStepRandom();
-        Direction direction = Direction.getRandomDirection();
-        Location newLocation = getNavigator().findNewLocation(direction, habitat, countStep);
-
-        if (!(newLocation == habitat)) {
+        if (countStep != 0) {
+            Direction direction = Direction.getRandomDirection();
+            Location newLocation = getNavigator().findNewLocation(direction, habitat, countStep);
             boolean result = newLocation.addUnitLocation(this);
             if (result) {
                 LOGGER.debug("\t\t\tI am: {} my new location: {}",

@@ -2,7 +2,6 @@ package com.javarush.island.nikitin.presentation;
 
 import com.javarush.island.nikitin.domain.usecase.EcoSystem;
 import com.javarush.island.nikitin.presentation.api.View;
-import com.javarush.island.nikitin.presentation.entity.PrintCell;
 import com.javarush.island.nikitin.presentation.entity.PrintStatistics;
 
 public class ConsoleView implements View {
@@ -11,7 +10,7 @@ public class ConsoleView implements View {
     public void displayData(EcoSystem ecoSystem) {
 
         new PrintStatistics().printStatistic(ecoSystem);
-        new PrintCell().printCell(ecoSystem);
+        //new PrintCell().printCell(ecoSystem);
 
     }
 }

@@ -19,36 +19,41 @@ import java.awt.*;
 import java.io.File;
 import java.net.URI;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class StartBeta<T> {
 
     @JsonProperty("propsMaps")
     public Map<String, T> propsMaps;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println(System.getProperty("user.dir"));
 
-        Map<String, ConcurrentHashMap.KeySetView<String, Boolean>> populations = new HashMap<>();
-        ConcurrentHashMap<String, Boolean> wolf = new ConcurrentHashMap<>(){{
-            put("Wolf_1", true);
-            put("Wolf_2", true);
-            put("Wolf_3", true);
-        }};
-        ConcurrentHashMap<String, Boolean> grass = new ConcurrentHashMap<>(){{
-            put("Grass_1", true);
-            put("Grass_2", true);
-            put("Grass_3", true);
-        }};
-        populations.put("Wolf", wolf.keySet());
-        populations.put("Grass", grass.keySet());
-        System.out.println(populations);
+        String[][] PROPERTY_BIOTA = {
+                {"wolf", "\uD83D\uDC3A", "50"},
+                {"boa", "\ud83d\udc0d", "15"},
+                {"fox", "\ud83e\udd8a", "8"},
+                {"bear", "\ud83d\udc3b", "500"},
+                {"eagle", "\ud83e\udd85", "6"},
+                {"horse", "\ud83d\udc0e", "400"},
+                {"deer", "\ud83e\udd8c", "300"},
+                {"rabbit", "\uD83D\uDC07", "2"},
+                {"mouse", "\ud83d\udc01", "0.05"},
+                {"goat", "\ud83d\udc10", "60"},
+                {"sheep", "\ud83d\udc11", "70"},
+                {"boar", "\ud83d\udc17", "400"},
+                {"buffalo", "\ud83d\udc03", "700"},
+                {"duck", "\ud83e\udd86", "1"},
+                {"caterpillar", "\ud83d\udc1b", "0.01"},
+                {"plant", "\uD83C\uDF3F", "1"}
+        };
+        System.out.println(Arrays.deepToString(PROPERTY_BIOTA));
     }
 
-    private static void staticViewSwing(){
+    private static void staticViewSwing() {
         String[] array = {"Элемент 1", "Элемент 2", "Элемент 3", "Элемент 4"};
 
         // Создание окна
@@ -94,6 +99,7 @@ public class StartBeta<T> {
         frame.setVisible(true);
 
     }
+
     private void checkAssembler() {
         Map<String, PreferenceMenu> stringPreferenceMapMap = DefaultDataAssembler.collectData(DefaultData.ANIMAL_TYPE, DefaultData.PROBABILITY_OF_EATING, DefaultDataAssembler::makePreferenceMenu);
         printPreferenceMap(stringPreferenceMapMap);
@@ -180,7 +186,7 @@ public class StartBeta<T> {
     private static void readPropsMapToTarget(Class<?> clazz) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        URI path = Biota.class.getResource("/nikitin/1props.yaml").toURI();
+        URI path = Objects.requireNonNull(Biota.class.getResource("/nikitin/1props.yaml")).toURI();
 
         String path1 = Path.of(path).toString();
 

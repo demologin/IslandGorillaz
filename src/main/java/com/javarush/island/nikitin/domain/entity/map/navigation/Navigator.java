@@ -16,10 +16,18 @@ import java.util.Map;
  */
 public class Navigator {
     private Location[][] locations;
+    private final NavigatorCacheLocal navigatorCacheLocal;
     private final Map<Location, Integer> mapRow = new HashMap<>();
     private final Map<Location, Integer> mapColumn = new HashMap<>();
 
+    public Navigator() {
+        this.navigatorCacheLocal = new NavigatorCacheLocal();
+    }
+
     public void initializeIslandMap(Location[][] locations) {
+        if (this.locations != null) {
+            throw new DomainException(FailMessagesDomain.IS_ALREADY_INITIALIZED);
+        }
         this.locations = locations;
         for (int y = 0; y < locations.length; y++) {
             for (int x = 0; x < locations[y].length; x++) {
@@ -31,8 +39,20 @@ public class Navigator {
         }
     }
 
-    private void checkLocationNotNull(Location location){
-        if(location == null){
+    public Location findNewLocation(Direction direction, Location habitat, int stepRandom) {
+
+        return navigatorCacheLocal.cacheContains(direction, habitat, stepRandom,
+                () -> this.computeNewLocation(direction, habitat, stepRandom));
+    }
+
+    private Location computeNewLocation(Direction direction, Location habitat, int stepRandom) {
+        MoveStrategy strategy = direction.getStrategy();
+        return strategy.findTargetLocation(this, habitat, stepRandom);
+    }
+
+
+    private void checkLocationNotNull(Location location) {
+        if (location == null) {
             throw new DomainException(FailMessagesDomain.LOCATION_NOT_INITIALIZED);
         }
     }
@@ -56,10 +76,5 @@ public class Navigator {
 
     public int getCountCols() {
         return locations[0].length;
-    }
-
-    public Location findNewLocation(Direction direction, Location habitat, int stepRandom) {
-        MoveStrategy strategy = direction.getStrategy();
-        return strategy.findTargetLocation(this, habitat, stepRandom);
     }
 }

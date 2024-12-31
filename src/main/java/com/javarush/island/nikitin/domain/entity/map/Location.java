@@ -2,6 +2,7 @@ package com.javarush.island.nikitin.domain.entity.map;
 
 
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.Map;
@@ -9,8 +10,10 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 public class Location {
+    @EqualsAndHashCode.Include
     public String localId;
     private final Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> populations;
 

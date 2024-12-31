@@ -7,9 +7,9 @@ import com.javarush.island.nikitin.domain.entity.biota.PreferenceMenu;
 import com.javarush.island.nikitin.domain.entity.biota.Property;
 
 @GameUnit
-@InjectLimitData(maxWeight = 0.05d, maxSpeed = 1, maxFoodFeed = 0.01d, maxCountUnit = 500)
-public class Mouse extends Herbivorous {
-    public Mouse(LimitData limitData, Property property, PreferenceMenu preferenceMenu) {
+@InjectLimitData(maxWeight = 60d, maxSpeed = 3, maxFoodFeed = 10d, maxCountUnit = 140)
+public class Goat extends Herbivorous {
+    public Goat(LimitData limitData, Property property, PreferenceMenu preferenceMenu) {
         super(limitData, property, preferenceMenu);
     }
 }

@@ -22,9 +22,9 @@ public class Settings {
     @Getter
     private int startDate = 0;
     @Getter
-    private double percentFillingLocation = 0.1d;
+    private double percentFillingLocation = 1d;
     @Getter
-    private int periodLive = 200;
+    private int periodLive = 1000;
 
     private static final boolean SETTINGS_DEFAULT = true;
 

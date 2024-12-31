@@ -12,21 +12,18 @@ import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.locks.ReentrantLock;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 public abstract class Biota implements Cloneable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Biota.class);
-    private ReentrantLock lockerBiota = new ReentrantLock();
 
     private static final AtomicLong ID_COUNTER = new AtomicLong();
-    private static final AtomicBoolean IS_ALIVE_FLAG = new AtomicBoolean(true);
-    private static final double PCT_WEIGHT_LOSS = 0.05d;
+    private static final double PCT_WEIGHT_LOSS = 0.01d;
     private static final double PCT_WEIGHT_FOR_SURVIVAL = 0.05d;
-    private static final double PCT_FOR_REPRODUCE = 0.05d;
-    private boolean isAlive = true;
+    private static final double PCT_FOR_REPRODUCE = 0.1d;
+    private AtomicBoolean isAlive = new AtomicBoolean(true);
     @EqualsAndHashCode.Include
     private long id = ID_COUNTER.getAndIncrement();
 
@@ -47,36 +44,26 @@ public abstract class Biota implements Cloneable {
 
     //todo this взят из копии коллекции локации, можно модифицировать основную коллекцию
     public final void survive(Location habitat, int calendarDay) {
-        if (!isAlive) {
+        //System.out.println(calendarDay + " dddddddddddddddddddd " + this.getCurrentDay());
+        if (!isAlive.get()) {
             throw new RuntimeException("isAlive: " + isAlive + " " + getId() + " day " + currentDay + " " + calendarDay + " " + habitat.localId + this);
         }
-        //lockerBiota.lock();
-        try {
-            if (this.currentDay == calendarDay) {
-                loggOnlyThis("1 Start");
+        if (this.currentDay == calendarDay) {
+            loggOnlyThis("1 Start");
 
-                dailyEnergyExpenditure(habitat);
+            dailyEnergyExpenditure(habitat);
+            if (isAlive.get()) {
+                Optional<Biota> preyWrapper = findPrey(habitat, getPreferenceMenu());
+                preyWrapper.ifPresent(prey -> loggThisAndPrey("\t\t3 Before eat ", prey, habitat));
 
-                if (isAlive) {
-                    Optional<Biota> preyWrapper = findPrey(habitat, getPreferenceMenu());
-                    preyWrapper.ifPresent(prey -> loggThisAndPrey("\t\t3 Before eat ", prey, habitat));
+                boolean successfulLunch = preyWrapper.map(biota -> this.eat(biota, habitat)).orElse(false);
 
+                preyWrapper.ifPresent(prey -> loggThisAndPrey("\t\t\t\t5 After eat ", prey, habitat));
 
-                    boolean successfulLunch = preyWrapper.map(biota -> this.eat(biota, habitat)).orElse(false);
-
-
-
-                    preyWrapper.ifPresent(prey -> loggThisAndPrey("\t\t\t\t5 After eat ", prey, habitat));
-
-
-                    reproduce(habitat, successfulLunch);
-                    migrate(habitat); //работает
-                    currentDayIsFinish();
-                }
-
+                reproduce(habitat, successfulLunch);
+                migrate(habitat); //работает
+                currentDayIsFinish();
             }
-        } finally {
-            //lockerBiota.unlock();
         }
     }
 
@@ -120,7 +107,7 @@ public abstract class Biota implements Cloneable {
     public final void death(Location habitat) {
         loggOnlyThis("Death ");
         if (habitat.removeUnitLocation(this)) {
-            isAlive = false;
+            isAlive.set(false);
         }
     }
 
@@ -131,7 +118,7 @@ public abstract class Biota implements Cloneable {
             Biota newBiota = (Biota) super.clone();
             newBiota.property = this.property.clone();
             newBiota.id = ID_COUNTER.getAndIncrement();
-            newBiota.lockerBiota = new ReentrantLock();
+            newBiota.isAlive = new AtomicBoolean(true);
             return newBiota;
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
@@ -164,10 +151,8 @@ public abstract class Biota implements Cloneable {
     public String toString() {
         return "Biota { " +
                 "name=" + sayMyNameCommunity() +
-                ", lockerBiota=" + lockerBiota.isLocked() +
-                ", HoldCount=" + lockerBiota.getHoldCount() +
                 ", id=" + id +
-                ", isAlive=" + isAlive +
+                ", isAlive=" + isAlive.get() +
                 ", currentDay=" + currentDay +
                 ", weight=" + property.getWeight() +
                 '}';
@@ -184,11 +169,11 @@ public abstract class Biota implements Cloneable {
                 sayMyNameCommunity(),
                 id,
                 property.getWeight(),
-                isAlive,
+                isAlive.get(),
                 habitat.localId,
                 prey.sayMyNameCommunity(),
                 prey.getId(),
                 prey.property.getWeight(),
-                prey.isAlive());
+                prey.isAlive.get());
     }
 }

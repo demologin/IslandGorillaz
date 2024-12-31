@@ -5,9 +5,8 @@ import com.javarush.island.nikitin.presentation.api.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutorService;
+import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class EcoSystemService {
     private final EcoSystem ecoSystem;
@@ -41,25 +40,21 @@ public class EcoSystemService {
 
     }*/
     public void simulateDay(int periodLive) {
-        try (var scheduledExecutorService = Executors.newScheduledThreadPool(coreCount)) {
-
-
-            notifyView();
-            long start = System.currentTimeMillis();
-            LOGGER.info("Start {}", start);
+        notifyView();
+        long start = System.currentTimeMillis();
+        LOGGER.info("Start {}", start);
+        try (var scheduledExecutorService = Executors.newWorkStealingPool(coreCount - 2)) {
             for (int i = 0; i < periodLive; i++) {
-
-                ecoSystem.act();
+                List<Runnable> act = ecoSystem.act();
+                act.forEach(scheduledExecutorService::execute);
                 notifyView();
-                try {
-                    Thread.sleep(0);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
             }
             long stop = System.currentTimeMillis();
             long fulllTime = stop - start;
             LOGGER.info("Stop {}, fullTime {}", stop, fulllTime);
+            scheduledExecutorService.shutdown();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

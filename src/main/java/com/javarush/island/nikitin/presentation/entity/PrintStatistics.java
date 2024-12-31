@@ -6,7 +6,6 @@ import com.javarush.island.nikitin.domain.usecase.EcoSystem;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 //todo рефакторинг!
@@ -39,11 +38,18 @@ public class PrintStatistics {
             String nameCommunity = entries.getKey();
             int sizeCommunity = entries.getValue().size();
             //todo удалить проверку корректности дня екосистемы и дня у огранизма
-            entries.getValue().forEach(e -> {
-                        if (ecoSystem.getStartDate() != e.getCurrentDay())
-                            throw new RuntimeException("Day");
+            /*entries.getValue().forEach(e -> {
+                        int eco = ecoSystem.getStartDate();
+                        int current = e.getCurrentDay();
+                        if (eco != current) {
+                            System.out.println(e);
+                            throw new RuntimeException("Day - getStartDate " + eco + " getCurrentDay " + current);
+                        }
                     }
             );
+
+             */
+
 
             collectStatistics(sizeCommunity, nameCommunity);
         }
@@ -58,7 +64,7 @@ public class PrintStatistics {
     private void showStatistic() {
         System.out.println(statistic);
         System.out.println("Total pupulation in Island: " + FULL_SIZE_UNIT);
-        if(FULL_SIZE_UNIT == 0){
+        if (FULL_SIZE_UNIT == 0) {
             return;
         }
         System.out.println("Statistics graph:");

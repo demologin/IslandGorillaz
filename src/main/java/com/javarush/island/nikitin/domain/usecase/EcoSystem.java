@@ -5,6 +5,8 @@ import com.javarush.island.nikitin.domain.entity.map.Island;
 import com.javarush.island.nikitin.domain.entity.map.Location;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,25 +21,23 @@ public class EcoSystem {
         this.startDate = startDate;
     }
 
-    //TODO метод запускает перебор локаций на острове и для каждого животного запуск цепочки действия
-    public void act() {
+    public List<Runnable> act() {
+        List<Runnable> tasks = new ArrayList<>();
         Location[][] locations = island.getLocation();
         for (Location[] location : locations) {
             for (Location habitat : location) {
-                iteratePopulation(habitat.getPopulations(), habitat);
+                int currentStartDate = startDate;
+                Runnable task = () -> iteratePopulation(habitat.getPopulations(), habitat, currentStartDate);
+                tasks.add(task);
             }
         }
         startDate++;
+        return tasks;
     }
 
-    //todo раньше использовалась маска коллекции для обхода
-    private void iteratePopulation(Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> population, Location habitat) {
-        population.entrySet().forEach((entry) -> {
-
-            entry.getValue().forEach(unit -> {
-                unit.survive(habitat, startDate);
-            });
-        });
+    private void iteratePopulation(Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> population, Location habitat, int startDate) {
+        population.forEach((key, value) -> value
+                .forEach(unit -> unit.survive(habitat, startDate)));
     }
 
     public Location[][] getLocationsForView() {
