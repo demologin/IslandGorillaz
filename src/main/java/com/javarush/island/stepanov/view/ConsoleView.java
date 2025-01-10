@@ -12,7 +12,7 @@ public class ConsoleView implements View {
 
     @Override
     public void show() {
-
+        System.out.println("Hello show");
     }
 
     @Override

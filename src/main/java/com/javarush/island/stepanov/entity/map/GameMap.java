@@ -1,4 +1,12 @@
 package com.javarush.island.stepanov.entity.map;
 
+import lombok.Getter;
+
 public class GameMap {
+    @Getter
+    private final Cell[][] cells;
+    public GameMap(int rows, int colls) {
+        cells = new Cell[rows][colls];
+
+    }
 }

@@ -5,7 +5,7 @@ import com.javarush.island.stepanov.entity.Game;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.repository.EntityCreator;
 import com.javarush.island.stepanov.repository.GameMapCreator;
-import com.javarush.island.stepanov.services.GameWorker;
+import com.javarush.island.stepanov.services.workers.GameWorker;
 import com.javarush.island.stepanov.view.ConsoleView;
 import com.javarush.island.stepanov.view.View;
 

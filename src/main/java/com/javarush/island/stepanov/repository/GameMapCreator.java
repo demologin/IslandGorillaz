@@ -1,5 +1,6 @@
 package com.javarush.island.stepanov.repository;
 
+import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 
 public class GameMapCreator {
@@ -10,6 +11,15 @@ public class GameMapCreator {
     }
 
     public GameMap createRandomFilledGameMap(int rows, int cols, boolean b) {
-        return null;
+        GameMap gameMap = new GameMap(rows, cols);
+        Cell[][] cells = gameMap.getCells(); // Получаем массив ячеек
+
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                cells[i][j] = entityCreator.createRandomCell(); // Заменяем ячейку в массиве
+            }
+        }
+
+        return gameMap;
     }
 }
