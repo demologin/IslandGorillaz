@@ -15,7 +15,8 @@ public class EntityScanner {
         return prototypes;
     }
 
-    public static Organism generatePrototype() {
+    public static Organism generatePrototype(String name) {
+
         return null;
     }
 }

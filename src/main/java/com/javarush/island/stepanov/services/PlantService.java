@@ -4,6 +4,7 @@ import com.javarush.island.stepanov.entity.oganism.Organism;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Eatable;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Reproduceble;
 
+
 public class PlantService extends Organism implements Eatable, Reproduceble {
 
     @Override

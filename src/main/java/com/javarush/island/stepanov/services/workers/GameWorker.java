@@ -19,7 +19,7 @@ import java.util.concurrent.*;
 public class GameWorker extends Thread {
     public static final int CORES = Runtime.getRuntime().availableProcessors();
     private final Game game;
-    private final int PERIOD = Setting.get().getPeriod();
+    private final int PERIOD = Setting.get().getStepDelay();
     private final List<CellWorker> eatWorkers = new ArrayList<>();
     private final List<CellWorker> reproduceWorkers = new ArrayList<>();
     private final List<CellWorker> moveWorkers = new ArrayList<>();
@@ -30,15 +30,19 @@ public class GameWorker extends Thread {
         View view = game.getView();
         getWorkersLists(game.getGameMap());
         int count = 0;
+        int stepDelay = Setting.get().getStepDelay();
 
         try {
-            while (count < Setting.get().getCount()) {
+            while (count < Setting.get().getTurns()) {
                 view.show();
                 runWorkers(eatWorkers);
                 runWorkers(reproduceWorkers);
                 runWorkers(moveWorkers);
+                sleep(stepDelay);
                 count++;
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
             // Завершаем пул после выполнения всех итераций
             servicePool.shutdown();
@@ -70,7 +74,6 @@ public class GameWorker extends Thread {
         List<Future<Void>> futures = workers.stream()
                 .map(servicePool::submit)
                 .toList();
-
         // Ожидаем завершения всех задач
         for (Future<Void> future : futures) {
             try {

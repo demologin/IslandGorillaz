@@ -1,6 +1,7 @@
 package com.javarush.island.stepanov.config;
 
 import com.javarush.island.stepanov.entity.oganism.Organism;
+import com.javarush.island.stepanov.util.YamalUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class Setting {
     private static volatile Setting SETTING;
 
     private Setting() {
-        loadFromYaml();
+        YamalUtil.loadFromYaml(this,SETTING_YAMAL);
     }
 
     public static Setting get() {
@@ -32,12 +33,9 @@ public class Setting {
         return setting;
     }
 
-    private int period = 1000;
-    private int rows = 2;
-    private int cols = 2;
-    private int count = 2;
-
-    private void loadFromYaml() {
-    }
+    private int stepDelay;
+    private int rows;
+    private int cols;
+    private int turns;
 
 }
