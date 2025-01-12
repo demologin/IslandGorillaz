@@ -2,8 +2,8 @@ package com.javarush.island.stepanov.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.javarush.island.stepanov.constants.Cosstants.MAX_PERCENT;
-import static com.javarush.island.stepanov.constants.Cosstants.MIN_PERCENT;
+import static com.javarush.island.stepanov.constants.Constants.MAX_PERCENT;
+import static com.javarush.island.stepanov.constants.Constants.MIN_PERCENT;
 
 public class Rnd {
     private Rnd() {

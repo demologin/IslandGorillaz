@@ -1,6 +1,8 @@
 package com.javarush.island.stepanov.config;
 
 import com.javarush.island.stepanov.entity.oganism.Organism;
+import com.javarush.island.stepanov.services.AnimalService;
+import com.javarush.island.stepanov.services.PlantService;
 import com.javarush.island.stepanov.util.YamalUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +15,8 @@ import java.util.Objects;
 public class Setting {
 
     private static final String SETTING_YAMAL = "stepanov/setting.yaml";
-    public static final Organism[] PROTOTYPES= EntityScanner.createPrototypes();
+    public static final AnimalService[] PROTOTYPES_ANIMALS = EntityScanner.createAnimalsPrototypes();
+    public static final PlantService[] PROTOTYPES_PLANTS= EntityScanner.createPlantsPrototypes();
     private static volatile Setting SETTING;
 
     private Setting() {
@@ -36,5 +39,7 @@ public class Setting {
     private int rows;
     private int cols;
     private int turns;
+    private int occupancyRate;
+    private int minOfFlocks;
 
 }

@@ -14,33 +14,26 @@ public class EntityScanner {
     private EntityScanner() {
     }
 
-    public static Organism[] createPrototypes() {
-
+    protected static AnimalService[] createAnimalsPrototypes() {
         List<String> animalPaths = YamalUtil.getYamlFilesFromDirectory(ANIMALS_YAMAL);
-        List<String> plantPaths = YamalUtil.getYamlFilesFromDirectory(PLANTS_YAMAL);
-        int organismsQuantity = animalPaths.size() + plantPaths.size();
-        Organism[] organisms = new Organism[organismsQuantity];
-        createAnimals(organisms, animalPaths);
-        createPlants(organisms,plantPaths);
-        return organisms;
-    }
-
-    private static void createAnimals(Organism[] organisms, List<String> animalPaths) {
+        AnimalService[] animalPrototypes= new AnimalService[animalPaths.size()];
         for (int i = 0; i < animalPaths.size(); i++) {
             AnimalService animal = new AnimalService();
             YamalUtil.loadFromYaml(animal, animalPaths.get(i));
-            organisms[i] = animal;
+            animalPrototypes[i] = animal;
         }
+        return animalPrototypes;
     }
 
-    private static void createPlants(Organism[] organisms, List<String> plantPaths) {
-        int startIndex = organisms.length - plantPaths.size();
+    protected static PlantService[] createPlantsPrototypes() {
+        List<String> plantPaths = YamalUtil.getYamlFilesFromDirectory(PLANTS_YAMAL);
+        PlantService[] plantPrototypes= new PlantService[plantPaths.size()];
         for (int i = 0; i < plantPaths.size(); i++) {
-            PlantService plantService = new PlantService();
-            YamalUtil.loadFromYaml(plantService, plantPaths.get(i));
-            organisms[startIndex + i] = plantService;
+            PlantService plant = new PlantService();
+            YamalUtil.loadFromYaml(plant, plantPaths.get(i));
+            plantPrototypes[i] = plant;
         }
+        return plantPrototypes;
     }
-
 
 }

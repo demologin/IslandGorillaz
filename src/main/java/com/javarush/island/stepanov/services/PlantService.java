@@ -5,15 +5,20 @@ import com.javarush.island.stepanov.entity.oganism.interfaces.Eatable;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Reproduceble;
 
 
-public class PlantService extends Organism implements Eatable, Reproduceble {
+public class PlantService extends Organism implements Eatable, Reproduceble,Cloneable {
 
     @Override
     public void eat() {
-        System.out.println(this.getClass().getSimpleName() + " is eating");
+        System.out.println(name + " is eating");
     }
 
     @Override
     public void reproduce() {
-        System.out.println(this.getClass().getSimpleName() + " is reproducing");
+        System.out.println(name + " is reproducing");
+    }
+
+    @Override
+    public PlantService clone() {
+        return (PlantService) super.clone();
     }
 }
