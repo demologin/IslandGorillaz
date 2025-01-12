@@ -6,8 +6,13 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.javarush.island.stepanov.config.Setting;
 import lombok.SneakyThrows;
+import org.yaml.snakeyaml.Yaml;
+import java.io.InputStream;
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class YamalUtil {
@@ -25,4 +30,34 @@ public class YamalUtil {
             reader.readValue(resource.openStream());
         }
     }
+
+    public static List<String> getYamlFilesFromDirectory(String resourcePath) {
+        List<String> yamlFiles = new ArrayList<>();
+        try {
+            // Получаем URL директории через ClassLoader
+            URL directoryURL = YamalUtil.class.getClassLoader().getResource(resourcePath);
+            if (directoryURL == null) {
+                throw new IllegalArgumentException("Directory not found: " + resourcePath);
+            }
+
+            // Преобразуем URL в объект File
+            File directory = new File(directoryURL.toURI());
+            if (directory.isDirectory()) {
+                // Список всех файлов в директории с фильтрацией YAML-файлов
+                File[] files = directory.listFiles((dir, name) -> name.endsWith(".yaml") || name.endsWith(".yml"));
+                if (files != null) {
+                    for (File file : files) {
+                        // Формируем относительный путь
+                        yamlFiles.add(resourcePath + "/" + file.getName());
+                    }
+                }
+            } else {
+                throw new IllegalArgumentException("Provided path is not a directory: " + resourcePath);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return yamlFiles;
+        }
 }
