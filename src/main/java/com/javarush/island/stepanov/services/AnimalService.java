@@ -9,7 +9,7 @@ public class AnimalService extends Organism implements Movable, Reproduceble, Ea
 
     @Override
     public void eat() {
-        System.out.println(this.getClass().getSimpleName() + " is eating");
+        System.out.println(this.getClass().getSimpleName() + " is eating" + maxFood);
     }
 
     @Override

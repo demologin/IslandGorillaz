@@ -1,5 +1,5 @@
 ---
-name: Horse
+name: "Horse"
 icon: 🐎
 maxWeight: 400
 maxCountInCell: 20

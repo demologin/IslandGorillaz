@@ -12,14 +12,12 @@ public class GameMapCreator {
 
     public GameMap createRandomFilledGameMap(int rows, int cols, boolean b) {
         GameMap gameMap = new GameMap(rows, cols);
-        Cell[][] cells = gameMap.getCells(); // Получаем массив ячеек
-
+        Cell[][] cells = gameMap.getCells();
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                cells[i][j] = entityCreator.createRandomCell(); // Заменяем ячейку в массиве
+                cells[i][j] = entityCreator.createRandomCell();
             }
         }
-
         return gameMap;
     }
 }

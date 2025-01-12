@@ -14,12 +14,7 @@ public class EntityCreator {
 
     public Cell createRandomCell() {
         Cell cell = new Cell();
-        List<Organism> list = new LinkedList<>();
-        List<Organism> list1 = new LinkedList<>();
-        list.add(new AnimalService());
-        list.add(new PlantService());
-        cell.getResidentMap().put("Animal", list);
-        cell.getResidentMap().put("Plant", list1);
+        cell.getResidentMap().put("Animal",getAllPrototipes());
         return cell;
     }
 

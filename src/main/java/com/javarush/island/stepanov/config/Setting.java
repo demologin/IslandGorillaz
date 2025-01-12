@@ -13,7 +13,6 @@ import java.util.Objects;
 public class Setting {
 
     private static final String SETTING_YAMAL = "stepanov/setting.yaml";
-    //    private static final String[] TIPES = new String[]{"Horse"};
     public static final Organism[] PROTOTYPES= EntityScanner.createPrototypes();
     private static volatile Setting SETTING;
 
