@@ -34,20 +34,15 @@ public class YamalUtil {
     public static List<String> getYamlFilesFromDirectory(String resourcePath) {
         List<String> yamlFiles = new ArrayList<>();
         try {
-            // Получаем URL директории через ClassLoader
             URL directoryURL = YamalUtil.class.getClassLoader().getResource(resourcePath);
             if (directoryURL == null) {
                 throw new IllegalArgumentException("Directory not found: " + resourcePath);
             }
-
-            // Преобразуем URL в объект File
             File directory = new File(directoryURL.toURI());
             if (directory.isDirectory()) {
-                // Список всех файлов в директории с фильтрацией YAML-файлов
                 File[] files = directory.listFiles((dir, name) -> name.endsWith(".yaml") || name.endsWith(".yml"));
                 if (files != null) {
                     for (File file : files) {
-                        // Формируем относительный путь
                         yamlFiles.add(resourcePath + "/" + file.getName());
                     }
                 }
@@ -57,7 +52,6 @@ public class YamalUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return yamlFiles;
         }
 }

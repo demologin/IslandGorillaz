@@ -34,12 +34,12 @@ public class GameWorker extends Thread {
 
         try {
             while (count < Setting.get().getTurns()) {
-                view.show();
                 runWorkers(eatWorkers);
                 runWorkers(reproduceWorkers);
                 runWorkers(moveWorkers);
                 sleep(stepDelay);
                 count++;
+                view.show();
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

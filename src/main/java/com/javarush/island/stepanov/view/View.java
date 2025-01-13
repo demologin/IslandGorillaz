@@ -8,6 +8,6 @@ public interface View {
 
     String showScale();
 
-    String showMap();
+    void showMap();
 
 }

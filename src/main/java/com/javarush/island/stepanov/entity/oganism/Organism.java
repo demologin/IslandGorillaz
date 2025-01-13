@@ -7,6 +7,7 @@ import lombok.Getter;
 public abstract class Organism implements Eatable, Reproduceble,Cloneable {
     @Getter
     protected String name;
+    @Getter
     protected String icon;
     protected double maxWeight;
     @Getter
