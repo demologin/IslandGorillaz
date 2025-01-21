@@ -9,12 +9,12 @@ public class PlantService extends Organism implements Eatable, Reproduceble,Clon
 
     @Override
     public void eat() {
-        System.out.println(name + " is eating");
+//        System.out.println(name + " is eating");
     }
 
     @Override
     public void reproduce() {
-        System.out.println(name + " is reproducing");
+//        System.out.println(name + " is reproducing");
     }
 
     @Override

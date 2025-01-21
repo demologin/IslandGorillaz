@@ -29,17 +29,17 @@ public class GameWorker extends Thread {
     public void run() {
         View view = game.getView();
         getWorkersLists(game.getGameMap());
-        int count = 0;
+        int step = 0;
         int stepDelay = Setting.get().getStepDelay();
 
         try {
-            while (count < Setting.get().getTurns()) {
+            while (step < Setting.get().getTurns()) {
                 runWorkers(eatWorkers);
                 runWorkers(reproduceWorkers);
                 runWorkers(moveWorkers);
                 sleep(stepDelay);
-                count++;
-                view.show();
+                step++;
+                view.show(step);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

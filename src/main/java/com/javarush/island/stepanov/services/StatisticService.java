@@ -23,8 +23,8 @@ public class StatisticService {
 
     private Integer getPercentOfFilling(List<Organism> organisms) {
         int numberOfOrganisms = organisms.size();
-        int maxCountinCell = organisms.get(0).getMaxCountInCell();
-        Integer percentOfFilling = 100*numberOfOrganisms/maxCountinCell ;
+        int maxCountInCell = organisms.get(0).getMaxCountInCell();
+        Integer percentOfFilling = 100*numberOfOrganisms/maxCountInCell ;
         return percentOfFilling;
     }
 

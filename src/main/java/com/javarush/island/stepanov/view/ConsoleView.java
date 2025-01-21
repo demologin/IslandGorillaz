@@ -20,8 +20,8 @@ public class ConsoleView implements View {
     }
 
     @Override
-    public void show() {
-        showMap();
+    public void show(int step) {
+        showMap(step);
         showStatistics();
     }
 
@@ -36,20 +36,23 @@ public class ConsoleView implements View {
     }
 
     @Override
-    public void showMap() {
+    public void showMap(int step) {
+        System.out.println("Step: " + step);
         cells = gameMap.getCells();
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 statisticService.calcStatisticsOnCell(cells[i][j]);
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("Клетка Х= %s Y= %s", i, j);
+                stringBuilder.append("Клетка Х=").append(i).append(" Y=").append(j+"______________").append(" ");
                 SortedMap<Integer, String> statisticMap = cells[i][j].getPopulationStatistics();
                 for (Map.Entry<Integer, String> entry : statisticMap.entrySet()) {
-                    stringBuilder.append(entry.getValue()).append("-").append(entry.getKey());
+                    stringBuilder.append(entry.getValue()).append("-").append(entry.getKey()).append("% ");
                 }
                 stringBuilder.append("\n");
+                stringBuilder.append("-----------------------------------------------------------------------");
                 System.out.println(stringBuilder.toString());
             }
         }
+        System.out.println("=======================================================================");
     }
 }
