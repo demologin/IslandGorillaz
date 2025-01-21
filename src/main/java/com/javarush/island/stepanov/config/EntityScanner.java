@@ -1,17 +1,33 @@
 package com.javarush.island.stepanov.config;
 
-import com.javarush.island.stepanov.entity.oganism.Organism;
 import com.javarush.island.stepanov.services.AnimalService;
 import com.javarush.island.stepanov.services.PlantService;
 import com.javarush.island.stepanov.util.YamalUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EntityScanner {
     private static final String ANIMALS_YAMAL = "stepanov/animal";
     private static final String PLANTS_YAMAL = "stepanov/plant";
 
     private EntityScanner() {
+    }
+
+    protected static Map<String,String> createOrganismsViewMap(AnimalService[] animalServices, PlantService[] plantServices) {
+        Map<String,String> organismsViewMap = new HashMap<>();
+        for (AnimalService animalService : animalServices) {
+            String animalName = animalService.getName();
+            String animalView = animalService.getIcon();
+            organismsViewMap.put(animalName,animalView);
+        }
+        for (PlantService plantService : plantServices) {
+            String plantName = plantService.getName();
+            String plantView = plantService.getIcon();
+            organismsViewMap.put(plantName,plantView);
+        }
+        return organismsViewMap;
     }
 
     protected static AnimalService[] createAnimalsPrototypes() {

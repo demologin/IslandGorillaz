@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
 import java.util.Objects;
 
 @Getter
@@ -17,6 +18,8 @@ public class Setting {
     private static final String SETTING_YAMAL = "stepanov/setting.yaml";
     public static final AnimalService[] PROTOTYPES_ANIMALS = EntityScanner.createAnimalsPrototypes();
     public static final PlantService[] PROTOTYPES_PLANTS= EntityScanner.createPlantsPrototypes();
+    public static final Map<String,String> ORGANISMS_VIEW_MAP =
+            EntityScanner.createOrganismsViewMap(PROTOTYPES_ANIMALS,PROTOTYPES_PLANTS);
     private static volatile Setting SETTING;
 
     private Setting() {

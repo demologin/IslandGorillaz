@@ -7,6 +7,8 @@ import com.javarush.island.stepanov.services.StatisticService;
 import java.util.Map;
 import java.util.SortedMap;
 
+import static com.javarush.island.stepanov.config.Setting.ORGANISMS_VIEW_MAP;
+
 public class ConsoleView implements View {
 
     private final GameMap gameMap;
@@ -46,7 +48,9 @@ public class ConsoleView implements View {
                 stringBuilder.append("Клетка Х=").append(i).append(" Y=").append(j+"______________").append(" ");
                 SortedMap<Integer, String> statisticMap = cells[i][j].getPopulationStatistics();
                 for (Map.Entry<Integer, String> entry : statisticMap.entrySet()) {
-                    stringBuilder.append(entry.getValue()).append("-").append(entry.getKey()).append("% ");
+                    String organismName = entry.getValue();
+                    String organismView = ORGANISMS_VIEW_MAP.get(organismName);
+                    stringBuilder.append(organismView).append("-").append(entry.getKey()).append("% ");
                 }
                 stringBuilder.append("\n");
                 stringBuilder.append("-----------------------------------------------------------------------");
