@@ -7,6 +7,9 @@ import com.javarush.island.stepanov.entity.oganism.Organism;
 import java.security.KeyStore;
 import java.util.*;
 
+import static com.javarush.island.stepanov.constants.Constants.FIRST_NUMBRER;
+import static com.javarush.island.stepanov.constants.Constants.MAX_PERCENT;
+
 public class StatisticService {
     public void calcStatisticsOnCell(Cell cell) {
         SortedByValueTreeMap<String,Integer> statisticMap = cell.getPopulationStatistics();
@@ -23,9 +26,12 @@ public class StatisticService {
     }
 
     private Integer getPercentOfFilling(List<Organism> organisms) {
-        int numberOfOrganisms = organisms.size();
-        int maxCountInCell = organisms.get(0).getMaxCountInCell();
-        Integer percentOfFilling = 100*numberOfOrganisms/maxCountInCell ;
+        Organism prototype = organisms.get(FIRST_NUMBRER);
+        int numberOfFlocks= organisms.size();
+        int flockSize = prototype.getFlockSize();
+        int numberOfOrganisms = numberOfFlocks*flockSize;
+        int maxCountInCell = prototype.getMaxCountInCell();
+        Integer percentOfFilling = MAX_PERCENT*numberOfOrganisms/maxCountInCell ;
         return percentOfFilling;
     }
 
