@@ -4,7 +4,7 @@ import com.javarush.island.stepanov.config.Setting;
 import com.javarush.island.stepanov.entity.Game;
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
-import com.javarush.island.stepanov.entity.map.GeneralStatisticsMap;
+import com.javarush.island.stepanov.entity.map.GeneralStatistic;
 import com.javarush.island.stepanov.services.workers.cellworkers.*;
 import com.javarush.island.stepanov.view.View;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class GameWorker extends Thread {
     @Override
     public void run() {
         GameMap gameMap = game.getGameMap();
-        GeneralStatisticsMap generalStatisticsMap = gameMap.getGeneralStatisticsMap();
+        GeneralStatistic generalStatisticsMap = gameMap.getGeneralStatisticsMap();
         View view = game.getView();
         int step = FIRST_STEP;
         int stepDelay = Setting.get().getStepDelay();

@@ -4,9 +4,7 @@ public interface View {
 
     void show(int step);
 
-    String showStatistics();
-
-    String showScale();
+    void showGeneralStatistic();
 
     void showMap(int step);
 

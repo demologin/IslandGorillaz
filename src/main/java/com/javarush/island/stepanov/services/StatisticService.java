@@ -2,7 +2,7 @@ package com.javarush.island.stepanov.services;
 
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
-import com.javarush.island.stepanov.entity.map.GeneralStatisticsMap;
+import com.javarush.island.stepanov.entity.map.GeneralStatistic;
 import com.javarush.island.stepanov.entity.map.SortedByValueTreeMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 
@@ -13,7 +13,7 @@ import static com.javarush.island.stepanov.constants.Constants.MAX_PERCENT;
 
 public class StatisticService {
     private GameMap gameMap;
-    private GeneralStatisticsMap generalStatisticsMap;
+    private GeneralStatistic generalStatisticsMap;
 
     public StatisticService(GameMap gameMap) {
         this.gameMap = gameMap;
