@@ -16,7 +16,7 @@ public class ConsoleView implements View {
 
     private final GameMap gameMap;
     private Cell[][] cells ;
-    StatisticService statisticService = new StatisticService();
+
 
 
     public ConsoleView(GameMap gameMap) {
@@ -46,7 +46,6 @@ public class ConsoleView implements View {
         cells = gameMap.getCells();
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                statisticService.calcStatisticsOnCell(cells[i][j]);
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("Клетка Х=").append(i).append(" Y=").append(j+"______________").append(" ");
                 SortedByValueTreeMap<String, Integer> statisticMap = cells[i][j].getPopulationStatistics();

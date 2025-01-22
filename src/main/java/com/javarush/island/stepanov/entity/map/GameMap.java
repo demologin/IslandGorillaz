@@ -8,11 +8,10 @@ public class GameMap {
     @Getter
     private final Cell[][] cells;
     @Getter
-    private HashMap<String, Integer> generalStatistics;
+    private final GeneralStatisticsMap generalStatisticsMap;
 
     public GameMap(int rows, int colls) {
-        generalStatistics = new HashMap<>();
         cells = new Cell[rows][colls];
-
+        generalStatisticsMap= new  GeneralStatisticsMap();
     }
 }

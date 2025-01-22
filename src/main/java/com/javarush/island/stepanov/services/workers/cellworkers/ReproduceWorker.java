@@ -24,6 +24,6 @@ public class ReproduceWorker extends CellWorker {
                 organism.reproduce();
             }
         }
-        return null; // Возвращаем null, так как Void
+        return null;
     }
 }

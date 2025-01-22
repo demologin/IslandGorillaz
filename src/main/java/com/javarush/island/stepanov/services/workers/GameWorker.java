@@ -44,16 +44,14 @@ public class GameWorker extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-            // Завершаем пул после выполнения всех итераций
             servicePool.shutdown();
             try {
-                // Ожидаем завершения всех задач
                 if (!servicePool.awaitTermination(60, TimeUnit.SECONDS)) {
-                    servicePool.shutdownNow(); // Принудительно завершаем, если задачи не завершились
+                    servicePool.shutdownNow();
                 }
             } catch (InterruptedException e) {
-                servicePool.shutdownNow(); // Принудительно завершаем, если поток был прерван
-                Thread.currentThread().interrupt(); // Восстанавливаем статус прерывания
+                servicePool.shutdownNow();
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -65,6 +63,7 @@ public class GameWorker extends Thread {
                 eatWorkers.add(new EatWorker(gameMap, cell));
                 moveWorkers.add(new MoveWorker(gameMap, cell));
                 reproduceWorkers.add(new ReproduceWorker(gameMap, cell));
+
             }
         }
     }
