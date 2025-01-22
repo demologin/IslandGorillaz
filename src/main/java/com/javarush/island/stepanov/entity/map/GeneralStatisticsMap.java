@@ -8,9 +8,10 @@ import java.util.Map;
 import static com.javarush.island.stepanov.constants.Constants.MIN_NUMBER_OF_ORGANISMS;
 
 public class GeneralStatisticsMap {
-    private final Map<String, Integer> map =new HashMap<>();
+    private final Map<String, Integer> map;
 
     public GeneralStatisticsMap() {
+        map =new HashMap<>();
         Map<String, String> organismsMap = Setting.ORGANISMS_VIEW_MAP;
         organismsMap.forEach((k, v)->{
             map.put(k,MIN_NUMBER_OF_ORGANISMS);

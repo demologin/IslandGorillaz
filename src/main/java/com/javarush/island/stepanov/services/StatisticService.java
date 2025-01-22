@@ -13,10 +13,11 @@ import static com.javarush.island.stepanov.constants.Constants.MAX_PERCENT;
 
 public class StatisticService {
     private GameMap gameMap;
-    private GeneralStatisticsMap generalStatisticsMap = gameMap.getGeneralStatisticsMap();
+    private GeneralStatisticsMap generalStatisticsMap;
 
     public StatisticService(GameMap gameMap) {
         this.gameMap = gameMap;
+        this.generalStatisticsMap = gameMap.getGeneralStatisticsMap();
     }
 
     public void calcStatisticsOnCell(Cell cell) {
