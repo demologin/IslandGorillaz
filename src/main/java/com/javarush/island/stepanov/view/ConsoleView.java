@@ -6,6 +6,7 @@ import com.javarush.island.stepanov.entity.map.GeneralStatistic;
 import com.javarush.island.stepanov.entity.map.SortedByValueTreeMap;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.javarush.island.stepanov.config.Setting.ORGANISMS_VIEW_MAP;
 import static com.javarush.island.stepanov.constants.Constants.MIN_NUMBER_OF_ORGANISMS;
@@ -40,7 +41,7 @@ public class ConsoleView implements View {
     @Override
     public void showGeneralStatistic() {
         GeneralStatistic generalStatistic = gameMap.getGeneralStatisticsMap();
-        Map<String,Integer> generalStatisticsMap = generalStatistic.getMap();
+        Map<String, AtomicInteger> generalStatisticsMap = generalStatistic.getMap();
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
@@ -50,7 +51,7 @@ public class ConsoleView implements View {
                 .append(NEXT_LINE);
         generalStatisticsMap.forEach((k, v)->{
             String organismName = k;
-            Integer value = v;
+            Integer value = v.intValue();
             String organismView = ORGANISMS_VIEW_MAP.get(organismName);
             stringBuilder
                     .append(organismView)
