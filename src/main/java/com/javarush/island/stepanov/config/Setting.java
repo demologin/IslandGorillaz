@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -44,5 +45,13 @@ public class Setting {
     private int turns;
     private int occupancyRate;
     private int minOfFlocks;
+    private double minWeight;
+    @Getter(AccessLevel.PROTECTED)
+    private Map<String, Map<String, Integer>> foodMap = new LinkedHashMap<>();
+
+    public Map<String, Integer> getFoodMap(String keyName) {
+        this.foodMap.putIfAbsent(keyName, new LinkedHashMap<>());
+        return foodMap.get(keyName);
+    }
 
 }

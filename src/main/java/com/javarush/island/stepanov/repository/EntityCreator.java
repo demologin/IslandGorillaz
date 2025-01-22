@@ -9,8 +9,7 @@ import com.javarush.island.stepanov.util.Rnd;
 
 import java.util.*;
 
-import static com.javarush.island.stepanov.constants.Constants.MAX_PERCENT;
-import static com.javarush.island.stepanov.constants.Constants.MIN_PERCENT;
+import static com.javarush.island.stepanov.constants.Constants.*;
 
 public class EntityCreator {
     private static final int OCCUPANCY_RATE = Setting.get().getOccupancyRate();
@@ -31,6 +30,7 @@ public class EntityCreator {
             int occupancyNumber = getOccupancyNumber(prototype);
             for (int i = 0; i < occupancyNumber; i++) {
                 AnimalService newAnimal = prototype.clone();
+                setRandomWeight(newAnimal);
                 listResident.add(newAnimal);
             }
             residentMap.put(prototype.getName(), listResident);
@@ -44,10 +44,18 @@ public class EntityCreator {
             List<Organism> listResident = new ArrayList<>();
             for (int i = 0; i < occupancyNumber; i++) {
                 PlantService newPlant = prototype.clone();
+                setRandomWeight(newPlant);
                 listResident.add(newPlant);
             }
             residentMap.put(prototype.getName(), listResident);
         }
+    }
+
+    private static void setRandomWeight(Organism organism) {
+        double maxWeight = organism.getMaxWeight();
+        double minWeight = Setting.get().getMinWeight();
+        double randomWeight = Rnd.random(minWeight, maxWeight);
+        organism.setWeight(randomWeight);
     }
 
     private static int getOccupancyNumber(Organism prototype) {

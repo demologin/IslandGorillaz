@@ -5,3 +5,9 @@ turns: 2
 stepDelay: 1000
 occupancyRate: 30
 minOfFlocks: 0
+minWeight: 0.5
+foodMap:
+  Wolf:
+    Horse: 50
+  Horse:
+    Grass: 100

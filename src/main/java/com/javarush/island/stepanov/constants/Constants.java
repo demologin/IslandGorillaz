@@ -9,5 +9,4 @@ public class Constants {
     public static final int MIN_NUMBER_OF_ORGANISMS= 0;
 
 
-
 }

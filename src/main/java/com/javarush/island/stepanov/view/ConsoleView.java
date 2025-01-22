@@ -21,7 +21,7 @@ public class ConsoleView implements View {
     private static final String SPACE = " ";
     private static final String X_CELL_DESCRIPTION = "Клетка Х=";
     private static final String Y_CELL_DESCRIPTION = " Y=";
-    private static final String STEP_DESCRIPTION = "Шаг№ ";
+    private static final String STEP_DESCRIPTION = "Шаг № ";
     private static final String GENERAL_STATISTIC_DESCRIPTION = "ИТОГОВОЕ КОЛИЧЕСТВО ОРГАНИЗМОВ:";
     private static final String NEXT_LINE = "\n";
 

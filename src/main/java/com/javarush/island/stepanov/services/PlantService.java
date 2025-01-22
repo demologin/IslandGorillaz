@@ -9,7 +9,7 @@ public class PlantService extends Organism implements Eatable, Reproduceble,Clon
 
     @Override
     public void eat() {
-//        System.out.println(name + " is eating");
+        System.out.printf("%s is weight %.2f%n", name, getWeight());
     }
 
     @Override

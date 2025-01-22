@@ -1,9 +1,12 @@
 package com.javarush.island.stepanov.services;
 
+import com.javarush.island.stepanov.config.Setting;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Eatable;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Movable;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Reproduceble;
+
+import java.util.Map;
 
 public class AnimalService extends Organism implements Movable, Reproduceble, Eatable,Cloneable {
     protected int maxSpeed;
@@ -11,7 +14,12 @@ public class AnimalService extends Organism implements Movable, Reproduceble, Ea
 
     @Override
     public void eat() {
-//        System.out.println(name + " is eating" + maxFood);
+        System.out.printf("%s is weight %.2f%n", name, getWeight());
+        System.out.println("can eat :");
+        Map<String,Integer> foodMap = Setting.get().getFoodMap(name);
+        for (Map.Entry<String,Integer> entry : foodMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 
     @Override
