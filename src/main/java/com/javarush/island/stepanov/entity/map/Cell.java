@@ -16,6 +16,6 @@ public class Cell {
     @Getter
     private final HashMap<String,List<Organism>> residentMap = new HashMap();
     @Getter
-    private  SortedMap<Integer,String> populationStatistics = new TreeMap<>();
+    private  SortedByValueTreeMap<String,Integer> populationStatistics = new SortedByValueTreeMap<>();
 
 }

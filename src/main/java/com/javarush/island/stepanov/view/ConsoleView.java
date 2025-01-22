@@ -2,10 +2,13 @@ package com.javarush.island.stepanov.view;
 
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
+import com.javarush.island.stepanov.entity.map.SortedByValueTreeMap;
 import com.javarush.island.stepanov.services.StatisticService;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static com.javarush.island.stepanov.config.Setting.ORGANISMS_VIEW_MAP;
 
@@ -46,11 +49,12 @@ public class ConsoleView implements View {
                 statisticService.calcStatisticsOnCell(cells[i][j]);
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("Клетка Х=").append(i).append(" Y=").append(j+"______________").append(" ");
-                SortedMap<Integer, String> statisticMap = cells[i][j].getPopulationStatistics();
-                for (Map.Entry<Integer, String> entry : statisticMap.entrySet()) {
-                    String organismName = entry.getValue();
+                SortedByValueTreeMap<String, Integer> statisticMap = cells[i][j].getPopulationStatistics();
+                for (Map.Entry<String, Integer> entry : statisticMap.entrySet()) {
+                    String organismName = entry.getKey();
                     String organismView = ORGANISMS_VIEW_MAP.get(organismName);
-                    stringBuilder.append(organismView).append("-").append(entry.getKey()).append("% ");
+                    Integer organismPopulation = entry.getValue();
+                    stringBuilder.append(organismView).append("-").append(organismPopulation).append("% ");
                 }
                 stringBuilder.append("\n");
                 stringBuilder.append("-----------------------------------------------------------------------");
