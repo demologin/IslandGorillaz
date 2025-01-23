@@ -40,6 +40,7 @@ public class GameWorker extends Thread {
                 runWorkers(eatWorkers);
                 runWorkers(reproduceWorkers);
                 runWorkers(moveWorkers);
+                runWorkers(starveworkers);
                 generalStatisticsMap.clear();
                 runWorkers(statisticWorkers);
                 sleep(stepDelay);
