@@ -3,14 +3,15 @@ package com.javarush.island.nikitin.domain.entity.biota;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class Property implements Cloneable {
     private final String name;
     private final String icon;
     @Setter
     private double weight;
-    //private double dailyEnergyExpenditure
 
     @JsonCreator
     private Property(PropertyBuilder propertyBuilder) {
@@ -51,14 +52,5 @@ public class Property implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Property{" +
-                "name='" + name + '\'' +
-                ", icon='" + icon + '\'' +
-                ", weight=" + weight +
-                '}';
     }
 }

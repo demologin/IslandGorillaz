@@ -6,44 +6,51 @@ import lombok.Setter;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * This class provides methods for creating empty and full populations
+ * based on data stored in the registry.
+ */
 @Setter
 public class PopulationService {
     private final Boolean defaultValueIntoMap = Boolean.TRUE;
     private RegistryProto registryProto;
 
-    public Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> createEmptyPopulation() {
-        return registryProto.registry().entrySet().stream()
+    public Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> createEmptyPopulationIntoLocation() {
+        Map<String, Biota> registry = registryProto.registry();
+        return registry.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         v -> new ConcurrentHashMap<Biota, Boolean>().keySet(defaultValueIntoMap)));
     }
 
-    public Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> createAllPopulation() {
-        return registryProto.registry().entrySet().stream()
+    public Map<String, ConcurrentHashMap.KeySetView<Biota, Boolean>> createAllPopulationIntoLocation() {
+        Map<String, Biota> registry = registryProto.registry();
+        return registry.entrySet().stream()
                 .collect(Collectors.toMap(
-                        Map.Entry::getKey, e -> createSinglePopulation(e.getValue())));
+                        Map.Entry::getKey,
+                        e -> createSinglePopulation(e.getValue())));
     }
 
     private ConcurrentHashMap.KeySetView<Biota, Boolean> createSinglePopulation(Biota proto) {
         int limiter = maxCountPopulation(proto);
-        return IntStream.range(0, limiter)
+        ConcurrentHashMap<Biota, Boolean> collect = IntStream.range(0, limiter)
                 .mapToObj(count -> proto.clone())
                 .collect(Collectors.toConcurrentMap(
                         biota -> biota,
                         biota -> defaultValueIntoMap,
-                        (first, second) -> first,
-                        ConcurrentHashMap::new))
-                .keySet(defaultValueIntoMap);
+                        (firstValue, secondValue) -> firstValue,
+                        ConcurrentHashMap::new));
+        return collect.keySet(defaultValueIntoMap);
     }
 
     private int maxCountPopulation(Biota proto) {
-        int bound = 1;
-        int maxCountPopulation = proto.getLimitData().maxCountUnit() + bound;
-        return ThreadLocalRandom.current().nextInt(maxCountPopulation);
+        int lowerBound = 1;
+        int maxCountPopulation = proto.getLimitData().maxCountUnit();
+        int randomCount = ThreadLocalRandom.current().nextInt(maxCountPopulation);
+        return randomCount + lowerBound;
     }
 }

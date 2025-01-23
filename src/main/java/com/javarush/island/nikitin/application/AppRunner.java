@@ -1,31 +1,34 @@
 package com.javarush.island.nikitin.application;
 
 import com.javarush.island.nikitin.application.config.Settings;
+import com.javarush.island.nikitin.application.controllers.AppController;
+import com.javarush.island.nikitin.application.entity.SurvivalGame;
+import com.javarush.island.nikitin.application.exception.AppException;
 import com.javarush.island.nikitin.application.services.EcoSystemService;
 import com.javarush.island.nikitin.application.services.PreparationService;
-import com.javarush.island.nikitin.domain.entity.map.Island;
+import com.javarush.island.nikitin.domain.exception.DomainException;
 import com.javarush.island.nikitin.domain.usecase.EcoSystem;
-import com.javarush.island.nikitin.presentation.api.View;
 
 // TODO запуск приложения. Конструктор принимает объект вида , с которым будет работат - консоль или SWING
 public class AppRunner {
-    private final View view;
+    private final AppController appController;
 
-    public AppRunner(View view) {
-        this.view = view;
+    public AppRunner(AppController appController) {
+        this.appController = appController;
     }
 
     public void start() {
-        Settings settings = Settings.newInstance();
+        try {
+            var settings = Settings.newInstance();
+            var survivalGame = new SurvivalGame(settings);
+            var preparationService = new PreparationService(settings, survivalGame);
 
-        var island = new Island(settings.getRows(), settings.getColumns());
-        var ecoSystem = new EcoSystem(island, settings.getStartDate());
-        var preparationService = new PreparationService(settings, island);
+            EcoSystem ecoSystem = preparationService.setupEcoSystem();
+            var ecoSystemService = new EcoSystemService(ecoSystem, appController, settings);
+            ecoSystemService.beginSurvival();
 
-        preparationService.make();
-
-        var ecoSystemService = new EcoSystemService(ecoSystem, view);
-
-        ecoSystemService.simulateDay(settings.getPeriodLive());
+        } catch (AppException | DomainException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

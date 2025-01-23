@@ -5,5 +5,7 @@ public record LimitData(
         int maxSpeed,
         double maxFoodFeed,
         int maxCountUnit,
-        double dailyWeightLossPct) {
+        double pctMinWeightForSurvival,
+        double pctDailyWeightLoss,
+        double pctReproduction) {
 }

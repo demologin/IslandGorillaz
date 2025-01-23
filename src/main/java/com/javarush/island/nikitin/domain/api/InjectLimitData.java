@@ -12,6 +12,8 @@ public @interface InjectLimitData {
      int maxSpeed() default 0;
      double maxFoodFeed() default 0d;
      int maxCountUnit();
-     double dailyWeightLossPct() default 0d;
+     double pctMinWeightForSurvival() default 0.05d;
+     double pctDailyWeightLoss() default 0.01d;
+     double pctReproduction() default 0.1d;
 
 }

@@ -2,6 +2,7 @@ package com.javarush.island.nikitin.domain.entity.biota.plants;
 
 import com.javarush.island.nikitin.domain.api.GameUnit;
 import com.javarush.island.nikitin.domain.api.InjectLimitData;
+import com.javarush.island.nikitin.domain.constants.LogMessagesDmn;
 import com.javarush.island.nikitin.domain.entity.biota.Biota;
 import com.javarush.island.nikitin.domain.entity.biota.LimitData;
 import com.javarush.island.nikitin.domain.entity.biota.PreferenceMenu;
@@ -24,36 +25,29 @@ public class Grass extends Biota {
 
     @Override
     public Optional<Biota> findPrey(Location habitat, PreferenceMenu preferenceMenu) {
-
-        Optional<Biota> empty = Optional.empty();
-        LOGGER.debug("\t2 IAM {}, - my findPrey {} ", this, empty);
-        return empty;
+        Optional<Biota> assessPrey = Optional.empty();
+        LOGGER.debug(LogMessagesDmn.FIND_PREY_MY_PREY_CANDIDATE, this, assessPrey);
+        return assessPrey;
     }
 
     @Override
     public boolean eat(Biota prey, Location habitat) {
-        LOGGER.debug("{}", this);
+        LOGGER.debug(LogMessagesDmn.EAT_START, this, prey);
+        double maxWeight = getLimitData().maxWeight();
+        updateWeight(maxWeight);
         return true;
     }
 
     @Override
     public void reproduce(Location habitat, boolean successfulLunch) {
-       // System.out.println(" reproduce " + this);
         Biota clone = clone();
         clone.currentDayIsFinish();
-        habitat.addUnitLocation(clone);
-        if (successfulLunch) {
-            reproduce(habitat, false);
+        if (habitat.addUnitLocation(clone)) {
+            LOGGER.debug(LogMessagesDmn.REPRODUCE_ASSESS, clone, habitat);
         }
-
     }
 
     @Override
     public void migrate(Location habitat) {
-    }
-
-    @Override
-    public void dailyEnergyExpenditure(Location habitat) {
-        getProperty().setWeight(getLimitData().maxWeight());
     }
 }

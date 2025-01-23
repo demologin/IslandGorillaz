@@ -1,7 +1,9 @@
 package com.javarush.island.nikitin.domain.entity.biota;
 
+import com.javarush.island.nikitin.domain.constants.LogMessagesDmn;
 import com.javarush.island.nikitin.domain.entity.map.Location;
-import com.javarush.island.nikitin.domain.entity.map.navigation.Navigator;
+import com.javarush.island.nikitin.domain.entity.navigation.Navigator;
+import com.javarush.island.nikitin.domain.util.Biotas;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -18,18 +19,12 @@ import java.util.concurrent.atomic.AtomicLong;
 public abstract class Biota implements Cloneable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Biota.class);
-
     private static final AtomicLong ID_COUNTER = new AtomicLong();
-    private static final double PCT_WEIGHT_LOSS = 0.01d;
-    private static final double PCT_WEIGHT_FOR_SURVIVAL = 0.05d;
-    private static final double PCT_FOR_REPRODUCE = 0.1d;
     private AtomicBoolean isAlive = new AtomicBoolean(true);
     @EqualsAndHashCode.Include
     private long id = ID_COUNTER.getAndIncrement();
-
     @Setter
     private int currentDay;
-
     @Setter
     private Navigator navigator;
     private Property property;
@@ -42,28 +37,23 @@ public abstract class Biota implements Cloneable {
         this.preferenceMenu = preferenceMenu;
     }
 
-    //todo this взят из копии коллекции локации, можно модифицировать основную коллекцию
     public final void survive(Location habitat, int calendarDay) {
-        //System.out.println(calendarDay + " dddddddddddddddddddd " + this.getCurrentDay());
-        if (!isAlive.get()) {
-            throw new RuntimeException("isAlive: " + isAlive + " " + getId() + " day " + currentDay + " " + calendarDay + " " + habitat.localId + this);
-        }
+        Biotas.checkLifeStatus(this);
         if (this.currentDay == calendarDay) {
-            loggOnlyThis("1 Start");
+            LOGGER.debug(LogMessagesDmn.SURVIVE_START, this, habitat);
 
+            Optional<Biota> preyCandidate = findPrey(habitat, preferenceMenu);
+            boolean successfulLunch = preyCandidate
+                    .map(prey -> eat(prey, habitat))
+                    .orElse(false);
+            reproduce(habitat, successfulLunch);
+            migrate(habitat);
             dailyEnergyExpenditure(habitat);
-            if (isAlive.get()) {
-                Optional<Biota> preyWrapper = findPrey(habitat, getPreferenceMenu());
-                preyWrapper.ifPresent(prey -> loggThisAndPrey("\t\t3 Before eat ", prey, habitat));
+            currentDayIsFinish();
 
-                boolean successfulLunch = preyWrapper.map(biota -> this.eat(biota, habitat)).orElse(false);
-
-                preyWrapper.ifPresent(prey -> loggThisAndPrey("\t\t\t\t5 After eat ", prey, habitat));
-
-                reproduce(habitat, successfulLunch);
-                migrate(habitat); //работает
-                currentDayIsFinish();
-            }
+            LOGGER.debug(LogMessagesDmn.SURVIVE_FINISH, this);
+        } else {
+            LOGGER.debug(LogMessagesDmn.PASS_IAM_CALENDAR_DAY, this, calendarDay);
         }
     }
 
@@ -74,43 +64,48 @@ public abstract class Biota implements Cloneable {
     public abstract void migrate(Location habitat);
 
     public void reproduce(Location habitat, boolean successfulLunch) {
-
-        if (successfulLunch &&
-                habitat.checkPartner(sayMyNameCommunity()) &&
-                successfulReproduce()) {
+        boolean hasPartner = hasPartner(habitat);
+        boolean successRollReproduce = Biotas.isSuccessRollReproduce(this);
+        if (successfulLunch && hasPartner && successRollReproduce) {
             int splitBiota = 2;
-            double futureWeight = property.getWeight() / splitBiota;
-            if (isCriticalWeight(futureWeight)) {
+            double currentWeight = Biotas.fetchWeight(this);
+            double futureWeight = currentWeight / splitBiota;
+            boolean isCriticalWeight = Biotas.isCriticalWeight(this, futureWeight);
+            if (isCriticalWeight) {
                 return;
             }
-            property.setWeight(futureWeight);
+            updateWeight(futureWeight);
             Biota clone = clone();
             clone.currentDayIsFinish();
             if (habitat.addUnitLocation(clone)) {
-                loggThisAndPrey("reproduce Assess,", clone, habitat);
-            } else {
-                loggThisAndPrey("reproduce Fail,", clone, habitat);
+                LOGGER.debug(LogMessagesDmn.REPRODUCE_ASSESS, clone, habitat);
             }
-
         }
     }
 
-    public void dailyEnergyExpenditure(Location habitat) {
-        double updatedWeight = calculateUpdatedWeight();
-        if (isCriticalWeight(updatedWeight)) {
+    public final void dailyEnergyExpenditure(Location habitat) {
+        double weightAfterDailyLoss = Biotas.calculateWeightAfterDailyLoss(this);
+        if (Biotas.isCriticalWeight(this, weightAfterDailyLoss)) {
             death(habitat);
         } else {
-            property.setWeight(updatedWeight);
+            updateWeight(weightAfterDailyLoss);
         }
     }
 
     public final void death(Location habitat) {
-        loggOnlyThis("Death ");
-        if (habitat.removeUnitLocation(this)) {
+        LOGGER.debug(LogMessagesDmn.DEATH, this);
+        if (habitat.buryInGrave(this)) {
             isAlive.set(false);
         }
     }
 
+    public final void currentDayIsFinish() {
+        this.currentDay++;
+    }
+
+    public final void updateWeight(double weight) {
+        property.setWeight(weight);
+    }
 
     @Override
     public Biota clone() {
@@ -125,55 +120,20 @@ public abstract class Biota implements Cloneable {
         }
     }
 
-    private boolean successfulReproduce() {
-        return ThreadLocalRandom.current().nextDouble() < PCT_FOR_REPRODUCE;
-    }
-
-    private double calculateUpdatedWeight() {
-        double dailyEnergyExpenditure = limitData.maxWeight() * PCT_WEIGHT_LOSS;
-        return property.getWeight() - dailyEnergyExpenditure;
-    }
-
-    public boolean isCriticalWeight(double targetWeight) {
-        double minWeightForSurvival = limitData.maxWeight() * PCT_WEIGHT_FOR_SURVIVAL;
-        return targetWeight < minWeightForSurvival;
-    }
-
-    public final String sayMyNameCommunity() {
-        return getClass().getSimpleName();
-    }
-
-    public final void currentDayIsFinish() {
-        this.currentDay++;
+    private boolean hasPartner(Location habitat) {
+        int minPartner = 1;
+        String nameCommunity = Biotas.sayMyNameCommunity(this);
+        return habitat.checkPartner(nameCommunity, minPartner);
     }
 
     @Override
     public String toString() {
         return "Biota { " +
-                "name=" + sayMyNameCommunity() +
+                "name=" + Biotas.sayMyNameCommunity(this) +
                 ", id=" + id +
                 ", isAlive=" + isAlive.get() +
                 ", currentDay=" + currentDay +
-                ", weight=" + property.getWeight() +
+                ", weight=" + Biotas.fetchWeight(this) +
                 '}';
-    }
-
-    private void loggOnlyThis(String message) {
-        LOGGER.debug("{} I am: {}",
-                message, this);
-    }
-
-    private void loggThisAndPrey(String message, Biota prey, Location habitat) {
-        LOGGER.debug("{} I am: {}, id: {}, w: {} isAlive: {} Location: {} - My prey: {}, id: {}, w: {} isAlive: {} ",
-                message,
-                sayMyNameCommunity(),
-                id,
-                property.getWeight(),
-                isAlive.get(),
-                habitat.localId,
-                prey.sayMyNameCommunity(),
-                prey.getId(),
-                prey.property.getWeight(),
-                prey.isAlive.get());
     }
 }

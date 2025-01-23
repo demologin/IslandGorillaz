@@ -1,9 +1,12 @@
 ---
 tempMap:
   Settings:
-    startOccupancyRate: 0.5
-    rows: 5
-    columns: 5
-    startDate: 10
+    rows: 100
+    columns: 20
+    startDate: 0
     percentFillingLocation: 1.0
-    periodLive: 1
+    periodLife: 1000
+    rowsPrint: 6
+    columnsPrint: 2
+    countBiotaPrint: 18
+    stepWarmUpCacheNavigator: 3

@@ -13,7 +13,7 @@ import java.util.Set;
  * The class finds classes marked with an annotation @GameUnit,
  * which is a marker for the game's unit classes.
  */
-public class ClassFinder {
+public final class ClassFinder {
     private static final Set<Class<?>> cacheUnitClasses = new HashSet<>();
 
     public static Set<Class<?>> getCacheUnitClasses() {
@@ -21,7 +21,8 @@ public class ClassFinder {
     }
 
     /**
-     * The method tries to find classes marked with the @GameUnit annotation
+     * Scans all folders from the root of the given directory
+     * and tries to find classes marked with the @GameUnit annotation.
      *
      * @param namePackage - this is the package name where to start
      *                    searching for the game's unit classes.

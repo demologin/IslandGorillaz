@@ -6,6 +6,11 @@ import com.javarush.island.nikitin.domain.entity.biota.PreferenceMenu;
 import com.javarush.island.nikitin.domain.entity.biota.Property;
 import lombok.Getter;
 
+/**
+ * An enumeration that represents a list of classes used in the application.
+ * Each enumeration element corresponds to a specific class and provides access to its object.
+ */
+
 @Getter
 public enum ClazzList {
     PREFERENCE_MENU(PreferenceMenu.class),

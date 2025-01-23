@@ -1,0 +1,130 @@
+---
+tempMap:
+  Boar:
+    maxWeight: 400.0
+    maxSpeed: 2
+    maxFoodFeed: 50.0
+    maxCountUnit: 50
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Rabbit:
+    maxWeight: 2.0
+    maxSpeed: 2
+    maxFoodFeed: 0.45
+    maxCountUnit: 150
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Caterpillar:
+    maxWeight: 0.01
+    maxSpeed: 0
+    maxFoodFeed: 0.0
+    maxCountUnit: 1000
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Bear:
+    maxWeight: 500.0
+    maxSpeed: 2
+    maxFoodFeed: 80.0
+    maxCountUnit: 5
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Grass:
+    maxWeight: 1.0
+    maxSpeed: 0
+    maxFoodFeed: 0.0
+    maxCountUnit: 200
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Fox:
+    maxWeight: 8.0
+    maxSpeed: 2
+    maxFoodFeed: 2.0
+    maxCountUnit: 30
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Deer:
+    maxWeight: 300.0
+    maxSpeed: 4
+    maxFoodFeed: 50.0
+    maxCountUnit: 20
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Mouse:
+    maxWeight: 0.05
+    maxSpeed: 1
+    maxFoodFeed: 0.01
+    maxCountUnit: 500
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Boa:
+    maxWeight: 15.0
+    maxSpeed: 1
+    maxFoodFeed: 3.0
+    maxCountUnit: 30
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Horse:
+    maxWeight: 400.0
+    maxSpeed: 4
+    maxFoodFeed: 60.0
+    maxCountUnit: 20
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Sheep:
+    maxWeight: 70.0
+    maxSpeed: 3
+    maxFoodFeed: 15.0
+    maxCountUnit: 140
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Duck:
+    maxWeight: 1.0
+    maxSpeed: 4
+    maxFoodFeed: 0.15
+    maxCountUnit: 200
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Goat:
+    maxWeight: 60.0
+    maxSpeed: 3
+    maxFoodFeed: 10.0
+    maxCountUnit: 140
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Wolf:
+    maxWeight: 50.0
+    maxSpeed: 3
+    maxFoodFeed: 8.0
+    maxCountUnit: 30
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Eagle:
+    maxWeight: 6.0
+    maxSpeed: 3
+    maxFoodFeed: 1.0
+    maxCountUnit: 20
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1
+  Buffalo:
+    maxWeight: 700.0
+    maxSpeed: 3
+    maxFoodFeed: 100.0
+    maxCountUnit: 10
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1

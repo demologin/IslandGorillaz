@@ -6,6 +6,11 @@ import lombok.Getter;
 
 import java.lang.annotation.Annotation;
 
+/**
+ * An enumeration representing the targets of the annotations used in the application.
+ * Each enumeration element corresponds to a specific annotation and provides access to its class.
+ */
+
 @Getter
 public enum AnnotationGoal {
     GAME_UNIT(GameUnit.class),

@@ -13,8 +13,24 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Utility class for collecting and processing default data for various data types for game units
+ */
 public class DefaultDataAssembler {
 
+    /**
+     * Assembles data into a map using the provided array of animal types and a 2D data array
+     *
+     * @param animalType -An array of strings representing animal types
+     * @param arrayData  - A two-dimensional array of data, where each row corresponds to an animal type
+     * @param function   - A function that converts an array of data into an object of type R
+     *                   @see DefaultDataAssembler#makePreferenceMenu
+     *                   @see DefaultDataAssembler#makeProperty
+     *                   @see DefaultDataAssembler#makeLimitData
+     * @param <T>        - The type of elements in the data array.
+     * @param <R>        - The type of objects that will be collected in the map
+     * @return - A map where the key is the animal type and the value is the result of applying the function to the data
+     */
     public static <T, R> Map<String, R> collectData(String[] animalType, T[][] arrayData, Function<T[], R> function) {
         verifyArraysDataConsistency(animalType, arrayData);
         HashMap<String, R> map = new HashMap<>();
@@ -52,8 +68,11 @@ public class DefaultDataAssembler {
         int maxSpeed = targetDataForType[1].intValue();
         double maxFoodFeed = targetDataForType[2];
         int maxCountUnit = targetDataForType[3].intValue();
-        double dailyWeightLossPct = 0;
-        return new LimitData(maxWeight, maxSpeed, maxFoodFeed, maxCountUnit, dailyWeightLossPct);
+        double pctMinWeightForSurvival = targetDataForType[4];
+        double pctDailyWeightLoss = targetDataForType[5];
+        double pctReproduction = targetDataForType[6];
+        return new LimitData(maxWeight, maxSpeed, maxFoodFeed, maxCountUnit,
+                pctMinWeightForSurvival, pctDailyWeightLoss, pctReproduction);
     }
 
     private static <T, R> void verifyArraysDataConsistency(T[] lengthType, R[][] lengthData) {

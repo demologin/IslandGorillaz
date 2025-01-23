@@ -7,7 +7,7 @@ import com.javarush.island.nikitin.domain.entity.biota.Property;
 
 import java.util.Map;
 
-public class DefaultData {
+public final class DefaultData {
     public static Map<String, PreferenceMenu> PREFERENCE_MENU_MAP;
     public static Map<String, Property> PROPERTY_MAP;
     public static Map<String, LimitData> LIMIT_DATA_MAP;
@@ -34,9 +34,9 @@ public class DefaultData {
     };
 
     /**
-     * String name;
-     * String icon;
-     * double weight;
+     * PROPERTY_BIOTA[0] - String name;
+     * PROPERTY_BIOTA[1] - String icon;
+     * PROPERTY_BIOTA[2] - double weight;
      */
 
     public static final String[][] PROPERTY_BIOTA = {
@@ -59,29 +59,32 @@ public class DefaultData {
     };
 
     /**
-     * double maxWeight,
-     * int maxSpeed,
-     * double maxFoodFeed,
-     * int maxCountUnit,
-     * double dailyWeightLossPct
+     * LIMITS[0] - double maxWeight,
+     * LIMITS[1] - int maxSpeed,
+     * LIMITS[2] - double maxFoodFeed,
+     * LIMITS[3] - int maxCountUnit,
+     * LIMITS[4] - double pctMinWeightForSurvival
+     * LIMITS[5] - double pctDailyWeightLoss
+     * LIMITS[6] - double pctReproduction
      */
+
     public static final Double[][] LIMITS = {
-            {50d, 3d, 8d, 30d},
-            {15d, 1d, 3d, 30d},
-            {8d, 2d, 2d, 30d},
-            {500d, 2d, 80d, 5d},
-            {6d, 3d, 1d, 20d},
-            {400d, 4d, 60d, 20d},
-            {300d, 4d, 50d, 20d},
-            {2d, 2d, 0.45d, 150d},
-            {0.05d, 1d, 0.01d, 500d},
-            {60d, 3d, 10d, 140d},
-            {70d, 3d, 15d, 140d},
-            {400d, 2d, 50d, 50d},
-            {700d, 3d, 100d, 10d},
-            {1d, 4d, 0.15, 200d},
-            {0.01d, 0d, 0d, 1000d},
-            {1d, 0d, 0d, 200d}
+            {50d, 3d, 8d, 30d, 0.05d, 0.01d, 0.1d},
+            {15d, 1d, 3d, 30d, 0.05d, 0.01d, 0.1d},
+            {8d, 2d, 2d, 30d, 0.05d, 0.01d, 0.1d},
+            {500d, 2d, 80d, 5d, 0.05d, 0.01d, 0.1d},
+            {6d, 3d, 1d, 20d, 0.05d, 0.01d, 0.1d},
+            {400d, 4d, 60d, 20d, 0.05d, 0.01d, 0.1d},
+            {300d, 4d, 50d, 20d, 0.05d, 0.01d, 0.1d},
+            {2d, 2d, 0.45d, 150d, 0.05d, 0.01d, 0.1d},
+            {0.05d, 1d, 0.01d, 500d, 0.05d, 0.01d, 0.1d},
+            {60d, 3d, 10d, 140d, 0.05d, 0.01d, 0.1d},
+            {70d, 3d, 15d, 140d, 0.05d, 0.01d, 0.1d},
+            {400d, 2d, 50d, 50d, 0.05d, 0.01d, 0.1d},
+            {700d, 3d, 100d, 10d, 0.05d, 0.01d, 0.1d},
+            {1d, 4d, 0.15, 200d, 0.05d, 0.01d, 0.1d},
+            {0.01d, 0d, 0d, 1000d, 0.05d, 0.5d, 0.1d},
+            {1d, 0d, 0d, 200d, 0.05d, 0.01d, 0.1d},
     };
 
     public static Map<String, PreferenceMenu> initPreferenceMenuMap() {

@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
 
-public class PathBuilder {
+public final class PathBuilder {
     private PathBuilder() {
     }
 

@@ -1,7 +1,7 @@
 package com.javarush.island.nikitin.application.services;
 
-import com.javarush.island.nikitin.application.constants.AnnotationGoal;
 import com.javarush.island.nikitin.application.config.Settings;
+import com.javarush.island.nikitin.application.constants.AnnotationGoal;
 import com.javarush.island.nikitin.application.constants.FailMessagesApp;
 import com.javarush.island.nikitin.application.exception.AppException;
 import com.javarush.island.nikitin.domain.api.InjectLimitData;
@@ -9,7 +9,7 @@ import com.javarush.island.nikitin.domain.entity.biota.Biota;
 import com.javarush.island.nikitin.domain.entity.biota.LimitData;
 import com.javarush.island.nikitin.domain.entity.biota.PreferenceMenu;
 import com.javarush.island.nikitin.domain.entity.biota.Property;
-import com.javarush.island.nikitin.domain.entity.map.navigation.Navigator;
+import com.javarush.island.nikitin.domain.entity.navigation.Navigator;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -17,6 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Service for managing prototypes of biota instances, handling their creation and caching.
+ *
+ * @see PrototypeService#createBiotaInstance
+ */
 public class PrototypeService {
     private final Settings settings;
     private final Map<String, Biota> cachePrototypes = new HashMap<>();
@@ -29,9 +34,16 @@ public class PrototypeService {
         typeClasses.forEach(this::createBiotaInstance);
     }
 
-    public Map<String, Biota> flush() {
+    public Map<String, Biota> retrieveCacheSnapshot() {
         return new HashMap<>(cachePrototypes);
     }
+
+    /**
+     * Creates an instance of a biota class and caches it if not already present.
+     *
+     * @param clazz the class of the biota to create
+     * @param <T>   the type of biota
+     */
 
     private <T extends Biota> void createBiotaInstance(Class<?> clazz) {
         String nameCommunity = clazz.getSimpleName();
@@ -44,6 +56,17 @@ public class PrototypeService {
         } else throw new AppException(FailMessagesApp.NOT_CONTAIN_THE_TARGET_CLASS);
     }
 
+    /**
+     * Creates a new instance of a biota using reflection.
+     *
+     * @param clazz          the class of the biota to create
+     * @param limitData      the limit data for the biota
+     * @param property       the properties associated with the biota
+     * @param preferenceMenu the preference menu for the biota
+     * @param <T>            the type of biota
+     * @return a new instance of the specified biota class
+     */
+
     @SuppressWarnings("unchecked")
     private <T extends Biota> T newInstance(Class<?> clazz, LimitData limitData, Property property, PreferenceMenu preferenceMenu) {
         try {
@@ -54,6 +77,7 @@ public class PrototypeService {
             throw new AppException(e);
         }
     }
+
 
     private LimitData retrieve(Class<?> clazz) {
         if (!clazz.isAnnotationPresent(AnnotationGoal.INJECT_LIMIT_DATA.getValue())) {
@@ -69,7 +93,9 @@ public class PrototypeService {
                 annotation.maxSpeed(),
                 annotation.maxFoodFeed(),
                 annotation.maxCountUnit(),
-                annotation.dailyWeightLossPct());
+                annotation.pctMinWeightForSurvival(),
+                annotation.pctDailyWeightLoss(),
+                annotation.pctReproduction());
     }
 
     public void setAttributesIntoProto(Navigator navigator, int startData) {
