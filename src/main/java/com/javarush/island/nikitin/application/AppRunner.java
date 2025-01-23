@@ -9,7 +9,6 @@ import com.javarush.island.nikitin.application.services.PreparationService;
 import com.javarush.island.nikitin.domain.exception.DomainException;
 import com.javarush.island.nikitin.domain.usecase.EcoSystem;
 
-// TODO запуск приложения. Конструктор принимает объект вида , с которым будет работат - консоль или SWING
 public class AppRunner {
     private final AppController appController;
 
