@@ -20,6 +20,9 @@ public abstract class Organism implements Reproduceble,Cloneable {
     protected int maxCountInCell;
     @Getter
     protected int flockSize;
+    @Setter
+    @Getter
+    protected double weight;
 
     @Override
     public Organism clone() {
@@ -29,12 +32,5 @@ public abstract class Organism implements Reproduceble,Cloneable {
             throw new RuntimeException("Cloning not supported", e);
         }
     }
-
-    public double getWeight() {
-        return maxWeight;
-    }
-
-
-
 
 }
