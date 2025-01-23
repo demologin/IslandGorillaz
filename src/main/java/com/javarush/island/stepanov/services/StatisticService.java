@@ -4,7 +4,7 @@ import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.map.GeneralStatistic;
 import com.javarush.island.stepanov.entity.map.SortedByValueTreeMap;
-import com.javarush.island.stepanov.entity.Organism;
+import com.javarush.island.stepanov.entity.oganism.Organism;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
 package com.javarush.island.stepanov.services.organisms;
 
 import com.javarush.island.stepanov.config.Setting;
-import com.javarush.island.stepanov.entity.Organism;
+import com.javarush.island.stepanov.entity.oganism.Organism;
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Movable;
 import com.javarush.island.stepanov.util.Rnd;

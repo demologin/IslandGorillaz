@@ -2,7 +2,7 @@ package com.javarush.island.stepanov.services.workers.cellworkers;
 
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
-import com.javarush.island.stepanov.entity.Organism;
+import com.javarush.island.stepanov.entity.oganism.Organism;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,5 @@
 package com.javarush.island.stepanov.services.organisms;
 
-import com.javarush.island.stepanov.entity.Organism;
 import com.javarush.island.stepanov.entity.map.Cell;
 
 

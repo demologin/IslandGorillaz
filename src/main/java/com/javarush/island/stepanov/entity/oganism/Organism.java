@@ -1,16 +1,10 @@
-package com.javarush.island.stepanov.entity;
+package com.javarush.island.stepanov.entity.oganism;
 
-import com.javarush.island.stepanov.config.Setting;
-import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Eatable;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Reproduceble;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Starving;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
-
-import static com.javarush.island.stepanov.constants.Constants.DIE_WEIGHT;
 
 public abstract class Organism implements Starving,Reproduceble,Cloneable,Eatable {
     @Getter

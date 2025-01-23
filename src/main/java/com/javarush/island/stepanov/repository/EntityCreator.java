@@ -2,7 +2,7 @@ package com.javarush.island.stepanov.repository;
 
 import com.javarush.island.stepanov.config.Setting;
 import com.javarush.island.stepanov.entity.map.Cell;
-import com.javarush.island.stepanov.entity.Organism;
+import com.javarush.island.stepanov.entity.oganism.Organism;
 import com.javarush.island.stepanov.services.organisms.AnimalService;
 import com.javarush.island.stepanov.services.organisms.PlantService;
 import com.javarush.island.stepanov.util.Rnd;

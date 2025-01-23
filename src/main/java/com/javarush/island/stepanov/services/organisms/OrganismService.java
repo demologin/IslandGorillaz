@@ -1,12 +1,14 @@
 package com.javarush.island.stepanov.services.organisms;
 
 import com.javarush.island.stepanov.config.Setting;
-import com.javarush.island.stepanov.entity.Organism;
+import com.javarush.island.stepanov.entity.oganism.Organism;
 import com.javarush.island.stepanov.entity.map.Cell;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.javarush.island.stepanov.constants.Constants.DIE_WEIGHT;
+import static com.javarush.island.stepanov.constants.Constants.FIRST_NUMBRER;
 
 public abstract class OrganismService extends Organism {
     @Override
@@ -39,7 +41,15 @@ public abstract class OrganismService extends Organism {
         }
     }
 
-    public void limitOrganisms(Cell cell, Organism organism){
-
+    public void limitOrganisms(Cell cell) {
+        HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
+        List<Organism> list = residentMap.get(name);
+        int flocksInCell = list.size();
+        int maxFlocksInCell = maxCountInCell/flockSize;
+        if (flocksInCell > maxFlocksInCell) {
+            for (int i = list.size()-1; i > maxFlocksInCell; i--) {
+                list.remove(i);
+            }
+        }
     }
 }

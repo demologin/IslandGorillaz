@@ -23,7 +23,8 @@ public class GameWorker extends Thread {
     private final List<CellWorker> reproduceWorkers = new ArrayList<>();
     private final List<CellWorker> moveWorkers = new ArrayList<>();
     private final List<CellWorker> statisticWorkers = new ArrayList<>();
-    private final List<CellWorker> starveworkers = new ArrayList<>();
+    private final List<CellWorker> starveWorkers = new ArrayList<>();
+    private final List<CellWorker> limitWorkers = new ArrayList<>();
     private final ExecutorService servicePool = Executors.newFixedThreadPool(CORES);
 
     @Override
@@ -40,7 +41,8 @@ public class GameWorker extends Thread {
                 runWorkers(eatWorkers);
                 runWorkers(reproduceWorkers);
                 runWorkers(moveWorkers);
-                runWorkers(starveworkers);
+                runWorkers(starveWorkers);
+                runWorkers(limitWorkers);
                 generalStatisticsMap.clear();
                 runWorkers(statisticWorkers);
                 sleep(stepDelay);
@@ -69,21 +71,20 @@ public class GameWorker extends Thread {
                 eatWorkers.add(new EatWorker(gameMap, cell));
                 moveWorkers.add(new MoveWorker(gameMap, cell));
                 reproduceWorkers.add(new ReproduceWorker(gameMap, cell));
-                starveworkers.add(new StarveWorker(gameMap, cell));
+                starveWorkers.add(new StarveWorker(gameMap, cell));
                 statisticWorkers.add(new StatisticWorker(gameMap, cell));
+                limitWorkers.add(new LimitWorker(gameMap, cell));
             }
         }
     }
 
     private void runWorkers(List<CellWorker> workers) {
-        // Отправляем все задачи в пул
         List<Future<Void>> futures = workers.stream()
                 .map(servicePool::submit)
                 .toList();
-        // Ожидаем завершения всех задач
         for (Future<Void> future : futures) {
             try {
-                future.get(); // Ожидаем завершения каждой задачи
+                future.get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }

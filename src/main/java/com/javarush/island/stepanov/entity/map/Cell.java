@@ -1,6 +1,6 @@
 package com.javarush.island.stepanov.entity.map;
 
-import com.javarush.island.stepanov.entity.Organism;
+import com.javarush.island.stepanov.entity.oganism.Organism;
 import lombok.Getter;
 
 import java.util.*;
