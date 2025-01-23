@@ -44,6 +44,8 @@ public class EntityCreator {
             List<Organism> listResident = new ArrayList<>();
             for (int i = 0; i < occupancyNumber; i++) {
                 PlantService newPlant = prototype.clone();
+                double plantWeigth = newPlant.getMaxWeight();
+                newPlant.setWeight(plantWeigth);
                 listResident.add(newPlant);
             }
             residentMap.put(prototype.getName(), listResident);

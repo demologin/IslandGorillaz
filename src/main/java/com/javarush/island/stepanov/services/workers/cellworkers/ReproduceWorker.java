@@ -4,8 +4,7 @@ import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +19,13 @@ public class ReproduceWorker extends CellWorker {
     public Void call() throws Exception {
         HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
         for (List<Organism> organismList : residentMap.values()) {
-            for (Organism organism : organismList) {
-                organism.reproduce();
+            // Создаем копию списка для итерации
+            List<Organism> copyList = new ArrayList<>(organismList);
+
+            for (Organism organism : copyList) {
+                organism.reproduce(cell); // Изменения в organismList не повлияют на итерацию
             }
+            copyList = null;
         }
         return null;
     }

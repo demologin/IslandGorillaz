@@ -7,6 +7,7 @@ public class Constants {
     public static final int FIRST_NUMBRER= 0;
     public static final int FIRST_STEP= 0;
     public static final int MIN_NUMBER_OF_ORGANISMS= 0;
+    public static final double DIE_WEIGHT= 0;
 
 
 }

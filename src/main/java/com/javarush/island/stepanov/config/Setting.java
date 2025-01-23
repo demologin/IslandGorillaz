@@ -46,6 +46,8 @@ public class Setting {
     private int occupancyRate;
     private int minOfFlocks;
     private double minWeight;
+    private double birthWeightLossRate;
+    private double starveRate;
     @Getter(AccessLevel.PROTECTED)
     private Map<String, Map<String, Integer>> foodMap = new LinkedHashMap<>();
 

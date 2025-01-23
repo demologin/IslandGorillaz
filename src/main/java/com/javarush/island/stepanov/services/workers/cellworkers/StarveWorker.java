@@ -3,17 +3,14 @@ package com.javarush.island.stepanov.services.workers.cellworkers;
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
-import com.javarush.island.stepanov.services.AnimalService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.Callable;
+public class StarveWorker extends CellWorker{
 
-public class EatWorker extends CellWorker {
-    public EatWorker(GameMap gameMap, Cell cell) {
+    public StarveWorker(GameMap gameMap, Cell cell) {
         super(gameMap, cell);
     }
 
@@ -21,10 +18,14 @@ public class EatWorker extends CellWorker {
     public Void call() throws Exception {
         HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
         for (List<Organism> organismList : residentMap.values()) {
-            for (Organism organism : organismList) {
-                organism.eat(cell);
+            // Создаем копию списка для итерации
+            List<Organism> copyList = new ArrayList<>(organismList);
+
+            for (Organism organism : copyList) {
+                organism.starve(cell); // Изменения в organismList не повлияют на итерацию
             }
+            copyList = null;
         }
-        return null; // Возвращаем null, так как Void
+        return null;
     }
 }

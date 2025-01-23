@@ -1,11 +1,13 @@
 ---
-rows: 2
-cols: 2
-turns: 2
-stepDelay: 1000
+rows: 1
+cols: 1
+turns: 10
+stepDelay: 100
 occupancyRate: 30
-minOfFlocks: 0
+minOfFlocks: 1
 minWeight: 0.5
+birthWeightLossRate: 0.5
+starveRate: 0.3
 foodMap:
   Wolf:
     Horse: 50

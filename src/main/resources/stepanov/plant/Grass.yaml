@@ -2,7 +2,7 @@
 name: "Grass"
 icon: 🌱
 maxWeight: 1
-maxCountInCell: 200
-flockSize: 1
+maxCountInCell: 5000
+flockSize: 500
 
 

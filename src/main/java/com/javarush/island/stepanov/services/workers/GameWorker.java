@@ -23,6 +23,7 @@ public class GameWorker extends Thread {
     private final List<CellWorker> reproduceWorkers = new ArrayList<>();
     private final List<CellWorker> moveWorkers = new ArrayList<>();
     private final List<CellWorker> statisticWorkers = new ArrayList<>();
+    private final List<CellWorker> starveworkers = new ArrayList<>();
     private final ExecutorService servicePool = Executors.newFixedThreadPool(CORES);
 
     @Override
@@ -67,6 +68,7 @@ public class GameWorker extends Thread {
                 eatWorkers.add(new EatWorker(gameMap, cell));
                 moveWorkers.add(new MoveWorker(gameMap, cell));
                 reproduceWorkers.add(new ReproduceWorker(gameMap, cell));
+                starveworkers.add(new StarveWorker(gameMap, cell));
                 statisticWorkers.add(new StatisticWorker(gameMap, cell));
             }
         }
