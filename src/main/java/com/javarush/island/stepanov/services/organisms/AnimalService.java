@@ -1,18 +1,17 @@
-package com.javarush.island.stepanov.services;
+package com.javarush.island.stepanov.services.organisms;
 
 import com.javarush.island.stepanov.config.Setting;
+import com.javarush.island.stepanov.entity.Organism;
 import com.javarush.island.stepanov.entity.map.Cell;
-import com.javarush.island.stepanov.entity.oganism.Organism;
-import com.javarush.island.stepanov.entity.oganism.interfaces.Eatable;
 import com.javarush.island.stepanov.entity.oganism.interfaces.Movable;
-import com.javarush.island.stepanov.entity.oganism.interfaces.Reproduceble;
 import com.javarush.island.stepanov.util.Rnd;
 
 import java.util.*;
 
-public class AnimalService extends Organism implements Movable, Reproduceble, Eatable,Cloneable {
+public class AnimalService extends OrganismService implements Movable{
     protected int maxSpeed;
     protected double maxFood;
+
     @Override
     public boolean eat(Cell cell) {
         if (weight>=maxWeight) {
@@ -33,8 +32,7 @@ public class AnimalService extends Organism implements Movable, Reproduceble, Ea
                 while (iterator.hasNext()) {
                     Organism organism = iterator.next();
                     if (eatOrganism(organism,probabilityOfBeingEaten, weightOfFoodEaten)) {
-                        iterator.remove(); // Безопасное удаление элемента
-                        System.out.println(name + " eat " + organism.getName());
+                        iterator.remove();
                     }
                     if (isNotHungry(weightOfFoodEaten)) {
                         return true;
@@ -45,25 +43,12 @@ public class AnimalService extends Organism implements Movable, Reproduceble, Ea
         return false;
     }
 
-    @Override
-    public void reproduce(Cell cell) {
-        if (weight>=maxWeight){
-            List<Organism> list = cell.getResidentMap().get(name);
-            double birthWeightLossRate = Setting.get().getBirthWeightLossRate();
-            double newWeight = weight*birthWeightLossRate;
-            setWeight(newWeight);
-            AnimalService newanimal = clone();
-            list.add(newanimal);
-        }
-    }
-
     private boolean isNotHungry(double weightOfFoodEaten) {
         return (weightOfFoodEaten == maxFood) || (weight >= maxWeight);
     }
 
-    private boolean eatOrganism(Organism food,int probabilityOfBeingEaten, double weightOfFoodEaten) {
+    private boolean eatOrganism(Organism food, int probabilityOfBeingEaten, double weightOfFoodEaten) {
         if (!Rnd.getForPercent(probabilityOfBeingEaten)){
-            System.out.println(name+" не смог съесть "+food.getName());
             return false;
         }
         double weightCanEat = (maxFood - weightOfFoodEaten) * flockSize;
@@ -76,6 +61,7 @@ public class AnimalService extends Organism implements Movable, Reproduceble, Ea
             return true;
         } else {
             weightOfFoodEaten = maxFood;
+            weight+=weightCanEat;
             double newWeightOfFoodFlock = weightOfFoodFlock-weightCanEat;
             double newWeightOfFood = newWeightOfFoodFlock/foodFlockSize;
             food.setWeight(newWeightOfFood);

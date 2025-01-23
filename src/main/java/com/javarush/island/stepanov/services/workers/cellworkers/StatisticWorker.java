@@ -2,6 +2,7 @@ package com.javarush.island.stepanov.services.workers.cellworkers;
 
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
+import com.javarush.island.stepanov.entity.Organism;
 import com.javarush.island.stepanov.services.StatisticService;
 
 public class StatisticWorker extends CellWorker {
@@ -15,5 +16,10 @@ public class StatisticWorker extends CellWorker {
     public Void call() throws Exception {
         statisticService.calcStatisticsOnCell(cell);
         return null;
+    }
+
+    @Override
+    void doAction(Cell cell, Organism organism) {
+
     }
 }

@@ -1,8 +1,7 @@
 package com.javarush.island.stepanov.entity.map;
 
-import com.javarush.island.stepanov.entity.oganism.Organism;
+import com.javarush.island.stepanov.entity.Organism;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.*;
 import java.util.concurrent.locks.Lock;

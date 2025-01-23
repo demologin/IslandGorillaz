@@ -2,13 +2,7 @@ package com.javarush.island.stepanov.services.workers.cellworkers;
 
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
-import com.javarush.island.stepanov.entity.oganism.Organism;
-
-import java.util.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.Callable;
+import com.javarush.island.stepanov.entity.Organism;
 
 public class ReproduceWorker extends CellWorker {
     public ReproduceWorker(GameMap gameMap, Cell cell) {
@@ -16,17 +10,7 @@ public class ReproduceWorker extends CellWorker {
     }
 
     @Override
-    public Void call() throws Exception {
-        HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
-        for (List<Organism> organismList : residentMap.values()) {
-            // Создаем копию списка для итерации
-            List<Organism> copyList = new ArrayList<>(organismList);
-
-            for (Organism organism : copyList) {
-                organism.reproduce(cell); // Изменения в organismList не повлияют на итерацию
-            }
-            copyList = null;
-        }
-        return null;
+    void doAction(Cell cell, Organism organism) {
+        organism.reproduce(cell);
     }
 }

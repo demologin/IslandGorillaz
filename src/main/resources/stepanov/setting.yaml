@@ -7,7 +7,7 @@ occupancyRate: 30
 minOfFlocks: 1
 minWeight: 0.5
 birthWeightLossRate: 0.5
-starveRate: 0.3
+starveRate: 0.1
 foodMap:
   Wolf:
     Horse: 50

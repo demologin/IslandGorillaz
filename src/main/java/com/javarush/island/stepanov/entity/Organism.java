@@ -1,4 +1,4 @@
-package com.javarush.island.stepanov.entity.oganism;
+package com.javarush.island.stepanov.entity;
 
 import com.javarush.island.stepanov.config.Setting;
 import com.javarush.island.stepanov.entity.map.Cell;
@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.javarush.island.stepanov.constants.Constants.DIE_WEIGHT;
 
@@ -18,7 +17,6 @@ public abstract class Organism implements Starving,Reproduceble,Cloneable,Eatabl
     protected String name;
     @Getter
     protected String icon;
-
     @Getter
     protected double maxWeight;
     @Getter
@@ -29,8 +27,6 @@ public abstract class Organism implements Starving,Reproduceble,Cloneable,Eatabl
     @Getter
     protected double weight;
 
-
-
     @Override
     public Organism clone() {
         try {
@@ -39,19 +35,5 @@ public abstract class Organism implements Starving,Reproduceble,Cloneable,Eatabl
             throw new RuntimeException("Cloning not supported", e);
         }
     }
-
-    public boolean starve(Cell cell) {
-        double starveRate = Setting.get().getStarveRate();
-        double starveWeight = starveRate * maxWeight;
-        double newRate = weight-starveWeight;
-        List<Organism> list = cell.getResidentMap().get(name);
-        if (newRate <= DIE_WEIGHT) {
-            list.remove(this);
-            return true;
-        }
-        setWeight(newRate);
-        return false;
-    }
-
 
 }

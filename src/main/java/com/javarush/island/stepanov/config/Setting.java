@@ -1,8 +1,7 @@
 package com.javarush.island.stepanov.config;
 
-import com.javarush.island.stepanov.entity.oganism.Organism;
-import com.javarush.island.stepanov.services.AnimalService;
-import com.javarush.island.stepanov.services.PlantService;
+import com.javarush.island.stepanov.services.organisms.AnimalService;
+import com.javarush.island.stepanov.services.organisms.PlantService;
 import com.javarush.island.stepanov.util.YamalUtil;
 import lombok.AccessLevel;
 import lombok.Getter;

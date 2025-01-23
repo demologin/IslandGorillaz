@@ -2,15 +2,7 @@ package com.javarush.island.stepanov.services.workers.cellworkers;
 
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
-import com.javarush.island.stepanov.entity.oganism.Organism;
-import com.javarush.island.stepanov.services.AnimalService;
-
-import java.util.HashMap;
-import java.util.List;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.Callable;
+import com.javarush.island.stepanov.entity.Organism;
 
 public class EatWorker extends CellWorker {
     public EatWorker(GameMap gameMap, Cell cell) {
@@ -18,13 +10,7 @@ public class EatWorker extends CellWorker {
     }
 
     @Override
-    public Void call() throws Exception {
-        HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
-        for (List<Organism> organismList : residentMap.values()) {
-            for (Organism organism : organismList) {
-                organism.eat(cell);
-            }
-        }
-        return null; // Возвращаем null, так как Void
+    void doAction(Cell cell, Organism organism) {
+        organism.eat(cell);
     }
 }
