@@ -44,18 +44,17 @@ public class EntityCreator {
             List<Organism> listResident = new ArrayList<>();
             for (int i = 0; i < occupancyNumber; i++) {
                 PlantService newPlant = prototype.clone();
-                setRandomWeight(newPlant);
                 listResident.add(newPlant);
             }
             residentMap.put(prototype.getName(), listResident);
         }
     }
 
-    private static void setRandomWeight(Organism organism) {
-        double maxWeight = organism.getMaxWeight();
+    private static void setRandomWeight(AnimalService animal) {
+        double maxWeight = animal.getMaxWeight();
         double minWeight = Setting.get().getMinWeight();
         double randomWeight = Rnd.random(minWeight, maxWeight);
-        organism.setWeight(randomWeight);
+        animal.setWeight(randomWeight);
     }
 
     private static int getOccupancyNumber(Organism prototype) {
