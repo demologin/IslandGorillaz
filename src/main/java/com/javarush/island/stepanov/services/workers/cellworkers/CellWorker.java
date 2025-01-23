@@ -5,6 +5,7 @@ import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -23,6 +24,7 @@ public abstract class CellWorker implements Callable<Void>{
         HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
         for (List<Organism> organismList : residentMap.values()) {
             List<Organism> copyList = new ArrayList<>(organismList);
+            Collections.shuffle(copyList);
             for (Organism organism : copyList) {
                 doAction(cell,organism);
             }

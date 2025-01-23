@@ -47,7 +47,7 @@ public abstract class OrganismService extends Organism {
         int flocksInCell = list.size();
         int maxFlocksInCell = maxCountInCell/flockSize;
         if (flocksInCell > maxFlocksInCell) {
-            for (int i = list.size()-1; i > maxFlocksInCell; i--) {
+            for (int i = list.size()-1; i >= maxFlocksInCell; i--) {
                 list.remove(i);
             }
         }
