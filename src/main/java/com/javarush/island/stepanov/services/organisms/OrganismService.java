@@ -20,7 +20,7 @@ public abstract class OrganismService extends Organism {
         double starveRate = Setting.get().getStarveRate();
         double starveWeight = starveRate * maxWeight;
         double newRate = weight-starveWeight;
-        List<Organism> list = cell.getResidentMap().get(name);
+        List<Organism> list = cell.getOrganisms(name);
         if (newRate <= DIE_WEIGHT) {
             list.remove(this);
             return true;
@@ -32,7 +32,7 @@ public abstract class OrganismService extends Organism {
     @Override
     public void reproduce(Cell cell) {
         if (weight >= maxWeight) {
-            List<Organism> list = cell.getResidentMap().get(name);
+            List<Organism> list = cell.getOrganisms(name);
             double birthWeightLossRate = Setting.get().getBirthWeightLossRate();
             double newWeight = weight * birthWeightLossRate;
             setWeight(newWeight);
@@ -42,8 +42,7 @@ public abstract class OrganismService extends Organism {
     }
 
     public void limitOrganisms(Cell cell) {
-        HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
-        List<Organism> list = residentMap.get(name);
+        List<Organism> list = cell.getOrganisms(name);
         int flocksInCell = list.size();
         int maxFlocksInCell = maxCountInCell/flockSize;
         if (flocksInCell > maxFlocksInCell) {

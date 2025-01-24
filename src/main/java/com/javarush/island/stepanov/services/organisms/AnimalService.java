@@ -8,6 +8,8 @@ import com.javarush.island.stepanov.util.Rnd;
 
 import java.util.*;
 
+import static com.javarush.island.stepanov.constants.Constants.START_WEIGHT_OF_FOOD_EATEN;
+
 public class AnimalService extends OrganismService implements Movable{
     protected int maxSpeed;
     protected double maxFood;
@@ -18,15 +20,12 @@ public class AnimalService extends OrganismService implements Movable{
             return true;
         }
 
-        double weightOfFoodEaten = 0;
+        double weightOfFoodEaten = START_WEIGHT_OF_FOOD_EATEN;
+        Set<String> organismsSet = cell.getOrganismsSet();
         Map<String, Integer> foodMap = Setting.get().getFoodMap(name);
-        HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
-
-        for (Map.Entry<String, List<Organism>> entry : residentMap.entrySet()) {
-            String foodName = entry.getKey();
-            List<Organism> organismList = entry.getValue();
-
+        for (String foodName : organismsSet) {
             if (foodMap.containsKey(foodName)) {
+                List<Organism> organismList = cell.getOrganisms(foodName);
                 Iterator<Organism> iterator = organismList.iterator();
                 int probabilityOfBeingEaten = foodMap.get(foodName);
                 while (iterator.hasNext()) {

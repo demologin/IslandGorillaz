@@ -16,39 +16,34 @@ public class EntityCreator {
 
     public Cell createRandomCell() {
         Cell cell = new Cell();
-        HashMap residentMap = cell.getResidentMap();
         int occupancyRate = Setting.get().getOccupancyRate();
-        putRandomAnimals(residentMap);
-        putRandomPlants(residentMap);
+        putRandomAnimals(cell);
+        putRandomPlants(cell);
         return cell;
     }
 
-    private static void putRandomAnimals(HashMap residentMap) {
+    private static void putRandomAnimals(Cell cell) {
         AnimalService[] animalprototypes = Setting.PROTOTYPES_ANIMALS;
         for (AnimalService prototype : animalprototypes) {
-            List <Organism> listResident = new ArrayList<>();
-            int occupancyNumber = getOccupancyNumber(prototype);
+            int occupancyNumber = getRandomizedOccupancyNumber(prototype);
             for (int i = 0; i < occupancyNumber; i++) {
                 AnimalService newAnimal = prototype.clone();
                 setRandomWeight(newAnimal);
-                listResident.add(newAnimal);
+                cell.addOrganism(newAnimal.getName(), newAnimal);
             }
-            residentMap.put(prototype.getName(), listResident);
         }
     }
 
-    private static void putRandomPlants(HashMap residentMap) {
+    private static void putRandomPlants(Cell cell) {
         PlantService[] plantprototypes = Setting.PROTOTYPES_PLANTS;
         for (PlantService prototype : plantprototypes) {
-            int occupancyNumber = getOccupancyNumber(prototype);
-            List<Organism> listResident = new ArrayList<>();
+            int occupancyNumber = getRandomizedOccupancyNumber(prototype);
             for (int i = 0; i < occupancyNumber; i++) {
                 PlantService newPlant = prototype.clone();
                 double plantWeigth = newPlant.getMaxWeight();
                 newPlant.setWeight(plantWeigth);
-                listResident.add(newPlant);
+                cell.addOrganism(newPlant.getName(), newPlant);
             }
-            residentMap.put(prototype.getName(), listResident);
         }
     }
 
@@ -59,7 +54,7 @@ public class EntityCreator {
         animal.setWeight(randomWeight);
     }
 
-    private static int getOccupancyNumber(Organism prototype) {
+    private static int getRandomizedOccupancyNumber(Organism prototype) {
         int maxCountInCell = prototype.getMaxCountInCell();
         int flockSize = prototype.getFlockSize();
         int maxOfFlocks = maxCountInCell * OCCUPANCY_RATE / (flockSize*MAX_PERCENT);

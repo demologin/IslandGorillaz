@@ -4,10 +4,7 @@ import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Callable;
 
 public abstract class CellWorker implements Callable<Void>{
@@ -21,8 +18,9 @@ public abstract class CellWorker implements Callable<Void>{
 
     @Override
     public Void call() throws Exception {
-        HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
-        for (List<Organism> organismList : residentMap.values()) {
+        Set<String> organismsSet = cell.getOrganismsSet();
+        for (String organismName : organismsSet) {
+            List<Organism> organismList = cell.getOrganisms(organismName);
             List<Organism> copyList = new ArrayList<>(organismList);
             Collections.shuffle(copyList);
             for (Organism organism : copyList) {

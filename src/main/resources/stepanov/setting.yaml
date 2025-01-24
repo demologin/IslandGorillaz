@@ -1,8 +1,8 @@
 ---
-rows: 100
-cols: 20
+rows: 1
+cols: 1
 turns: 10
-stepDelay: 100
+stepDelay: 10
 occupancyRate: 30
 minOfFlocks: 1
 minWeight: 0.5

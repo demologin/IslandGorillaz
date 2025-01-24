@@ -4,7 +4,7 @@ public interface View {
 
     void show(int step);
 
-    void showGeneralStatistic();
+    void showGeneralStatistic(int step);
 
     void showMap(int step);
 

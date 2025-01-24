@@ -21,7 +21,7 @@ public class ConsoleView implements View {
     private static final String SPACE = " ";
     private static final String X_CELL_DESCRIPTION = "Клетка Х=";
     private static final String Y_CELL_DESCRIPTION = " Y=";
-    private static final String STEP_DESCRIPTION = "Шаг № ";
+    private static final String STEP_DESCRIPTION = "День № ";
     private static final String GENERAL_STATISTIC_DESCRIPTION = "ИТОГОВОЕ КОЛИЧЕСТВО ОРГАНИЗМОВ:";
     private static final String NEXT_LINE = "\n";
 
@@ -35,17 +35,20 @@ public class ConsoleView implements View {
     @Override
     public void show(int step) {
         showMap(step);
-        showGeneralStatistic();
+        showGeneralStatistic(step);
     }
 
     @Override
-    public void showGeneralStatistic() {
+    public void showGeneralStatistic(int step) {
         GeneralStatistic generalStatistic = gameMap.getGeneralStatisticsMap();
         Map<String, AtomicInteger> generalStatisticsMap = generalStatistic.getMap();
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append(SEPARATOR_GENERAL_STATISTIC)
+                .append(NEXT_LINE)
+                .append(STEP_DESCRIPTION)
+                .append(step)
                 .append(NEXT_LINE)
                 .append(GENERAL_STATISTIC_DESCRIPTION)
                 .append(NEXT_LINE);

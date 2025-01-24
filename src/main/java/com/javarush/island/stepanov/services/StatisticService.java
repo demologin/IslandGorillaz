@@ -23,13 +23,12 @@ public class StatisticService {
     public void calcStatisticsOnCell(Cell cell) {
         SortedByValueTreeMap<String,Integer> statisticMap = cell.getPopulationStatistics();
         statisticMap.clear();
-        HashMap<String, List<Organism>> residentMap = cell.getResidentMap();
-        for (Map.Entry<String, List<Organism>> entry : residentMap.entrySet()) {
-            String name = entry.getKey(); // Ключ
-            List<Organism> organisms = entry.getValue();
+        Set<String> organismsSet = cell.getOrganismsSet();
+        for (String organismName : organismsSet) {
+            List<Organism> organisms = cell.getOrganisms(organismName);
             if (!organisms.isEmpty()) {
                 Integer percentOfFilling = countingOneSpecies(organisms);
-                statisticMap.put(name, percentOfFilling);
+                statisticMap.put(organismName, percentOfFilling);
             }
         }
     }
