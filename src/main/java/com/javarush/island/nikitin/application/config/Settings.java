@@ -5,36 +5,31 @@ import com.javarush.island.nikitin.application.constants.ClazzList;
 import com.javarush.island.nikitin.domain.entity.biota.LimitData;
 import com.javarush.island.nikitin.domain.entity.biota.PreferenceMenu;
 import com.javarush.island.nikitin.domain.entity.biota.Property;
+import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.util.Map;
 import java.util.Optional;
 
+@Getter
 public class Settings {
+    private final int rows = 100;
+    private final int columns = 20;
+    private final int startDate = 0;
+    private final double percentFillingLocation = 1d;
+    private final int periodLife = 1000;
+    private final int rowsPrint = 6;
+    private final int columnsPrint = 2;
+    private final int countBiotaPrint = 18;
+    private final int stepWarmUpCacheNavigator = 3;
 
+    @Getter(AccessLevel.NONE)
     private static Settings instance;
-    @Getter
-    private int rows = 100;
-    @Getter
-    private int columns = 20;
-    @Getter
-    private int startDate = 0;
-    @Getter
-    private double percentFillingLocation = 1d;
-    @Getter
-    private int periodLife = 1000;
-    @Getter
-    private int rowsPrint = 6;
-    @Getter
-    private int columnsPrint = 2;
-    @Getter
-    private int countBiotaPrint = 18;
-    @Getter
-    private int stepWarmUpCacheNavigator = 3;
-
-
+    @Getter(AccessLevel.NONE)
     private final Map<String, PreferenceMenu> preferenceMenuMap;
+    @Getter(AccessLevel.NONE)
     private final Map<String, Property> propertyMap;
+    @Getter(AccessLevel.NONE)
     private final Map<String, LimitData> limitDataMap;
 
     {
