@@ -1,11 +1,11 @@
 ---
 rows: 2
 cols: 2
-turns: 2
+turns: 10
 stepDelay: 10
 occupancyRate: 50
 minOfFlocks: 1
-minWeight: 0.1
+minWeight: 0
 birthWeightLossRate: 0.5
 starveRate: 0.2
 foodMap:

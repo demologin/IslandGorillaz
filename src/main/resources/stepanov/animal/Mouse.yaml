@@ -1,0 +1,8 @@
+---
+name: "Mouse"
+icon: 🐁
+maxWeight: 0.05
+maxCountInCell: 500
+flockSize: 120
+maxSpeed: 1
+maxFood: 0.01

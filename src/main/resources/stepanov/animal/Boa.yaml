@@ -1,0 +1,8 @@
+---
+name: "Boa"
+icon: 🐍
+maxWeight: 15
+maxCountInCell: 30
+flockSize: 6
+maxSpeed: 1
+maxFood: 3

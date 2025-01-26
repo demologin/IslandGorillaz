@@ -1,0 +1,8 @@
+---
+name: "Duck"
+icon: 🦆
+maxWeight: 1
+maxCountInCell: 200
+flockSize: 50
+maxSpeed: 4
+maxFood: 0.15

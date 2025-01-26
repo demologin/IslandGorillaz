@@ -1,0 +1,8 @@
+---
+name: "Caterpillar"
+icon: 🐛
+maxWeight: 0.01
+maxCountInCell: 1000
+flockSize: 250
+maxSpeed: 0
+maxFood: 0.01
