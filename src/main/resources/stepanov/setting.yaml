@@ -1,6 +1,6 @@
 ---
-rows: 2
-cols: 2
+rows: 10
+cols: 10
 turns: 10
 stepDelay: 10
 occupancyRate: 50
@@ -9,7 +9,38 @@ minWeight: 0
 birthWeightLossRate: 0.5
 starveRate: 0.2
 foodMap:
-  Wolf:
-    Horse: 50
   Horse:
     Grass: 100
+  Wolf:
+    Horse: 10
+    Deer: 15
+    Rabbit: 60
+    Mouse: 80
+    Goat: 60
+    Sheep: 70
+    Boar: 15
+    Buffalo: 10
+    Duck: 40
+  Boa:
+    Fox: 15
+    Rabbit: 20
+    Mouse: 40
+    Duck: 10
+  Fox:
+    Rabbit: 70
+    Mouse: 90
+    Duck: 60
+    Caterpillar: 40
+  Bear:
+    Boa: 80
+    Horse: 40
+    Deer: 80
+    Rabbit: 80
+    Mouse: 90
+    Sheep: 70
+    Goat: 70
+    Boar: 50
+    Buffalo: 20
+    Duck: 10
+  Eagle:
+    Fox: 10
