@@ -14,7 +14,7 @@ public class MoveWorker extends CellWorker {
     void doAction(Cell cell, Organism organism) {
         if(organism instanceof AnimalService) {
             AnimalService animal = (AnimalService) organism;
-            animal.move();
+            animal.move(cell);
         }
     }
 }

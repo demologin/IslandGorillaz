@@ -36,7 +36,7 @@ public abstract class OrganismService extends Organism {
             double birthWeightLossRate = Setting.get().getBirthWeightLossRate();
             double newWeight = weight * birthWeightLossRate;
             setWeight(newWeight);
-            Organism newOrganism = clone(); // Используем метод clone()
+            Organism newOrganism = clone();
             list.add(newOrganism);
         }
     }

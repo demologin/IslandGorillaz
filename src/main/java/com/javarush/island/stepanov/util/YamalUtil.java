@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.javarush.island.stepanov.config.Setting;
+import com.javarush.island.stepanov.exception.AppException;
 import lombok.SneakyThrows;
 import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
@@ -14,6 +15,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.javarush.island.stepanov.constants.Constants.*;
 
 public class YamalUtil {
     @SneakyThrows
@@ -36,7 +39,7 @@ public class YamalUtil {
         try {
             URL directoryURL = YamalUtil.class.getClassLoader().getResource(resourcePath);
             if (directoryURL == null) {
-                throw new IllegalArgumentException("Directory not found: " + resourcePath);
+                throw new AppException(YAMAL_DIRECTORY_NOT_FOUND_EXCEPTION + resourcePath);
             }
             File directory = new File(directoryURL.toURI());
             if (directory.isDirectory()) {
@@ -47,10 +50,10 @@ public class YamalUtil {
                     }
                 }
             } else {
-                throw new IllegalArgumentException("Provided path is not a directory: " + resourcePath);
+                throw new AppException( YAMAL_PATH_NOT_DIRECTORY_EXCEPTION+ resourcePath);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new AppException(YAMAL_EXCEPTION, e);
         }
         return yamlFiles;
         }

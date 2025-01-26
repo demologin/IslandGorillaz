@@ -28,42 +28,46 @@ public class GameMapCreator {
     }
 
     private void setCellLists(Cell[][] cells) {
-        int maxX = Setting.get().getRows()-1;
-        int maxY = Setting.get().getCols()-1;
+        int maxX = Setting.get().getRows() - 1; // Максимальный индекс строки
+        int maxY = Setting.get().getCols() - 1; // Максимальный индекс столбца
         int xLeft;
         int xRight;
         int yTop;
         int yBottom;
+
         for (int i = 0; i < cells.length; i++) {
-            if (i!=FIRST_NUMBRER){
-                xLeft=i-1;
+            if (i != FIRST_NUMBRER) {
+                xLeft = i - 1;
             } else {
-                xLeft=maxX;
+                xLeft = maxX;
             }
-            if (i!=maxX){
-                xRight=i+1;
+            if (i != maxX) {
+                xRight = i + 1;
             } else {
-                xRight=FIRST_NUMBRER;
+                xRight = FIRST_NUMBRER;
             }
             for (int j = 0; j < cells[i].length; j++) {
-                if (j!=FIRST_NUMBRER){
-                    yTop=j-1;
+                if (j != FIRST_NUMBRER) {
+                    yTop = j - 1;
                 } else {
-                    yTop=maxY;
+                    yTop = maxY;
                 }
-                if (j!=maxX){
-                    yBottom=j+1;
+                if (j != maxY) {
+                    yBottom = j + 1;
                 } else {
-                    yBottom=FIRST_NUMBRER;
+                    yBottom = FIRST_NUMBRER;
                 }
-
-                List<Cell> nextCell = cells[i][j].getNextCell();
-                nextCell.add(cells[xLeft][j]);
-                nextCell.add(cells[xRight][j]);
-                nextCell.add(cells[i][yTop]);
-                nextCell.add(cells[i][yBottom]);
+                addNeighbourCells(cells, i, j, xLeft, xRight, yTop, yBottom);
             }
         }
+    }
+
+    private static void addNeighbourCells(Cell[][] cells, int i, int j, int xLeft, int xRight, int yTop, int yBottom) {
+        List<Cell> nextCell = cells[i][j].getNextCell();
+        nextCell.add(cells[xLeft][j]);
+        nextCell.add(cells[xRight][j]);
+        nextCell.add(cells[i][yTop]);
+        nextCell.add(cells[i][yBottom]);
     }
 
 }

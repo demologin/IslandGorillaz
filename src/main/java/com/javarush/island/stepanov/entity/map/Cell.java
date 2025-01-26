@@ -21,11 +21,24 @@ public class Cell {
         return organismsSet;
     }
 
-    public void addOrganism(String key, Organism organism) {
+    public void addOrganism(Organism organism) {
+        String key = organism.getName();
         Lock keyLock = getKeyLock(key);
         keyLock.lock();
         try {
             residentMap.computeIfAbsent(key, k -> new ArrayList<>()).add(organism);
+        } finally {
+            keyLock.unlock();
+        }
+    }
+
+    public void removeOrganism(Organism organism) {
+        String key = organism.getName();
+        Lock keyLock = getKeyLock(key);
+        keyLock.lock();
+        try {
+            List<Organism> organismList = residentMap.get(key);
+            organismList.remove(organism);
         } finally {
             keyLock.unlock();
         }

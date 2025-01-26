@@ -5,6 +5,7 @@ import com.javarush.island.stepanov.entity.Game;
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.map.GeneralStatistic;
+import com.javarush.island.stepanov.exception.AppException;
 import com.javarush.island.stepanov.services.workers.cellworkers.*;
 import com.javarush.island.stepanov.view.View;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-import static com.javarush.island.stepanov.constants.Constants.FIRST_STEP;
+import static com.javarush.island.stepanov.constants.Constants.*;
 
 @RequiredArgsConstructor
 public class GameWorker extends Thread {
@@ -40,17 +41,17 @@ public class GameWorker extends Thread {
             while (step < Setting.get().getTurns()) {
                 runWorkers(eatWorkers);
                 runWorkers(reproduceWorkers);
-                runWorkers(moveWorkers);
                 runWorkers(starveWorkers);
                 runWorkers(limitWorkers);
                 generalStatisticsMap.clear();
                 runWorkers(statisticWorkers);
+                runWorkers(moveWorkers);
                 sleep(stepDelay);
                 step++;
                 view.show(step);
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new AppException(WORKERS_RUN_EXCEPTION,e);
         } finally {
             servicePool.shutdown();
             try {
@@ -60,6 +61,7 @@ public class GameWorker extends Thread {
             } catch (InterruptedException e) {
                 servicePool.shutdownNow();
                 Thread.currentThread().interrupt();
+                throw new AppException(WORKERS_POOL_EXCEPTION,e);
             }
         }
     }
@@ -87,6 +89,7 @@ public class GameWorker extends Thread {
                 future.get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+                throw new AppException(WORKERS_FUTURE_EXCEPTION,e);
             }
         }
     }

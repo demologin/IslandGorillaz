@@ -8,7 +8,7 @@ import com.javarush.island.stepanov.util.Rnd;
 
 import java.util.*;
 
-import static com.javarush.island.stepanov.constants.Constants.START_WEIGHT_OF_FOOD_EATEN;
+import static com.javarush.island.stepanov.constants.Constants.*;
 
 public class AnimalService extends OrganismService implements Movable{
     protected int maxSpeed;
@@ -19,7 +19,6 @@ public class AnimalService extends OrganismService implements Movable{
         if (weight>=maxWeight) {
             return true;
         }
-
         double weightOfFoodEaten = START_WEIGHT_OF_FOOD_EATEN;
         Set<String> organismsSet = cell.getOrganismsSet();
         Map<String, Integer> foodMap = Setting.get().getFoodMap(name);
@@ -69,11 +68,25 @@ public class AnimalService extends OrganismService implements Movable{
     }
 
     @Override
-    public void move() {
-//        System.out.println(name + " is moving");
+    public void move(Cell currentCell) {
+        Cell cellToMove = getCellToMove(currentCell);
+        if(!cellToMove.equals(currentCell)) {
+            currentCell.removeOrganism(this);
+            cellToMove.addOrganism(this);
+        }
     }
 
-
+    private Cell getCellToMove(Cell currentCell) {
+        int countOfMoves = Rnd.random(MIN_SPEED,maxSpeed);
+        if (countOfMoves!=0){
+            for (int i = 0; i < countOfMoves; i++) {
+                int randomNumberOfNextCell = Rnd.random(FIRST_NUMBRER,MAX_CELL_NUMBER);
+                List<Cell> nextCellList = currentCell.getNextCell();
+                currentCell = nextCellList.get(randomNumberOfNextCell);
+            }
+        }
+        return currentCell;
+    }
 
     @Override
     public AnimalService clone() {

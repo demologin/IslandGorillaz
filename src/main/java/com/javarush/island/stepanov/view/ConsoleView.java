@@ -42,7 +42,6 @@ public class ConsoleView implements View {
     public void showGeneralStatistic(int step) {
         GeneralStatistic generalStatistic = gameMap.getGeneralStatisticsMap();
         Map<String, AtomicInteger> generalStatisticsMap = generalStatistic.getMap();
-
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append(SEPARATOR_GENERAL_STATISTIC)
@@ -52,9 +51,7 @@ public class ConsoleView implements View {
                 .append(NEXT_LINE)
                 .append(GENERAL_STATISTIC_DESCRIPTION)
                 .append(NEXT_LINE);
-        generalStatisticsMap.forEach((k, v)->{
-            String organismName = k;
-            Integer value = v.intValue();
+        generalStatisticsMap.forEach((organismName, value)->{
             String organismView = ORGANISMS_VIEW_MAP.get(organismName);
             stringBuilder
                     .append(organismView)
@@ -69,7 +66,6 @@ public class ConsoleView implements View {
     @Override
     public void showMap(int step) {
         cells = gameMap.getCells();
-
         System.out.println(STEP_DESCRIPTION + step);
         System.out.println(SEPARATOR_NEW_TURN);
         for (int i = 0; i < cells.length; i++) {

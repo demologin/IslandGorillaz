@@ -29,7 +29,7 @@ public class EntityCreator {
             for (int i = 0; i < occupancyNumber; i++) {
                 AnimalService newAnimal = prototype.clone();
                 setRandomWeight(newAnimal);
-                cell.addOrganism(newAnimal.getName(), newAnimal);
+                cell.addOrganism( newAnimal);
             }
         }
     }
@@ -42,7 +42,7 @@ public class EntityCreator {
                 PlantService newPlant = prototype.clone();
                 double plantWeigth = newPlant.getMaxWeight();
                 newPlant.setWeight(plantWeigth);
-                cell.addOrganism(newPlant.getName(), newPlant);
+                cell.addOrganism( newPlant);
             }
         }
     }
@@ -59,7 +59,6 @@ public class EntityCreator {
         int flockSize = prototype.getFlockSize();
         int maxOfFlocks = maxCountInCell * OCCUPANCY_RATE / (flockSize*MAX_PERCENT);
         int minOfFlocks = Setting.get().getMinOfFlocks();
-
         int randomizedOccupancyNumber = Rnd.random(minOfFlocks, maxOfFlocks);
         return randomizedOccupancyNumber;
     }

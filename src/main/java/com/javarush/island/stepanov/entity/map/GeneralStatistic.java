@@ -31,7 +31,7 @@ public class GeneralStatistic {
     public void addValue(String key, int value) {
         AtomicInteger currentValue = map.get(key);
         if (currentValue != null) {
-            currentValue.addAndGet(value);  // Атомарное добавление значения
+            currentValue.addAndGet(value);
         }
     }
 }
