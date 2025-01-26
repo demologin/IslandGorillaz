@@ -1,7 +1,7 @@
 ---
 name: "Сactus"
 icon: 🌵
-maxWeight: 2
+maxWeight: 1
 maxCountInCell: 20
 flockSize: 5
 

@@ -12,9 +12,9 @@ import static com.javarush.island.stepanov.config.Setting.ORGANISMS_VIEW_MAP;
 import static com.javarush.island.stepanov.constants.Constants.MIN_NUMBER_OF_ORGANISMS;
 
 public class ConsoleView implements View {
-    private static final String SEPARATOR_NEW_CELL = "-----------------------------------------------------------------------";
-    private static final String SEPARATOR_GENERAL_STATISTIC = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
-    private static final String SEPARATOR_NEW_TURN = "=======================================================================";
+    private static final String SEPARATOR_NEW_CELL = "----------------------------------------------------------------------------------------------------------------------------------------------";
+    private static final String SEPARATOR_GENERAL_STATISTIC = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
+    private static final String SEPARATOR_NEW_TURN = "==============================================================================================================================================";
     private static final String SEPARATOR_AFTER_CELL_INFO = "                ";
     private static final String PERCENT = "% ";
     private static final String DEFIS = "-";
@@ -73,9 +73,9 @@ public class ConsoleView implements View {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder
                         .append(X_CELL_DESCRIPTION)
-                        .append(i)
+                        .append(i+1)
                         .append(Y_CELL_DESCRIPTION)
-                        .append(j + SEPARATOR_AFTER_CELL_INFO);
+                        .append(j+1 + SEPARATOR_AFTER_CELL_INFO);
                 SortedByValueTreeMap<String, Integer> statisticMap = cells[i][j].getPopulationStatistics();
                 for (Map.Entry<String, Integer> entry : statisticMap.entrySet()) {
                     String organismName = entry.getKey();

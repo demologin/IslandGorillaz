@@ -5,4 +5,4 @@ maxWeight: 500
 maxCountInCell: 5
 flockSize: 1
 maxSpeed: 2
-maxFood: 80
+maxFood: 40
