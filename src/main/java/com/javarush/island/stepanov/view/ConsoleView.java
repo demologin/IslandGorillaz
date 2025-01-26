@@ -12,9 +12,9 @@ import static com.javarush.island.stepanov.config.Setting.ORGANISMS_VIEW_MAP;
 import static com.javarush.island.stepanov.constants.Constants.MIN_NUMBER_OF_ORGANISMS;
 
 public class ConsoleView implements View {
-    private static final String SEPARATOR_NEW_CELL = "----------------------------------------------------------------------------------------------------------------------------------------------";
-    private static final String SEPARATOR_GENERAL_STATISTIC = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
-    private static final String SEPARATOR_NEW_TURN = "==============================================================================================================================================";
+    private static final String SEPARATOR_NEW_CELL = "-------------------------------------------------------------------------------------------------------------------------------------------------------------";
+    private static final String SEPARATOR_GENERAL_STATISTIC = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
+    private static final String SEPARATOR_NEW_TURN = "=============================================================================================================================================================";
     private static final String SEPARATOR_AFTER_CELL_INFO = "                ";
     private static final String PERCENT = "% ";
     private static final String DEFIS = "-";
