@@ -1,9 +1,9 @@
 ---
-name: "Сactus"
+name: "Cactus"
 icon: 🌵
-maxWeight: 1
-maxCountInCell: 20
-flockSize: 5
+maxWeight: 200
+maxCountInCell: 100
+flockSize: 25
 
 
 

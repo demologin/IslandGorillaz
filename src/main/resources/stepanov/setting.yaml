@@ -1,13 +1,13 @@
 ---
-rows: 10
-cols: 10
+rows: 2
+cols: 2
 turns: 10
 stepDelay: 10
 occupancyRate: 50
 minOfFlocks: 1
 minWeight: 0
 birthWeightLossRate: 0.5
-starveRate: 0.1
+starveRate: 0.2
 foodMap:
   Horse:
     Grass: 100
@@ -48,17 +48,16 @@ foodMap:
     Mouse: 90
     Duck: 80
   Deer:
-    Grass: 100
-    Cactus: 100
+    Moss: 100
   Rabbit:
     Grass: 100
+    Cactus: 100
   Mouse:
     Caterpillar: 90
-    Grass: 100
     Cactus: 100
+    Moss: 100
   Goat:
     Grass: 100
-    Cactus: 100
   Sheep:
     Grass: 100
     Cactus: 100
@@ -66,12 +65,14 @@ foodMap:
     Mouse: 50
     Caterpillar: 90
     Cactus: 100
+    Moss: 100
   Buffalo:
     Cactus: 100
     Grass: 100
   Duck:
     Caterpillar: 90
     Grass: 100
+    Moss: 100
   Caterpillar:
     Grass: 100
     Cactus: 100
