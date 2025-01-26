@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import static com.javarush.island.stepanov.constants.Constants.CLONE_EXCEPTION;
 
-public abstract class Organism implements Starving,Reproduceble,Cloneable,Eatable {
+public abstract class Organism implements Starving, Reproduceble, Cloneable, Eatable {
     @Getter
     protected String name;
     @Getter

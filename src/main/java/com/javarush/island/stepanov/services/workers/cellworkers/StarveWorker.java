@@ -4,7 +4,7 @@ import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 
-public class StarveWorker extends CellWorker{
+public class StarveWorker extends CellWorker {
 
     public StarveWorker(GameMap gameMap, Cell cell) {
         super(gameMap, cell);

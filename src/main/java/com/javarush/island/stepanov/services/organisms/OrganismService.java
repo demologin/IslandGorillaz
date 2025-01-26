@@ -1,14 +1,12 @@
 package com.javarush.island.stepanov.services.organisms;
 
 import com.javarush.island.stepanov.config.Setting;
-import com.javarush.island.stepanov.entity.oganism.Organism;
 import com.javarush.island.stepanov.entity.map.Cell;
+import com.javarush.island.stepanov.entity.oganism.Organism;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static com.javarush.island.stepanov.constants.Constants.DIE_WEIGHT;
-import static com.javarush.island.stepanov.constants.Constants.FIRST_NUMBRER;
 
 public abstract class OrganismService extends Organism {
     @Override
@@ -19,7 +17,7 @@ public abstract class OrganismService extends Organism {
     public boolean starve(Cell cell) {
         double starveRate = Setting.get().getStarveRate();
         double starveWeight = starveRate * maxWeight;
-        double newRate = weight-starveWeight;
+        double newRate = weight - starveWeight;
         List<Organism> list = cell.getOrganisms(name);
         if (newRate <= DIE_WEIGHT) {
             list.remove(this);
@@ -44,9 +42,9 @@ public abstract class OrganismService extends Organism {
     public void limitOrganisms(Cell cell) {
         List<Organism> list = cell.getOrganisms(name);
         int flocksInCell = list.size();
-        int maxFlocksInCell = maxCountInCell/flockSize;
+        int maxFlocksInCell = maxCountInCell / flockSize;
         if (flocksInCell > maxFlocksInCell) {
-            for (int i = list.size()-1; i >= maxFlocksInCell; i--) {
+            for (int i = list.size() - 1; i >= maxFlocksInCell; i--) {
                 list.remove(i);
             }
         }

@@ -4,10 +4,13 @@ import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
-public abstract class CellWorker implements Callable<Void>{
+public abstract class CellWorker implements Callable<Void> {
     protected final GameMap gameMap;
     protected final Cell cell;
 
@@ -24,12 +27,12 @@ public abstract class CellWorker implements Callable<Void>{
             List<Organism> copyList = new ArrayList<>(organismList);
             Collections.shuffle(copyList);
             for (Organism organism : copyList) {
-                doAction(cell,organism);
+                doAction(cell, organism);
             }
             copyList = null;
         }
         return null;
     }
 
-    abstract  void doAction(Cell cell, Organism organism);
+    abstract void doAction(Cell cell, Organism organism);
 }

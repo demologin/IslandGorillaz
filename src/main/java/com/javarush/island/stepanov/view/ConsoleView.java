@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.javarush.island.stepanov.config.Setting.ORGANISMS_VIEW_MAP;
-import static com.javarush.island.stepanov.constants.Constants.MIN_NUMBER_OF_ORGANISMS;
 
 public class ConsoleView implements View {
     private static final String SEPARATOR_NEW_CELL = "-------------------------------------------------------------------------------------------------------------------------------------------------------------";
@@ -51,7 +50,7 @@ public class ConsoleView implements View {
                 .append(NEXT_LINE)
                 .append(GENERAL_STATISTIC_DESCRIPTION)
                 .append(NEXT_LINE);
-        generalStatisticsMap.forEach((organismName, value)->{
+        generalStatisticsMap.forEach((organismName, value) -> {
             String organismView = ORGANISMS_VIEW_MAP.get(organismName);
             stringBuilder
                     .append(organismView)
@@ -73,9 +72,9 @@ public class ConsoleView implements View {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder
                         .append(X_CELL_DESCRIPTION)
-                        .append(i+1)
+                        .append(i + 1)
                         .append(Y_CELL_DESCRIPTION)
-                        .append(j+1 + SEPARATOR_AFTER_CELL_INFO);
+                        .append(j + 1 + SEPARATOR_AFTER_CELL_INFO);
                 SortedByValueTreeMap<String, Integer> statisticMap = cells[i][j].getPopulationStatistics();
                 for (Map.Entry<String, Integer> entry : statisticMap.entrySet()) {
                     String organismName = entry.getKey();

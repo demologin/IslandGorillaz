@@ -2,7 +2,6 @@ package com.javarush.island.stepanov.entity.map;
 
 import com.javarush.island.stepanov.config.Setting;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -51,7 +51,7 @@ public class GameWorker extends Thread {
                 view.show(step);
             }
         } catch (InterruptedException e) {
-            throw new AppException(WORKERS_RUN_EXCEPTION,e);
+            throw new AppException(WORKERS_RUN_EXCEPTION, e);
         } finally {
             servicePool.shutdown();
             try {
@@ -61,7 +61,7 @@ public class GameWorker extends Thread {
             } catch (InterruptedException e) {
                 servicePool.shutdownNow();
                 Thread.currentThread().interrupt();
-                throw new AppException(WORKERS_POOL_EXCEPTION,e);
+                throw new AppException(WORKERS_POOL_EXCEPTION, e);
             }
         }
     }
@@ -89,7 +89,7 @@ public class GameWorker extends Thread {
                 future.get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
-                throw new AppException(WORKERS_FUTURE_EXCEPTION,e);
+                throw new AppException(WORKERS_FUTURE_EXCEPTION, e);
             }
         }
     }

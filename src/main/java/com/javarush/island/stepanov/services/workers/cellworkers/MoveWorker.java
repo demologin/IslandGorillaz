@@ -2,8 +2,8 @@ package com.javarush.island.stepanov.services.workers.cellworkers;
 
 import com.javarush.island.stepanov.entity.map.Cell;
 import com.javarush.island.stepanov.entity.map.GameMap;
-import com.javarush.island.stepanov.services.organisms.AnimalService;
 import com.javarush.island.stepanov.entity.oganism.Organism;
+import com.javarush.island.stepanov.services.organisms.AnimalService;
 
 public class MoveWorker extends CellWorker {
     public MoveWorker(GameMap gameMap, Cell cell) {
@@ -12,7 +12,7 @@ public class MoveWorker extends CellWorker {
 
     @Override
     void doAction(Cell cell, Organism organism) {
-        if(organism instanceof AnimalService) {
+        if (organism instanceof AnimalService) {
             AnimalService animal = (AnimalService) organism;
             animal.move(cell);
         }

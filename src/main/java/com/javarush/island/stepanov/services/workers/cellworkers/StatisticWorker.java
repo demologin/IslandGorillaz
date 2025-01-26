@@ -9,7 +9,7 @@ public class StatisticWorker extends CellWorker {
     StatisticService statisticService = new StatisticService(gameMap);
 
     public StatisticWorker(GameMap gameMap, Cell cell) {
-        super(gameMap,cell);
+        super(gameMap, cell);
     }
 
     @Override

@@ -6,7 +6,8 @@ import com.javarush.island.stepanov.entity.map.GeneralStatistic;
 import com.javarush.island.stepanov.entity.map.SortedByValueTreeMap;
 import com.javarush.island.stepanov.entity.oganism.Organism;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 import static com.javarush.island.stepanov.constants.Constants.FIRST_NUMBRER;
 import static com.javarush.island.stepanov.constants.Constants.MAX_PERCENT;
@@ -21,7 +22,7 @@ public class StatisticService {
     }
 
     public void calcStatisticsOnCell(Cell cell) {
-        SortedByValueTreeMap<String,Integer> statisticMap = cell.getPopulationStatistics();
+        SortedByValueTreeMap<String, Integer> statisticMap = cell.getPopulationStatistics();
         statisticMap.clear();
         Set<String> organismsSet = cell.getOrganismsSet();
         for (String organismName : organismsSet) {
@@ -36,11 +37,11 @@ public class StatisticService {
     private Integer countingOneSpecies(List<Organism> organisms) {
         Organism prototype = organisms.get(FIRST_NUMBRER);
         String name = prototype.getName();
-        int numberOfFlocks= organisms.size();
+        int numberOfFlocks = organisms.size();
         int flockSize = prototype.getFlockSize();
-        int numberOfOrganisms = numberOfFlocks*flockSize;
+        int numberOfOrganisms = numberOfFlocks * flockSize;
         int maxCountInCell = prototype.getMaxCountInCell();
-        Integer percentOfFilling = MAX_PERCENT*numberOfOrganisms/maxCountInCell ;
+        Integer percentOfFilling = MAX_PERCENT * numberOfOrganisms / maxCountInCell;
         generalStatisticsMap.addValue(name, numberOfOrganisms);
         return percentOfFilling;
     }

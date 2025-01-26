@@ -7,20 +7,10 @@ import com.javarush.island.stepanov.services.organisms.AnimalService;
 import com.javarush.island.stepanov.services.organisms.PlantService;
 import com.javarush.island.stepanov.util.Rnd;
 
-import java.util.*;
-
-import static com.javarush.island.stepanov.constants.Constants.*;
+import static com.javarush.island.stepanov.constants.Constants.MAX_PERCENT;
 
 public class EntityCreator {
     private static final int OCCUPANCY_RATE = Setting.get().getOccupancyRate();
-
-    public Cell createRandomCell() {
-        Cell cell = new Cell();
-        int occupancyRate = Setting.get().getOccupancyRate();
-        putRandomAnimals(cell);
-        putRandomPlants(cell);
-        return cell;
-    }
 
     private static void putRandomAnimals(Cell cell) {
         AnimalService[] animalprototypes = Setting.PROTOTYPES_ANIMALS;
@@ -29,7 +19,7 @@ public class EntityCreator {
             for (int i = 0; i < occupancyNumber; i++) {
                 AnimalService newAnimal = prototype.clone();
                 setRandomWeight(newAnimal);
-                cell.addOrganism( newAnimal);
+                cell.addOrganism(newAnimal);
             }
         }
     }
@@ -42,7 +32,7 @@ public class EntityCreator {
                 PlantService newPlant = prototype.clone();
                 double plantWeigth = newPlant.getMaxWeight();
                 newPlant.setWeight(plantWeigth);
-                cell.addOrganism( newPlant);
+                cell.addOrganism(newPlant);
             }
         }
     }
@@ -57,10 +47,18 @@ public class EntityCreator {
     private static int getRandomizedOccupancyNumber(Organism prototype) {
         int maxCountInCell = prototype.getMaxCountInCell();
         int flockSize = prototype.getFlockSize();
-        int maxOfFlocks = maxCountInCell * OCCUPANCY_RATE / (flockSize*MAX_PERCENT);
+        int maxOfFlocks = maxCountInCell * OCCUPANCY_RATE / (flockSize * MAX_PERCENT);
         int minOfFlocks = Setting.get().getMinOfFlocks();
         int randomizedOccupancyNumber = Rnd.random(minOfFlocks, maxOfFlocks);
         return randomizedOccupancyNumber;
+    }
+
+    public Cell createRandomCell() {
+        Cell cell = new Cell();
+        int occupancyRate = Setting.get().getOccupancyRate();
+        putRandomAnimals(cell);
+        putRandomPlants(cell);
+        return cell;
     }
 
 }

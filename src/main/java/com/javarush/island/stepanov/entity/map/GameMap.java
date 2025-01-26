@@ -10,6 +10,6 @@ public class GameMap {
 
     public GameMap(int rows, int colls) {
         cells = new Cell[rows][colls];
-        generalStatisticsMap= new GeneralStatistic();
+        generalStatisticsMap = new GeneralStatistic();
     }
 }

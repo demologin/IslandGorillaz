@@ -15,6 +15,14 @@ public class GameMapCreator {
         this.entityCreator = entityCreator;
     }
 
+    private static void addNeighbourCells(Cell[][] cells, int i, int j, int xLeft, int xRight, int yTop, int yBottom) {
+        List<Cell> nextCell = cells[i][j].getNextCell();
+        nextCell.add(cells[xLeft][j]);
+        nextCell.add(cells[xRight][j]);
+        nextCell.add(cells[i][yTop]);
+        nextCell.add(cells[i][yBottom]);
+    }
+
     public GameMap createRandomFilledGameMap(int rows, int cols, boolean b) {
         GameMap gameMap = new GameMap(rows, cols);
         Cell[][] cells = gameMap.getCells();
@@ -60,14 +68,6 @@ public class GameMapCreator {
                 addNeighbourCells(cells, i, j, xLeft, xRight, yTop, yBottom);
             }
         }
-    }
-
-    private static void addNeighbourCells(Cell[][] cells, int i, int j, int xLeft, int xRight, int yTop, int yBottom) {
-        List<Cell> nextCell = cells[i][j].getNextCell();
-        nextCell.add(cells[xLeft][j]);
-        nextCell.add(cells[xRight][j]);
-        nextCell.add(cells[i][yTop]);
-        nextCell.add(cells[i][yBottom]);
     }
 
 }

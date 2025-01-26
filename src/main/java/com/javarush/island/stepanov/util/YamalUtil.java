@@ -7,8 +7,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.javarush.island.stepanov.config.Setting;
 import com.javarush.island.stepanov.exception.AppException;
 import lombok.SneakyThrows;
-import org.yaml.snakeyaml.Yaml;
-import java.io.InputStream;
 
 import java.io.File;
 import java.net.URL;
@@ -50,11 +48,11 @@ public class YamalUtil {
                     }
                 }
             } else {
-                throw new AppException( YAMAL_PATH_NOT_DIRECTORY_EXCEPTION+ resourcePath);
+                throw new AppException(YAMAL_PATH_NOT_DIRECTORY_EXCEPTION + resourcePath);
             }
         } catch (Exception e) {
             throw new AppException(YAMAL_EXCEPTION, e);
         }
         return yamlFiles;
-        }
+    }
 }

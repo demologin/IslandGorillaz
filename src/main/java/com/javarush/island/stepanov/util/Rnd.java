@@ -10,14 +10,14 @@ public class Rnd {
     }
 
     public static int random(int min, int max) {
-        if (min >= max){
+        if (min >= max) {
             return max;
         }
         return ThreadLocalRandom.current().nextInt(min, max);
     }
 
     public static double random(double min, double max) {
-        if (min >= max){
+        if (min >= max) {
             return max;
         }
         return ThreadLocalRandom.current().nextDouble(min, max);

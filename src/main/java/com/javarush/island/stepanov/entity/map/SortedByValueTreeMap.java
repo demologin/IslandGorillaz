@@ -11,20 +11,6 @@ public class SortedByValueTreeMap<K, V extends Comparable<V>> {
         this.sortedMap = new TreeMap<>(new ValueComparator(map));
     }
 
-    private class ValueComparator implements Comparator<K> {
-        private final Map<K, V> map;
-
-        public ValueComparator(Map<K, V> map) {
-            this.map = map;
-        }
-
-        @Override
-        public int compare(K key1, K key2) {
-            int compareResult = map.get(key2).compareTo(map.get(key1));
-            return compareResult == 0 ? 1 : compareResult;
-        }
-    }
-
     public void put(K key, V value) {
         map.put(key, value);
         sortedMap.put(key, value);
@@ -51,8 +37,22 @@ public class SortedByValueTreeMap<K, V extends Comparable<V>> {
         return map.isEmpty();
     }
 
-       public void clear() {
+    public void clear() {
         map.clear();
         sortedMap.clear();
+    }
+
+    private class ValueComparator implements Comparator<K> {
+        private final Map<K, V> map;
+
+        public ValueComparator(Map<K, V> map) {
+            this.map = map;
+        }
+
+        @Override
+        public int compare(K key1, K key2) {
+            int compareResult = map.get(key2).compareTo(map.get(key1));
+            return compareResult == 0 ? 1 : compareResult;
+        }
     }
 }
