@@ -1,18 +1,24 @@
-package com.javarush.island.nikitin.application.services;
+package com.javarush.island.nikitin.application.services.boot;
 
 import com.javarush.island.nikitin.application.config.Settings;
 import com.javarush.island.nikitin.application.constants.ClassPathRegistry;
-import com.javarush.island.nikitin.application.util.ClassFinder;
 import com.javarush.island.nikitin.domain.entity.navigation.Navigator;
 import com.javarush.island.nikitin.domain.repository.RegistryProto;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class BootService {
+    private static final Set<Class<?>> gameClasses = new HashSet<>();
     private final PrototypeService prototypeService;
+    private final ClassFinder classFinder;
+    private final DynamicClassGenerator dynamicClass;
 
     public BootService(Settings settings) {
         this.prototypeService = new PrototypeService(settings);
+        this.classFinder = new ClassFinder(gameClasses);
+        this.dynamicClass = new DynamicClassGenerator(gameClasses);
+
     }
 
     /**
@@ -21,9 +27,9 @@ public class BootService {
      */
 
     public void loadComponents() {
-        ClassFinder.start(ClassPathRegistry.PATHS_TO_DIRECTORY_CLASSES_UNITS);
-        Set<Class<?>> cacheUnitClasses = ClassFinder.getCacheUnitClasses();
-        prototypeService.buildBiotaInstancesForEach(cacheUnitClasses);
+        classFinder.start(ClassPathRegistry.PATHS_TO_DIRECTORY_CLASSES_UNITS);
+        dynamicClass.findDynamicClass(ClassPathRegistry.PATHS_TO_DIRECTORY_DYNAMIC_CLASS);
+        prototypeService.buildBiotaInstancesForEach(gameClasses);
     }
 
     public RegistryProto fillRepository() {

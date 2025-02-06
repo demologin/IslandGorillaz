@@ -64,3 +64,11 @@ tempMap:
     name: "buffalo"
     icon: "🐃"
     weight: 700.0
+  Graboid:
+    name: "graboid"
+    icon: "🪱"
+    weight: 7000.0
+  Tree:
+    name: "tree"
+    icon: "🌳"
+    weight: 5.0

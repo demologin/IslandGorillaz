@@ -128,3 +128,19 @@ tempMap:
     pctMinWeightForSurvival: 0.05
     pctDailyWeightLoss: 0.01
     pctReproduction: 0.1
+  Graboid:
+    maxWeight: 700.0
+    maxSpeed: 3
+    maxFoodFeed: 100.0
+    maxCountUnit: 100
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 1
+  Tree:
+    maxWeight: 1.0
+    maxSpeed: 1
+    maxFoodFeed: 0.0
+    maxCountUnit: 100
+    pctMinWeightForSurvival: 0.05
+    pctDailyWeightLoss: 0.01
+    pctReproduction: 0.1

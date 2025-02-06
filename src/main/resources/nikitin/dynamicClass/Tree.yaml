@@ -1,0 +1,5 @@
+#className any and write Capitalized only
+#superClass write only upperCase PREDATOR or HERBIVOROUS or GRASS
+#WARNING! add attributes for LimitData, PreferenceMenu, Property
+className: Tree
+superClass: GRASS

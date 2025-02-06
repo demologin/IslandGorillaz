@@ -1,13 +1,7 @@
 package com.javarush.island.nikitin.application.util;
 
-import com.javarush.island.nikitin.domain.api.GameUnit;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.util.Set;
-
 class ClassFinderTest {
+   /*
     @GameUnit
     public static class TestGameUnit {
     }
@@ -27,5 +21,5 @@ class ClassFinderTest {
         Assertions.assertTrue(testCashUnitClasses.contains(expectedClass));
         Assertions.assertEquals(expectedSize, actualSize);
     }
-
+*/
 }

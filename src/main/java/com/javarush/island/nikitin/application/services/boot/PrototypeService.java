@@ -1,4 +1,4 @@
-package com.javarush.island.nikitin.application.services;
+package com.javarush.island.nikitin.application.services.boot;
 
 import com.javarush.island.nikitin.application.config.Settings;
 import com.javarush.island.nikitin.application.constants.AnnotationGoal;

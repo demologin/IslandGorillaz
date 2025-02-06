@@ -2,6 +2,7 @@ package com.javarush.island.nikitin.application.services;
 
 import com.javarush.island.nikitin.application.config.Settings;
 import com.javarush.island.nikitin.application.entity.SurvivalGame;
+import com.javarush.island.nikitin.application.services.boot.BootService;
 import com.javarush.island.nikitin.domain.entity.map.Location;
 import com.javarush.island.nikitin.domain.entity.navigation.Navigator;
 import com.javarush.island.nikitin.domain.repository.RegistryProto;

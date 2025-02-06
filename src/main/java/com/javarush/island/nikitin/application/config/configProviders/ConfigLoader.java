@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.javarush.island.nikitin.application.constants.ClazzList;
 import com.javarush.island.nikitin.application.exception.AppException;
 
 import java.io.File;
@@ -28,7 +29,8 @@ public class ConfigLoader {
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         TypeFactory typeFactory = objectMapper.getTypeFactory();
-        JavaType typeGeneric = typeFactory.constructParametricType(ConfigTemplateMap.class, clazzGeneric);
+        Class<?> clazz = ClazzList.CONFIG_TEMPLATE_MAP.getClazz();
+        JavaType typeGeneric = typeFactory.constructParametricType(clazz, clazzGeneric);
         try {
             ConfigTemplateMap<T> configTemplateMap = objectMapper.readValue(new File(resource), typeGeneric);
             return configTemplateMap.tempMap;

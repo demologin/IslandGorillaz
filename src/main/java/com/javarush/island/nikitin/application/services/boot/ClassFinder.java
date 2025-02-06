@@ -1,12 +1,12 @@
-package com.javarush.island.nikitin.application.util;
+package com.javarush.island.nikitin.application.services.boot;
 
 import com.javarush.island.nikitin.application.constants.AnnotationGoal;
 import com.javarush.island.nikitin.application.exception.AppException;
+import com.javarush.island.nikitin.application.util.PathBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,10 +14,10 @@ import java.util.Set;
  * which is a marker for the game's unit classes.
  */
 public final class ClassFinder {
-    private static final Set<Class<?>> cacheUnitClasses = new HashSet<>();
+    private final Set<Class<?>> cacheUnitClasses;
 
-    public static Set<Class<?>> getCacheUnitClasses() {
-        return new HashSet<>(cacheUnitClasses);
+    public ClassFinder(Set<Class<?>> gameClasses) {
+        cacheUnitClasses = gameClasses;
     }
 
     /**
@@ -29,12 +29,12 @@ public final class ClassFinder {
      *                    For example, "com.javarush.island.nikitin.domain.entity"
      */
 
-    public static void start(String namePackage) {
+    public void start(String namePackage) {
         Path directory = PathBuilder.getPathToScanDirectory(namePackage);
         tryFindClass(namePackage, directory);
     }
 
-    private static void tryFindClass(String namePackage, Path directory) {
+    private void tryFindClass(String namePackage, Path directory) {
         try (var directoryStream = Files.newDirectoryStream(directory)) {
             for (Path pathToFile : directoryStream) {
                 String fullNameFile = makeFullNameFile(namePackage, pathToFile);
@@ -49,7 +49,7 @@ public final class ClassFinder {
         }
     }
 
-    private static void checkClassIsGameUnit(String fullNameClass) {
+    private void checkClassIsGameUnit(String fullNameClass) {
         try {
             Class<?> aClass = Class.forName(fullNameClass);
             if (aClass.isAnnotationPresent(AnnotationGoal.GAME_UNIT.getValue())) {
@@ -60,11 +60,11 @@ public final class ClassFinder {
         }
     }
 
-    private static String makeFullNameFile(String namePackage, Path pathToFile) {
-        String classSimpleName = pathToFile.getFileName().toString();
-        if (classSimpleName.endsWith(".class")) {
-            classSimpleName = classSimpleName.replace(".class", "");
+    private String makeFullNameFile(String namePackage, Path pathToFile) {
+        String fileSimpleName = pathToFile.getFileName().toString();
+        if (fileSimpleName.endsWith(".class")) {
+            fileSimpleName = fileSimpleName.replace(".class", "");
         }
-        return namePackage + "." + classSimpleName;
+        return namePackage + "." + fileSimpleName;
     }
 }
