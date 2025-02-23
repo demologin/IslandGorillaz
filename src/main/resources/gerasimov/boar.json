@@ -1,0 +1,28 @@
+{"name":"Boar",
+  "icon":"🐗",
+  "weight":400.0,
+  "criticalWeight": 60,
+  "maxCountInCell":50,
+  "maxSpeed":2,
+  "maxFood":50.0,
+  "currentCell":null,
+  "targetCell":null,
+  "likelyFood":{
+    "Horse":0,
+    "Buffalo":0,
+    "Boar":0,
+    "Duck":0,
+    "Sheep":0,
+    "Goat":0,
+    "Rabbit":0,
+    "Deer":0,
+    "Bear":0,
+    "Fox":0,
+    "Snake":0,
+    "Eagle":0,
+    "Mouse":0,
+    "Caterpillar":0,
+    "Wolf":0,
+    "Grass": 100
+  }
+}
