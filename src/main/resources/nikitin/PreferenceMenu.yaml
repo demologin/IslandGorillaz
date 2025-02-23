@@ -1,0 +1,93 @@
+---
+tempMap:
+  Boar:
+    foodChoiceProbabilities:
+      Mouse: 50
+      Caterpillar: 90
+      Grass: 100
+  Rabbit:
+    foodChoiceProbabilities:
+      Grass: 100
+  Caterpillar:
+    foodChoiceProbabilities:
+      Grass: 100
+  Bear:
+    foodChoiceProbabilities:
+      Boar: 50
+      Mouse: 90
+      Boa: 80
+      Horse: 40
+      Rabbit: 80
+      Sheep: 70
+      Duck: 10
+      Goat: 70
+      Deer: 80
+      Buffalo: 20
+  Grass:
+    foodChoiceProbabilities: {}
+  Fox:
+    foodChoiceProbabilities:
+      Mouse: 90
+      Rabbit: 70
+      Duck: 60
+      Caterpillar: 40
+  Deer:
+    foodChoiceProbabilities:
+      Grass: 100
+  Mouse:
+    foodChoiceProbabilities:
+      Caterpillar: 90
+      Grass: 100
+  Boa:
+    foodChoiceProbabilities:
+      Mouse: 40
+      Rabbit: 20
+      Duck: 10
+      Fox: 15
+  Horse:
+    foodChoiceProbabilities:
+      Grass: 100
+  Sheep:
+    foodChoiceProbabilities:
+      Grass: 100
+  Duck:
+    foodChoiceProbabilities:
+      Caterpillar: 90
+      Grass: 100
+  Goat:
+    foodChoiceProbabilities:
+      Grass: 100
+  Wolf:
+    foodChoiceProbabilities:
+      Boar: 15
+      Mouse: 80
+      Horse: 10
+      Rabbit: 60
+      Sheep: 70
+      Duck: 40
+      Goat: 60
+      Deer: 15
+      Buffalo: 10
+  Eagle:
+    foodChoiceProbabilities:
+      Mouse: 90
+      Rabbit: 90
+      Duck: 80
+      Fox: 10
+  Buffalo:
+    foodChoiceProbabilities:
+      Grass: 100
+  Graboid:
+    foodChoiceProbabilities:
+      Boar: 50
+      Mouse: 90
+      Boa: 80
+      Horse: 40
+      Rabbit: 80
+      Sheep: 70
+      Duck: 10
+      Goat: 70
+      Deer: 80
+      Buffalo: 20
+  Tree:
+    foodChoiceProbabilities: {}

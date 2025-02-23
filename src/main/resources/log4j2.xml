@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="infoTimeTracker" fileName="logs/infoTimeTracker.log" append="true">
+            <PatternLayout pattern="%d{ABSOLUTE_NANOS} %-5level %c{1}: %msg%n"/>
+        </File>
+        <File name="debugBiota" fileName="logs/debugBiota.log" append="true">
+            <PatternLayout pattern="%d{ABSOLUTE_NANOS} %-5level %c{1}: %msg%n"/>
+        </File>
+        <File name="debugLocation" fileName="logs/debugLocation.log" append="true">
+            <PatternLayout pattern="%d{ABSOLUTE_NANOS} %-5level %c{1}: %msg%n"/>
+        </File>
+        <File name="infoConfig" fileName="logs/infoConfig.log" append="true">
+            <PatternLayout pattern="%d{ABSOLUTE_NANOS} %-5level %c{1}: %msg%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.javarush.island.nikitin.domain.entity.map.Location" level="OFF" additivity="false">
+            <AppenderRef ref="debugLocation"/>
+        </Logger>
+        <Logger name="com.javarush.island.nikitin.domain.entity.biota" level="OFF" additivity="false">
+            <AppenderRef ref="debugBiota"/>
+        </Logger>
+        <Logger name="com.javarush.island.nikitin.application.config.configProviders.ConfigController" level="INFO" additivity="false">
+            <AppenderRef ref="infoConfig"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="infoTimeTracker"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

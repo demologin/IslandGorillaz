@@ -1,0 +1,12 @@
+---
+tempMap:
+  Settings:
+    rows: 100
+    columns: 20
+    startDate: 0
+    percentFillingLocation: 1.0
+    periodLife: 1000
+    rowsPrint: 6
+    columnsPrint: 2
+    countBiotaPrint: 18
+    stepWarmUpCacheNavigator: 3
