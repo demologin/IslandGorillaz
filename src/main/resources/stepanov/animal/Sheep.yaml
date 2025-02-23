@@ -1,0 +1,8 @@
+---
+name: "Sheep"
+icon: 🐑
+maxWeight: 70
+maxCountInCell: 140
+flockSize: 30
+maxSpeed: 3
+maxFood: 15

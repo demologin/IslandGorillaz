@@ -1,0 +1,8 @@
+---
+name: "Buffalo"
+icon: 🐃
+maxWeight: 700
+maxCountInCell: 10
+flockSize: 2
+maxSpeed: 3
+maxFood: 100

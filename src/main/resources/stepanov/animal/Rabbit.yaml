@@ -1,0 +1,8 @@
+---
+name: "Rabbit"
+icon: 🐇
+maxWeight: 2
+maxCountInCell: 150
+flockSize: 30
+maxSpeed: 2
+maxFood: 0.45

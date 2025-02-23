@@ -1,0 +1,10 @@
+---
+name: "Cactus"
+icon: 🌵
+maxWeight: 200
+maxCountInCell: 100
+flockSize: 25
+
+
+
+

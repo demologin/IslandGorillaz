@@ -1,0 +1,8 @@
+---
+name: "Wolf"
+icon: 🐺
+maxWeight: 50
+maxCountInCell: 50
+flockSize: 12
+maxSpeed: 3
+maxFood: 4

@@ -1,0 +1,8 @@
+---
+name: "Fox"
+icon: 🦊
+maxWeight: 8
+maxCountInCell: 30
+flockSize: 7
+maxSpeed: 2
+maxFood: 2

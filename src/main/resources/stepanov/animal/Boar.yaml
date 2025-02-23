@@ -1,0 +1,8 @@
+---
+name: "Boar"
+icon: 🐗
+maxWeight: 400
+maxCountInCell: 50
+flockSize: 12
+maxSpeed: 2
+maxFood: 50
