@@ -1,6 +1,0 @@
----
-name: "Moss"
-icon: 🌿
-maxWeight: 100
-maxCountInCell: 200
-flockSize: 25

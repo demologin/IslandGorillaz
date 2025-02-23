@@ -1,8 +1,0 @@
----
-name: "Deer"
-icon: 🦌
-maxWeight: 300
-maxCountInCell: 20
-flockSize: 5
-maxSpeed: 4
-maxFood: 25

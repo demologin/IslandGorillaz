@@ -1,0 +1,29 @@
+{
+  "name": "Fox",
+  "icon": "🦊",
+  "weight": 8.0,
+  "criticalWeight": 1.5,
+  "maxCountInCell": 30,
+  "maxSpeed": 2,
+  "maxFood": 2.0,
+  "currentCell": null,
+  "targetCell": null,
+  "likelyFood": {
+    "Horse": 0,
+    "Buffalo": 0,
+    "Boar": 0,
+    "Duck": 60,
+    "Sheep": 0,
+    "Goat": 0,
+    "Rabbit": 70,
+    "Deer": 0,
+    "Bear": 0,
+    "Fox": 0,
+    "Snake": 0,
+    "Eagle": 0,
+    "Mouse": 90,
+    "Caterpillar": 40,
+    "Wolf": 0,
+    "Grass": 0
+  }
+}

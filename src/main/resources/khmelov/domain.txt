@@ -1,0 +1,19 @@
+Entity:
+Organizm:   Plant:  Grass
+            Animal: Predator: Wolf, Boa, Fox, Bear, Eagle
+                    Herbivores: Horse, Deer, Rabbit, Mouse, Goat, Sheep, Boar, Buffalo, Duck, Caterpillar
+Cell
+GameMap
+
+Interfaces:
+Eating
+    #eat
+Movable
+    #move
+Reproducible
+    #spawn
+Repository
+    #find
+    #save
+View
+    #show
